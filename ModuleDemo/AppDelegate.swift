@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: AuthManagerDelegate {
-    func login(completion: @escaping (Token) -> Void, failure: @escaping (Error) -> Void) {
+    func login(completion: @escaping (AppToken) -> Void, failure: @escaping (Error) -> Void) {
         guard let loginInfo = AuthManager.shared.loginInfo as? (String, String) else { return }
         
         let (email, password) = loginInfo
@@ -54,11 +54,7 @@ extension AppDelegate: AuthManagerDelegate {
             .store(in: &bag)
     }
     
-    func refreshToken(token: String, completion: (Token) -> Void, failure: (Error) -> Void) {
+    func refreshToken(token: String, completion: (AppToken) -> Void, failure: (Error) -> Void) {
         
-    }
-    
-    func decodeToken(data: Data) -> Token? {
-        return nil
     }
 }
