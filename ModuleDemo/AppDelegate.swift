@@ -8,15 +8,46 @@
 import UIKit
 import AuthManager
 import Combine
+import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     private var bag = Set<AnyCancellable>()
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         AuthManager.shared.delegate = self
+        FirebaseApp.configure()
+        
+//        FirebaseApp.app()?.options.clientID
+        
+        AuthManager.shared.restorePreviousGoogleSignIn { user, error in
+            if error != nil || user == nil {
+                // Show the app's signed-out state.
+                print(error)
+            } else {
+                // Show the app's signed-in state.
+            }
+        }
         
         return true
+    }
+    
+    func application(
+      _ app: UIApplication,
+      open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]
+    ) -> Bool {
+        var handled: Bool
+        
+        handled = AuthManager.shared.handleGoogleURL(url)
+        if handled {
+            return true
+        }
+
+        // Handle other custom URL types.
+        
+        // If not handled by this app, return false.
+        return false
     }
 
     // MARK: UISceneSession Lifecycle

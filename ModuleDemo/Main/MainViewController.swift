@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AuthManager
 
 class MainViewController: UIViewController {
 
@@ -15,15 +16,13 @@ class MainViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    @IBAction func signIn(sender: Any) {
+        AuthManager.shared.signInGoogle(presentingViewController: self) { result, error in
+            if let result {
+                print("Signed in, user:", result.user.email ?? "")
+            } else if let error {
+                print(error)
+            }
+        }
     }
-    */
-
 }

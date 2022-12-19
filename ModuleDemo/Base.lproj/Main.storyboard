@@ -28,19 +28,32 @@
                                     <segue destination="BYZ-38-t0r" kind="presentation" id="9Fn-63-5ER"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14Q-TH-22m" customClass="GIDSignInButton">
+                                <rect key="frame" x="40" y="315" width="313" height="35"/>
+                                <color key="backgroundColor" systemColor="systemBlueColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="VzL-5C-Oyd"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="signInSender:" destination="6p7-8D-Afq" eventType="touchUpInside" id="95p-ZP-o9q"/>
+                                </connections>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5oO-9d-ylQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="5oO-9d-ylQ" firstAttribute="trailing" secondItem="a0U-zf-FDT" secondAttribute="trailing" constant="40" id="58O-mg-W4z"/>
                             <constraint firstItem="a0U-zf-FDT" firstAttribute="top" secondItem="5oO-9d-ylQ" secondAttribute="top" constant="200" id="Mdm-j2-Tod"/>
+                            <constraint firstItem="14Q-TH-22m" firstAttribute="trailing" secondItem="a0U-zf-FDT" secondAttribute="trailing" id="WD1-he-U4h"/>
+                            <constraint firstItem="14Q-TH-22m" firstAttribute="top" secondItem="a0U-zf-FDT" secondAttribute="bottom" constant="21" id="b8h-K4-OZQ"/>
+                            <constraint firstItem="14Q-TH-22m" firstAttribute="leading" secondItem="a0U-zf-FDT" secondAttribute="leading" id="mUc-SY-D2u"/>
                             <constraint firstItem="a0U-zf-FDT" firstAttribute="leading" secondItem="5oO-9d-ylQ" secondAttribute="leading" constant="40" id="sf7-TA-lYJ"/>
                         </constraints>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rba-Z7-4qK" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-814" y="29"/>
+            <point key="canvasLocation" x="-814.50381679389307" y="28.87323943661972"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -121,6 +134,9 @@
     <resources>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
