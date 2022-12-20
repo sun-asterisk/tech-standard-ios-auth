@@ -16,12 +16,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        AuthManager.shared.delegate = self
+        CredentialAuth.shared.delegate = self
         FirebaseApp.configure()
         
 //        FirebaseApp.app()?.options.clientID
         
-        AuthManager.shared.restorePreviousGoogleSignIn { user, error in
+        CredentialAuth.shared.restorePreviousGoogleSignIn { user, error in
             if error != nil || user == nil {
                 // Show the app's signed-out state.
                 print(error)
@@ -39,7 +39,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     ) -> Bool {
         var handled: Bool
         
-        handled = AuthManager.shared.handleGoogleURL(url)
+        handled = CredentialAuth.shared.handleGoogleURL(url)
         if handled {
             return true
         }
@@ -65,27 +65,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 }
 
-extension AppDelegate: AuthManagerDelegate {
-    func login(completion: @escaping (AppToken) -> Void, failure: @escaping (Error) -> Void) {
-        guard let loginInfo = AuthManager.shared.loginInfo as? (String, String) else { return }
-        
-        let (email, password) = loginInfo
+extension AppDelegate: CredentialAuthDelegate {
+    func login(credential: [String: Any]?, completion: @escaping (AppToken?, User?, Error?) -> Void) {
+        guard let credential,
+              let email = credential["email"] as? String,
+              let password = credential["password"] as? String
+        else { return }
         
         API.shared.login(email: email, password: password)
-            .sink { completion in
-                switch completion {
+            .sink { loginCompletion in
+                switch loginCompletion {
                 case .finished:
                     break
                 case .failure(let error):
-                    failure(error)
+                    completion(nil, nil, error)
                 }
             } receiveValue: { token in
-                completion(token)
+                completion(token, nil, nil)
             }
             .store(in: &bag)
     }
     
-    func refreshToken(token: String, completion: (AppToken) -> Void, failure: (Error) -> Void) {
+    func refreshToken(token: String, completion: @escaping (AppToken?, Error?) -> Void) {
+        
+    }
+    
+    func logout(credential: [String : Any]?, completion: @escaping (Bool, Error?) -> Void) {
         
     }
 }

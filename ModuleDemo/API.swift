@@ -19,8 +19,12 @@ class API {
     }
 }
 
-struct AppToken: Token {
+struct AppToken: AuthToken {
     var accessToken: String
     var refreshToken: String
     var expiredDate: Date
+}
+
+struct User: AuthUser {
+    
 }

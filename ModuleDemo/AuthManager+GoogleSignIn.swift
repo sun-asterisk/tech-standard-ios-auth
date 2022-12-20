@@ -11,7 +11,7 @@ import GoogleSignIn
 import FirebaseCore
 import FirebaseAuth
 
-public extension AuthManager {
+public extension CredentialAuth {
     
     /// Attempts to restore a previous user sign-in without interaction.
     /// - Parameter completion: invoked when restore completed or failed
@@ -31,7 +31,7 @@ public extension AuthManager {
     ///   - presentingViewController: the presenting view controller
     ///   - completion: invoked when sign in completed or failed
     func signInGoogle(presentingViewController: UIViewController? = nil,
-                completion: ((AuthDataResult?, Error?) -> Void)? = nil) {
+                      completion: ((AuthDataResult?, Error?) -> Void)? = nil) {
         
         func authenticateUser(for user: GIDGoogleUser?, with error: Error?) {
             if let error = error {

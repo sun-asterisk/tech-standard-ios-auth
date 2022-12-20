@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func signIn(sender: Any) {
-        AuthManager.shared.signInGoogle(presentingViewController: self) { result, error in
+        CredentialAuth.shared.signInGoogle(presentingViewController: self) { result, error in
             if let result {
                 print("Signed in, user:", result.user.email ?? "")
             } else if let error {

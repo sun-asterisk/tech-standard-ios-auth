@@ -19,13 +19,16 @@ class LoginUseCase: LoginUseCaseProtocol {
     }
     
     func login(email: String, password: String) -> AnyPublisher<Void, Error> {
-        AuthManager.shared.loginInfo = (email, password)
-        
         return Future { promise in
-            AuthManager.shared.login {
-                promise(.success(()))
-            } failure: { error in
-                promise(.failure(error))
+            CredentialAuth.shared.login(credential: [
+                "email": email,
+                "password": password
+            ]) { success, error in
+                if success {
+                    promise(.success(()))
+                } else if let error {
+                    promise(.failure(error))
+                }
             }
         }
         .eraseToAnyPublisher()

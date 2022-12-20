@@ -7,7 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		175ACB0929348A55004A2EA4 /* AuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175ACB0829348A55004A2EA4 /* AuthManager.swift */; };
+		1701783329518A1D00AB9FBA /* BaseAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1701783229518A1D00AB9FBA /* BaseAuth.swift */; };
+		1701783529518A3B00AB9FBA /* AuthError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1701783429518A3B00AB9FBA /* AuthError.swift */; };
+		1701783729518AF300AB9FBA /* SignInState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1701783629518AF300AB9FBA /* SignInState.swift */; };
+		1701783929518BD700AB9FBA /* CredentialAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1701783829518BD700AB9FBA /* CredentialAuth.swift */; };
 		17EE3A7B293076B6000FF19D /* AuthManager.docc in Sources */ = {isa = PBXBuildFile; fileRef = 17EE3A7A293076B6000FF19D /* AuthManager.docc */; };
 		17EE3A81293076B6000FF19D /* AuthManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 17EE3A76293076B6000FF19D /* AuthManager.framework */; };
 		17EE3A86293076B6000FF19D /* AuthManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17EE3A85293076B6000FF19D /* AuthManagerTests.swift */; };
@@ -25,7 +28,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		175ACB0829348A55004A2EA4 /* AuthManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthManager.swift; sourceTree = "<group>"; };
+		1701783229518A1D00AB9FBA /* BaseAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseAuth.swift; sourceTree = "<group>"; };
+		1701783429518A3B00AB9FBA /* AuthError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthError.swift; sourceTree = "<group>"; };
+		1701783629518AF300AB9FBA /* SignInState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInState.swift; sourceTree = "<group>"; };
+		1701783829518BD700AB9FBA /* CredentialAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialAuth.swift; sourceTree = "<group>"; };
 		17EE3A76293076B6000FF19D /* AuthManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = AuthManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		17EE3A79293076B6000FF19D /* AuthManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AuthManager.h; sourceTree = "<group>"; };
 		17EE3A7A293076B6000FF19D /* AuthManager.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = AuthManager.docc; sourceTree = "<group>"; };
@@ -75,7 +81,10 @@
 			children = (
 				17EE3A79293076B6000FF19D /* AuthManager.h */,
 				17EE3A7A293076B6000FF19D /* AuthManager.docc */,
-				175ACB0829348A55004A2EA4 /* AuthManager.swift */,
+				1701783229518A1D00AB9FBA /* BaseAuth.swift */,
+				1701783829518BD700AB9FBA /* CredentialAuth.swift */,
+				1701783629518AF300AB9FBA /* SignInState.swift */,
+				1701783429518A3B00AB9FBA /* AuthError.swift */,
 			);
 			path = AuthManager;
 			sourceTree = "<group>";
@@ -198,7 +207,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				17EE3A7B293076B6000FF19D /* AuthManager.docc in Sources */,
-				175ACB0929348A55004A2EA4 /* AuthManager.swift in Sources */,
+				1701783929518BD700AB9FBA /* CredentialAuth.swift in Sources */,
+				1701783529518A3B00AB9FBA /* AuthError.swift in Sources */,
+				1701783329518A1D00AB9FBA /* BaseAuth.swift in Sources */,
+				1701783729518AF300AB9FBA /* SignInState.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -22,11 +22,14 @@ class LoginViewController: UIViewController {
     }
     
     @IBAction private func login(_ sender: Any) {
+        messageLabel.text = ""
+        
         guard let email = emailTextField.text, !email.isEmpty,
               let password = passwordTextField.text, !password.isEmpty
-        else { return }
-        
-        messageLabel.text = ""
+        else {
+            messageLabel.text = "Please provide email/password"
+            return
+        }
         
         loginUseCase.login(email: email, password: password)
             .sink { completion in
