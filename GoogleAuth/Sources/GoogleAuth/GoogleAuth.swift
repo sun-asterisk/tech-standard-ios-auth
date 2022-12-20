@@ -18,6 +18,10 @@ public class GoogleAuth: BaseAuth {
         GIDSignIn.sharedInstance.restorePreviousSignIn(completion: completion)
     }
     
+    public func getUser() -> GIDGoogleUser? {
+        GIDSignIn.sharedInstance.currentUser
+    }
+    
     /// This method should be called from your UIApplicationDelegate’s application:openURL:options: method.
     /// - Parameter url: the url
     /// - Returns: return false if not handled by this app
@@ -30,16 +34,16 @@ public class GoogleAuth: BaseAuth {
     ///   - presentingViewController: the presenting view controller
     ///   - completion: invoked when sign in completed or failed
     public func login(presentingViewController: UIViewController? = nil,
-                      completion: ((AuthDataResult?, Error?) -> Void)? = nil) {
+                      completion: ((AuthDataResult?, GIDGoogleUser?, Error?) -> Void)? = nil) {
         
         func authenticateUser(for user: GIDGoogleUser?, with error: Error?) {
             if let error = error {
-                completion?(nil, error)
+                completion?(nil, nil, error)
                 return
             }
             
             guard let accessToken = user?.accessToken, let idToken = user?.idToken else {
-                completion?(nil, nil)
+                completion?(nil, nil, nil)
                 return
             }
             
@@ -50,7 +54,7 @@ public class GoogleAuth: BaseAuth {
                     self?.state = .signedIn
                 }
                 
-                completion?(result, error)
+                completion?(result, user, error)
             }
         }
         

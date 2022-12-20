@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		170178492951B18D00AB9FBA /* GoogleAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 170178482951B18D00AB9FBA /* GoogleAuth */; };
+		1701784C2951B5B300AB9FBA /* CredentialAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1701784B2951B5B300AB9FBA /* CredentialAuth */; };
 		17238A9F294AF80500F61F6A /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17238A9E294AF80500F61F6A /* MainViewController.swift */; };
 		17238AA9294B1ECD00F61F6A /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 17238AA8294B1ECD00F61F6A /* GoogleService-Info.plist */; };
 		173867BE29306D5900C209AE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173867BD29306D5900C209AE /* AppDelegate.swift */; };
@@ -17,27 +18,12 @@
 		173867CA29306D5A00C209AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 173867C829306D5A00C209AE /* LaunchScreen.storyboard */; };
 		173ED90B2935F4BA00BDDB20 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173ED90A2935F4BA00BDDB20 /* LoginViewController.swift */; };
 		173ED90D2935FAD700BDDB20 /* LoginUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 173ED90C2935FAD700BDDB20 /* LoginUseCase.swift */; };
-		175ACB0529348849004A2EA4 /* AuthManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 175ACB0429348849004A2EA4 /* AuthManager.framework */; };
-		175ACB0629348849004A2EA4 /* AuthManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 175ACB0429348849004A2EA4 /* AuthManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		178CFB1B293DE0FE00602E04 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178CFB1A293DE0FE00602E04 /* API.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		175ACB0729348849004A2EA4 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				175ACB0629348849004A2EA4 /* AuthManager.framework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
 		170178472951B16D00AB9FBA /* GoogleAuth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = GoogleAuth; sourceTree = "<group>"; };
+		1701784A2951B5A600AB9FBA /* CredentialAuth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = CredentialAuth; sourceTree = "<group>"; };
 		17238A9E294AF80500F61F6A /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		17238AA8294B1ECD00F61F6A /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		173867BA29306D5900C209AE /* ModuleDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ModuleDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,8 +44,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				175ACB0529348849004A2EA4 /* AuthManager.framework in Frameworks */,
 				170178492951B18D00AB9FBA /* GoogleAuth in Frameworks */,
+				1701784C2951B5B300AB9FBA /* CredentialAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,6 +56,7 @@
 			isa = PBXGroup;
 			children = (
 				170178472951B16D00AB9FBA /* GoogleAuth */,
+				1701784A2951B5A600AB9FBA /* CredentialAuth */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -144,7 +131,6 @@
 				173867B629306D5900C209AE /* Sources */,
 				173867B729306D5900C209AE /* Frameworks */,
 				173867B829306D5900C209AE /* Resources */,
-				175ACB0729348849004A2EA4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -153,6 +139,7 @@
 			name = ModuleDemo;
 			packageProductDependencies = (
 				170178482951B18D00AB9FBA /* GoogleAuth */,
+				1701784B2951B5B300AB9FBA /* CredentialAuth */,
 			);
 			productName = ModuleDemo;
 			productReference = 173867BA29306D5900C209AE /* ModuleDemo.app */;
@@ -442,6 +429,10 @@
 		170178482951B18D00AB9FBA /* GoogleAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = GoogleAuth;
+		};
+		1701784B2951B5B300AB9FBA /* CredentialAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CredentialAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -11,9 +11,6 @@
       location = "group:BaseAuth">
    </FileRef>
    <FileRef
-      location = "group:AuthManager/AuthManager.xcodeproj">
-   </FileRef>
-   <FileRef
       location = "container:ModuleDemo.xcodeproj">
    </FileRef>
 </Workspace>

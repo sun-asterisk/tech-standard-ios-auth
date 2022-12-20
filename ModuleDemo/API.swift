@@ -6,7 +6,7 @@
 //
 
 import Foundation
-import AuthManager
+import CredentialAuth
 import Combine
 
 class API {

@@ -6,10 +6,10 @@
 //
 
 import UIKit
-import AuthManager
 import Combine
 import FirebaseCore
 import GoogleAuth
+import CredentialAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,16 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         CredentialAuth.shared.delegate = self
-        FirebaseApp.configure()
         
-        GoogleAuth.shared.restorePreviousSignIn { user, error in
-            if error != nil || user == nil {
-                // Show the app's signed-out state.
-                print(error)
-            } else {
-                // Show the app's signed-in state.
-            }
-        }
+        FirebaseApp.configure()
         
         return true
     }

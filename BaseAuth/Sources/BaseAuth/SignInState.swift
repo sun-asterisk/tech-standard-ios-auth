@@ -1,5 +1,5 @@
 /// Sign in state.
-public enum SignInState {
+public enum SignInState: Int {
     case signedIn
     case signedOut
 }
