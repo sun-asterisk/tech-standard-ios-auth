@@ -2,6 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:CredentialAuth">
+   </FileRef>
+   <FileRef
+      location = "group:BaseAuth">
+   </FileRef>
+   <FileRef
       location = "group:AuthManager/AuthManager.xcodeproj">
    </FileRef>
    <FileRef
