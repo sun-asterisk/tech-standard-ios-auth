@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import AuthManager
+import GoogleAuth
 
 class MainViewController: UIViewController {
 
@@ -17,7 +17,7 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func signIn(sender: Any) {
-        CredentialAuth.shared.signInGoogle(presentingViewController: self) { result, error in
+        GoogleAuth.shared.login(presentingViewController: self) { result, error in
             if let result {
                 print("Signed in, user:", result.user.email ?? "")
             } else if let error {

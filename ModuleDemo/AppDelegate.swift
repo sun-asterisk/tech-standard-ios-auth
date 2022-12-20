@@ -9,6 +9,7 @@ import UIKit
 import AuthManager
 import Combine
 import FirebaseCore
+import GoogleAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,9 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         CredentialAuth.shared.delegate = self
         FirebaseApp.configure()
         
-//        FirebaseApp.app()?.options.clientID
-        
-        CredentialAuth.shared.restorePreviousGoogleSignIn { user, error in
+        GoogleAuth.shared.restorePreviousSignIn { user, error in
             if error != nil || user == nil {
                 // Show the app's signed-out state.
                 print(error)
@@ -38,15 +37,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]
     ) -> Bool {
         var handled: Bool
+
+        handled = GoogleAuth.shared.handle(url)
         
-        handled = CredentialAuth.shared.handleGoogleURL(url)
         if handled {
             return true
         }
-
-        // Handle other custom URL types.
         
-        // If not handled by this app, return false.
         return false
     }
 

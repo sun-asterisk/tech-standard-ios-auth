@@ -1,7 +1,7 @@
 import BaseAuth
 import Foundation
 
-/// An object that manages access tokens.
+/// An object that manages credential-based authentication.
 public class CredentialAuth: BaseAuth {
     // MARK: - Public properties
     /// A shared instance.

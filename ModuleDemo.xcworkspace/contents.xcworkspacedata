@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:GoogleAuth">
+   </FileRef>
+   <FileRef
       location = "group:CredentialAuth">
    </FileRef>
    <FileRef
