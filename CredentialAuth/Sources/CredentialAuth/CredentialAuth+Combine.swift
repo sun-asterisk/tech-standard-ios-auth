@@ -29,5 +29,4 @@ public extension CredentialAuth {
         }
         .eraseToAnyPublisher()
     }
-    
 }

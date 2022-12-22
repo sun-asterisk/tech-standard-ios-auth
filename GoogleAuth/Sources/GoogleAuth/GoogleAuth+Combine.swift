@@ -16,7 +16,7 @@ public extension GoogleAuth {
     /// - Parameter presentingViewController: the presenting view controller
     /// - Returns: an AnyPublisher containing sign-in results
     func signIn(presentingViewController: UIViewController? = nil) -> AnyPublisher<(AuthDataResult?, GIDGoogleUser?), Error> {
-        Future { [weak self] promise in
+        Future { [weak self, weak presentingViewController] promise in
             self?.signIn(presentingViewController: presentingViewController, completion: promise)
         }
         .eraseToAnyPublisher()

@@ -64,7 +64,7 @@ public extension CredentialAuth {
     }
     
     /// Get token.
-    /// - Returns: a saved token if any
+    /// - Returns: the saved token
     func getToken() -> AuthToken? {
         guard let data = UserDefaults.standard.object(forKey: tokenKey) as? Data else { return nil }
         return delegate?.decodeToken(data: data)
@@ -98,7 +98,7 @@ public extension CredentialAuth {
     }
     
     /// Get user.
-    /// - Returns: a saved user if any
+    /// - Returns: the saved user
     func getUser() -> Codable? {
         guard let data = UserDefaults.standard.object(forKey: userKey) as? Data else { return nil }
         return delegate?.decodeUser(data: data)
