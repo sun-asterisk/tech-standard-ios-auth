@@ -93,7 +93,7 @@ public class GoogleAuth: BaseAuth {
         }
     }
     
-    /// Sign out Google and Firebase Auth
+    /// Sign out Google and Firebase Auth.
     /// - Parameters:
     ///   - credential: logout information such as device id, token
     ///   - completion: invoked when logout completed
