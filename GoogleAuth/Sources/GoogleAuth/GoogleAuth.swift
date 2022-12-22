@@ -14,8 +14,16 @@ public class GoogleAuth: BaseAuth {
     
     /// Attempts to restore a previous user sign-in without interaction.
     /// - Parameter completion: invoked when restore completed or failed
-    public func restorePreviousSignIn(completion: ((GIDGoogleUser?, Error?) -> Void)? = nil) {
-        GIDSignIn.sharedInstance.restorePreviousSignIn(completion: completion)
+    public func restorePreviousSignIn(completion: ((Result<GIDGoogleUser, Error>) -> Void)? = nil) {
+        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+            if let user {
+                self.state = .signedIn
+                completion?(.success(user))
+            } else if let error {
+                self.state = .signedOut
+                completion?(.failure(error))
+            }
+        }
     }
     
     public func getUser() -> GIDGoogleUser? {
@@ -33,28 +41,32 @@ public class GoogleAuth: BaseAuth {
     /// - Parameters:
     ///   - presentingViewController: the presenting view controller
     ///   - completion: invoked when sign in completed or failed
-    public func login(presentingViewController: UIViewController? = nil,
-                      completion: ((AuthDataResult?, GIDGoogleUser?, Error?) -> Void)? = nil) {
+    public func signIn(presentingViewController: UIViewController? = nil,
+                       completion: ((Result<(AuthDataResult?, GIDGoogleUser?), Error>) -> Void)? = nil) {
         
         func authenticateUser(for user: GIDGoogleUser?, with error: Error?) {
             if let error = error {
-                completion?(nil, nil, error)
+                state = .signedOut
+                completion?(.failure(error))
                 return
             }
             
             guard let accessToken = user?.accessToken, let idToken = user?.idToken else {
-                completion?(nil, nil, nil)
+                state = .signedOut
+                completion?(.failure(AuthError.noToken))
                 return
             }
             
             let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
             
             Auth.auth().signIn(with: credential) { [weak self] (result, error) in
-                if result != nil {
+                if let result {
                     self?.state = .signedIn
+                    completion?(.success((result, user)))
+                } else if let error {
+                    self?.state = .signedOut
+                    completion?(.failure(error))
                 }
-                
-                completion?(result, user, error)
             }
         }
         
@@ -81,16 +93,20 @@ public class GoogleAuth: BaseAuth {
         }
     }
     
-    public override func logout(credential: [String : Any]? = nil, completion: ((Bool, Error?) -> Void)? = nil) {
+    /// Sign out Google and Firebase Auth
+    /// - Parameters:
+    ///   - credential: logout information such as device id, token
+    ///   - completion: invoked when logout completed
+    public func signOut(completion: ((Result<Void, Error>) -> Void)? = nil) {
         GIDSignIn.sharedInstance.signOut()
         
         do {
             try Auth.auth().signOut()
             super.cleanUp()
             state = .signedOut
-            completion?(true, nil)
+            completion?(.success(()))
         } catch {
-            completion?(false, error)
+            completion?(.failure(error))
         }
     }
 }

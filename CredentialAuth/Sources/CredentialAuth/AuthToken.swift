@@ -2,7 +2,6 @@ import Foundation
 
 /// A protocol that contains access token, refresh token and expired date.
 public protocol AuthToken: Codable {
-    var accessToken: String { get }
     var refreshToken: String { get }
     var expiredDate: Date { get }
 }

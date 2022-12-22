@@ -20,19 +20,6 @@ public class CredentialAuth: BaseAuth {
         super.init()
     }
     
-    public override func logout(credential: [String : Any]?, completion: ((Bool, Error?) -> Void)? = nil) {
-        super.logout(credential: credential, completion: completion)
-        
-        delegate?.logout(credential: credential) { [weak self] success, error in
-            if success {
-                self?.cleanUp()
-                self?.state = .signedOut
-            }
-            
-            completion?(success, error)
-        }
-    }
-    
     public override func cleanUp() {
         super.cleanUp()
         let defaults = UserDefaults.standard
@@ -47,20 +34,32 @@ public extension CredentialAuth {
     /// - Parameters:
     ///   - credential: user name or e-mail address, in combination with a password
     ///   - completion: invoked when login completed
-    func login(credential: [String: Any]? = nil, completion: ((Bool, Error?) -> Void)? = nil) {
-        delegate?.login(credential: credential) { [weak self] token, user, error in
-            if let token {
-                self?.saveToken(token)
-                
-                if let user {
-                    self?.saveUser(user)
-                }
-                
-                self?.state = .signedIn
-                completion?(true, nil)
-            } else if let error {
-                completion?(false, error)
+    func login(credential: [String: Any], completion: ((Result<Void, Error>) -> Void)? = nil) {
+        delegate?.login(credential: credential) { [weak self] token, user in
+            self?.saveToken(token)
+            
+            if let user {
+                self?.saveUser(user)
             }
+            
+            self?.state = .signedIn
+            completion?(.success(()))
+        } failure: { error in
+            completion?(.failure(error))
+        }
+    }
+    
+    /// Logout then clean up saved data.
+    /// - Parameters:
+    ///   - credential: logout information such as device id, token
+    ///   - completion: invoked when logout completed
+    func logout(credential: [String : Any]?, completion: ((Result<Void, Error>) -> Void)? = nil) {
+        delegate?.logout(credential: credential) { [weak self] in
+            self?.cleanUp()
+            self?.state = .signedOut
+            completion?(.success(()))
+        } failure: { error in
+            completion?(.failure(error))
         }
     }
     
@@ -73,28 +72,26 @@ public extension CredentialAuth {
     
     /// Get token, call refresh token if needs.
     /// - Parameter completion: invoked when getting token completed
-    func getToken(completion: @escaping (AuthToken?, Error?) -> Void) {
-        DispatchQueue(label: "Fetch token").async { [weak self] in
+    func getToken(completion: @escaping (Result<AuthToken, Error>) -> Void) {
+        DispatchQueue(label: "Get token").async { [weak self] in
             self?.semaphore.wait()
             
             if let token = self?.getToken() {
                 if !token.isExpired {
-                    completion(token, nil)
+                    completion(.success(token))
                     self?.semaphore.signal()
                 } else {
-                    self?.delegate?.refreshToken(token: token.refreshToken) { token, error in
-                        if let token {
-                            self?.saveToken(token)
-                            completion(token, nil)
-                            self?.semaphore.signal()
-                        } else if let error {
-                            completion(nil, error)
-                            self?.semaphore.signal()
-                        }
+                    self?.delegate?.refreshToken(token: token.refreshToken) { token in
+                        self?.saveToken(token)
+                        completion(.success(token))
+                        self?.semaphore.signal()
+                    } failure: { error in
+                        completion(.failure(error))
+                        self?.semaphore.signal()
                     }
                 }
             } else {
-                completion(nil, AuthError.noToken)
+                completion(.failure(AuthError.noToken))
                 self?.semaphore.signal()
             }
         }
@@ -102,7 +99,7 @@ public extension CredentialAuth {
     
     /// Get user.
     /// - Returns: the user if any
-    func getUser() -> AuthUser? {
+    func getUser() -> Codable? {
         guard let data = UserDefaults.standard.object(forKey: userKey) as? Data else { return nil }
         return delegate?.decodeUser(data: data)
     }
@@ -118,7 +115,7 @@ private extension CredentialAuth {
         }
     }
     
-    func saveUser(_ user: AuthUser) {
+    func saveUser(_ user: Codable) {
         let encoder = JSONEncoder()
         
         if let encoded = try? encoder.encode(user) {

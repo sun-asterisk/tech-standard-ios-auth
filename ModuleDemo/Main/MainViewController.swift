@@ -16,22 +16,27 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("Login state", GoogleAuth.shared.state)
-
-        GoogleAuth.shared.restorePreviousSignIn { [weak self] user, error in
-            self?.updateGoogleButtons(with: user)
+        googleSignOutButton.isHidden = true
+        
+        GoogleAuth.shared.restorePreviousSignIn { [weak self] result in
+            switch result {
+            case .success(let user):
+                self?.updateGoogleButtons(with: user)
+            case .failure:
+                self?.updateGoogleButtons(with: nil)
+            }
         }
     }
     
     @IBAction func signIn(sender: Any) {
-        GoogleAuth.shared.login(presentingViewController: self) { [weak self] result, user, error in
-            if let result {
-                print("Signed in, user:", result.user.email ?? "")
-            } else if let error {
-                print(error)
+        GoogleAuth.shared.signIn(presentingViewController: self) { [weak self] result in
+            switch result {
+            case .success(let (authResult, user)):
+                print("Signed in, user:", authResult?.user.email ?? "")
+                self?.updateGoogleButtons(with: user)
+            case .failure:
+                self?.updateGoogleButtons(with: nil)
             }
-            
-            self?.updateGoogleButtons(with: user)
         }
     }
     
@@ -47,9 +52,15 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func signOut(sender: Any) {
-        GoogleAuth.shared.logout { [weak self] success, error in
-            self?.googleSignOutButton.isHidden = success
-            self?.googleSignInButton.isHidden = !success
+        GoogleAuth.shared.signOut { [weak self] result in
+            switch result {
+            case .success:
+                self?.googleSignOutButton.isHidden = true
+                self?.googleSignInButton.isHidden = false
+            case .failure:
+                self?.googleSignOutButton.isHidden = false
+                self?.googleSignInButton.isHidden = true
+            }
         }
     }
 }

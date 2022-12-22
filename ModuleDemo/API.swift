@@ -25,6 +25,6 @@ struct AppToken: AuthToken {
     var expiredDate: Date
 }
 
-struct User: AuthUser {
+struct User: Codable {
     
 }

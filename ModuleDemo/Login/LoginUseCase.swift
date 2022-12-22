@@ -23,10 +23,11 @@ class LoginUseCase: LoginUseCaseProtocol {
             CredentialAuth.shared.login(credential: [
                 "email": email,
                 "password": password
-            ]) { success, error in
-                if success {
+            ]) { result in
+                switch result {
+                case .success:
                     promise(.success(()))
-                } else if let error {
+                case .failure(let error):
                     promise(.failure(error))
                 }
             }

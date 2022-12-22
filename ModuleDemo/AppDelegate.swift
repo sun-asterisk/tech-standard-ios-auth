@@ -55,9 +55,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 }
 
 extension AppDelegate: CredentialAuthDelegate {
-    func login(credential: [String: Any]?, completion: @escaping (AppToken?, User?, Error?) -> Void) {
-        guard let credential,
-              let email = credential["email"] as? String,
+    func login(credential: [String : Any],
+               success: @escaping (AppToken, User?) -> Void,
+               failure: @escaping (Error) -> Void) {
+        
+        guard let email = credential["email"] as? String,
               let password = credential["password"] as? String
         else { return }
         
@@ -67,19 +69,19 @@ extension AppDelegate: CredentialAuthDelegate {
                 case .finished:
                     break
                 case .failure(let error):
-                    completion(nil, nil, error)
+                    failure(error)
                 }
             } receiveValue: { token in
-                completion(token, nil, nil)
+                success(token, nil)
             }
             .store(in: &bag)
     }
     
-    func refreshToken(token: String, completion: @escaping (AppToken?, Error?) -> Void) {
+    func logout(credential: [String : Any]?, success: (() -> Void)?, failure: ((Error) -> Void)?) {
         
     }
     
-    func logout(credential: [String : Any]?, completion: @escaping (Bool, Error?) -> Void) {
+    func refreshToken(token: String, success: @escaping (T) -> Void, failure: @escaping (Error) -> Void) {
         
     }
 }
