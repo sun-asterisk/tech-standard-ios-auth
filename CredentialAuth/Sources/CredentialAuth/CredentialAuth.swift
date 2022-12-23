@@ -11,8 +11,8 @@ public class CredentialAuth: BaseAuth {
     public weak var delegate: (any CredentialAuthDelegate)?
     
     // MARK: - Private properties
-    private let tokenKey = "AUTH_TOKEN_KEY"
-    private let userKey = "AUTH_USER_KEY"
+    private static let tokenKey = "CREDENTIAL_AUTH_TOKEN_KEY"
+    private static let userKey = "CREDENTIAL_AUTH_USER_KEY"
     
     private let semaphore = DispatchSemaphore(value: 1)
     
@@ -20,11 +20,16 @@ public class CredentialAuth: BaseAuth {
         super.init()
     }
     
+    public override func reset() {
+        super.reset()
+        let defaults = UserDefaults.standard
+        defaults.removeObject(forKey: CredentialAuth.tokenKey)
+        defaults.removeObject(forKey: CredentialAuth.userKey)
+    }
+    
     public override func cleanUp() {
         super.cleanUp()
-        let defaults = UserDefaults.standard
-        defaults.removeObject(forKey: tokenKey)
-        defaults.removeObject(forKey: userKey)
+        self.reset()
     }
 }
 
@@ -43,6 +48,8 @@ public extension CredentialAuth {
             }
             
             self?.state = .signedIn
+            self?.method = .credential
+            
             completion?(.success(()))
         } failure: { error in
             completion?(.failure(error))
@@ -53,10 +60,9 @@ public extension CredentialAuth {
     /// - Parameters:
     ///   - credential: logout information such as device id, token
     ///   - completion: invoked when logout completed
-    func logout(credential: [String : Any]?, completion: ((Result<Void, Error>) -> Void)? = nil) {
+    func logout(credential: [String : Any]? = nil, completion: ((Result<Void, Error>) -> Void)? = nil) {
         delegate?.logout(credential: credential) { [weak self] in
-            self?.cleanUp()
-            self?.state = .signedOut
+            self?.reset()
             completion?(.success(()))
         } failure: { error in
             completion?(.failure(error))
@@ -66,7 +72,7 @@ public extension CredentialAuth {
     /// Get token.
     /// - Returns: the saved token
     func getToken() -> AuthToken? {
-        guard let data = UserDefaults.standard.object(forKey: tokenKey) as? Data else { return nil }
+        guard let data = UserDefaults.standard.object(forKey: CredentialAuth.tokenKey) as? Data else { return nil }
         return delegate?.decodeToken(data: data)
     }
     
@@ -100,7 +106,7 @@ public extension CredentialAuth {
     /// Get user.
     /// - Returns: the saved user
     func getUser() -> Codable? {
-        guard let data = UserDefaults.standard.object(forKey: userKey) as? Data else { return nil }
+        guard let data = UserDefaults.standard.object(forKey: CredentialAuth.userKey) as? Data else { return nil }
         return delegate?.decodeUser(data: data)
     }
 }
@@ -111,7 +117,7 @@ private extension CredentialAuth {
         let encoder = JSONEncoder()
         
         if let encoded = try? encoder.encode(token) {
-            UserDefaults.standard.set(encoded, forKey: tokenKey)
+            UserDefaults.standard.set(encoded, forKey: CredentialAuth.tokenKey)
         }
     }
     
@@ -119,7 +125,7 @@ private extension CredentialAuth {
         let encoder = JSONEncoder()
         
         if let encoded = try? encoder.encode(user) {
-            UserDefaults.standard.set(encoded, forKey: userKey)
+            UserDefaults.standard.set(encoded, forKey: CredentialAuth.userKey)
         }
     }
 }

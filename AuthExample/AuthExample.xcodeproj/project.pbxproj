@@ -8,17 +8,43 @@
 
 /* Begin PBXBuildFile section */
 		1759D0D229544977001EB670 /* AuthExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D0D129544977001EB670 /* AuthExampleApp.swift */; };
-		1759D0D429544977001EB670 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D0D329544977001EB670 /* ContentView.swift */; };
 		1759D0D629544978001EB670 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1759D0D529544978001EB670 /* Assets.xcassets */; };
 		1759D0D929544978001EB670 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1759D0D829544978001EB670 /* Preview Assets.xcassets */; };
+		1759D0FE295451E1001EB670 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D0FD295451E1001EB670 /* Token.swift */; };
+		1759D10329545253001EB670 /* CredentialAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1759D10229545253001EB670 /* CredentialAuth */; };
+		1759D1072954531F001EB670 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D1062954531F001EB670 /* MainView.swift */; };
+		1759D10A29545429001EB670 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 1759D10929545429001EB670 /* Factory */; };
+		1759D10C2954550D001EB670 /* CredentialAuthUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D10B2954550D001EB670 /* CredentialAuthUseCases.swift */; };
+		1759D10E2954552A001EB670 /* CredentialAuthGateway.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D10D2954552A001EB670 /* CredentialAuthGateway.swift */; };
+		1759D11029554D3B001EB670 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D10F29554D3B001EB670 /* AppDelegate.swift */; };
+		1759D11229554DAB001EB670 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D11129554DAB001EB670 /* User.swift */; };
+		1759D11529554EF8001EB670 /* CancelBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D11429554EF8001EB670 /* CancelBag.swift */; };
+		1759D11A29557D81001EB670 /* GetSignInState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D11929557D81001EB670 /* GetSignInState.swift */; };
+		1759D11C29557DCD001EB670 /* GetSignInMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D11B29557DCD001EB670 /* GetSignInMethod.swift */; };
+		1759D11E29557EFE001EB670 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D11D29557EFE001EB670 /* LoginView.swift */; };
+		1759D12129558103001EB670 /* ValidatedPropertyKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1759D12029558103001EB670 /* ValidatedPropertyKit */; };
+		1759D124295591A2001EB670 /* Publisher+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D123295591A2001EB670 /* Publisher+.swift */; };
+		1759D126295591B9001EB670 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D125295591B9001EB670 /* View+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1759D0CE29544977001EB670 /* AuthExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuthExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1759D0D129544977001EB670 /* AuthExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthExampleApp.swift; sourceTree = "<group>"; };
-		1759D0D329544977001EB670 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1759D0D529544978001EB670 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1759D0D829544978001EB670 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1759D0FD295451E1001EB670 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
+		1759D10029545245001EB670 /* CredentialAuth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CredentialAuth; path = ../CredentialAuth; sourceTree = "<group>"; };
+		1759D1062954531F001EB670 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		1759D10B2954550D001EB670 /* CredentialAuthUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialAuthUseCases.swift; sourceTree = "<group>"; };
+		1759D10D2954552A001EB670 /* CredentialAuthGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialAuthGateway.swift; sourceTree = "<group>"; };
+		1759D10F29554D3B001EB670 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		1759D11129554DAB001EB670 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		1759D11429554EF8001EB670 /* CancelBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CancelBag.swift; sourceTree = "<group>"; };
+		1759D11929557D81001EB670 /* GetSignInState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSignInState.swift; sourceTree = "<group>"; };
+		1759D11B29557DCD001EB670 /* GetSignInMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetSignInMethod.swift; sourceTree = "<group>"; };
+		1759D11D29557EFE001EB670 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		1759D123295591A2001EB670 /* Publisher+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+.swift"; sourceTree = "<group>"; };
+		1759D125295591B9001EB670 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -26,6 +52,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1759D12129558103001EB670 /* ValidatedPropertyKit in Frameworks */,
+				1759D10329545253001EB670 /* CredentialAuth in Frameworks */,
+				1759D10A29545429001EB670 /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -35,8 +64,13 @@
 		1759D0C529544977001EB670 = {
 			isa = PBXGroup;
 			children = (
+				1759D11329554EF1001EB670 /* Support */,
+				1759D0FF29545245001EB670 /* Packages */,
+				1759D0F729545166001EB670 /* Domain */,
+				1759D0F629545161001EB670 /* Data */,
 				1759D0D029544977001EB670 /* AuthExample */,
 				1759D0CF29544977001EB670 /* Products */,
+				1759D10129545253001EB670 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -51,8 +85,10 @@
 		1759D0D029544977001EB670 /* AuthExample */ = {
 			isa = PBXGroup;
 			children = (
+				1759D105295452DC001EB670 /* Credential */,
+				1759D104295452D7001EB670 /* Main */,
 				1759D0D129544977001EB670 /* AuthExampleApp.swift */,
-				1759D0D329544977001EB670 /* ContentView.swift */,
+				1759D10F29554D3B001EB670 /* AppDelegate.swift */,
 				1759D0D529544978001EB670 /* Assets.xcassets */,
 				1759D0D729544978001EB670 /* Preview Content */,
 			);
@@ -65,6 +101,107 @@
 				1759D0D829544978001EB670 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		1759D0F629545161001EB670 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				1759D0FA29545195001EB670 /* Gateways */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		1759D0F729545166001EB670 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				1759D0F929545180001EB670 /* UseCases */,
+				1759D0F82954517A001EB670 /* Entities */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		1759D0F82954517A001EB670 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				1759D0FD295451E1001EB670 /* Token.swift */,
+				1759D11129554DAB001EB670 /* User.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		1759D0F929545180001EB670 /* UseCases */ = {
+			isa = PBXGroup;
+			children = (
+				1759D11629557D48001EB670 /* Auth */,
+			);
+			path = UseCases;
+			sourceTree = "<group>";
+		};
+		1759D0FA29545195001EB670 /* Gateways */ = {
+			isa = PBXGroup;
+			children = (
+				1759D10D2954552A001EB670 /* CredentialAuthGateway.swift */,
+			);
+			path = Gateways;
+			sourceTree = "<group>";
+		};
+		1759D0FF29545245001EB670 /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				1759D10029545245001EB670 /* CredentialAuth */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		1759D10129545253001EB670 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1759D104295452D7001EB670 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				1759D1062954531F001EB670 /* MainView.swift */,
+			);
+			path = Main;
+			sourceTree = "<group>";
+		};
+		1759D105295452DC001EB670 /* Credential */ = {
+			isa = PBXGroup;
+			children = (
+				1759D11D29557EFE001EB670 /* LoginView.swift */,
+			);
+			path = Credential;
+			sourceTree = "<group>";
+		};
+		1759D11329554EF1001EB670 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				1759D1222955919A001EB670 /* Extensions */,
+				1759D11429554EF8001EB670 /* CancelBag.swift */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		1759D11629557D48001EB670 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				1759D10B2954550D001EB670 /* CredentialAuthUseCases.swift */,
+				1759D11929557D81001EB670 /* GetSignInState.swift */,
+				1759D11B29557DCD001EB670 /* GetSignInMethod.swift */,
+			);
+			path = Auth;
+			sourceTree = "<group>";
+		};
+		1759D1222955919A001EB670 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1759D123295591A2001EB670 /* Publisher+.swift */,
+				1759D125295591B9001EB670 /* View+.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -83,6 +220,11 @@
 			dependencies = (
 			);
 			name = AuthExample;
+			packageProductDependencies = (
+				1759D10229545253001EB670 /* CredentialAuth */,
+				1759D10929545429001EB670 /* Factory */,
+				1759D12029558103001EB670 /* ValidatedPropertyKit */,
+			);
 			productName = AuthExample;
 			productReference = 1759D0CE29544977001EB670 /* AuthExample.app */;
 			productType = "com.apple.product-type.application";
@@ -112,6 +254,10 @@
 				Base,
 			);
 			mainGroup = 1759D0C529544977001EB670;
+			packageReferences = (
+				1759D10829545429001EB670 /* XCRemoteSwiftPackageReference "Factory" */,
+				1759D11F29558103001EB670 /* XCRemoteSwiftPackageReference "ValidatedPropertyKit" */,
+			);
 			productRefGroup = 1759D0CF29544977001EB670 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -138,8 +284,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1759D0D429544977001EB670 /* ContentView.swift in Sources */,
+				1759D11029554D3B001EB670 /* AppDelegate.swift in Sources */,
+				1759D10C2954550D001EB670 /* CredentialAuthUseCases.swift in Sources */,
+				1759D11529554EF8001EB670 /* CancelBag.swift in Sources */,
+				1759D11C29557DCD001EB670 /* GetSignInMethod.swift in Sources */,
+				1759D11A29557D81001EB670 /* GetSignInState.swift in Sources */,
+				1759D0FE295451E1001EB670 /* Token.swift in Sources */,
+				1759D10E2954552A001EB670 /* CredentialAuthGateway.swift in Sources */,
+				1759D1072954531F001EB670 /* MainView.swift in Sources */,
+				1759D126295591B9001EB670 /* View+.swift in Sources */,
+				1759D124295591A2001EB670 /* Publisher+.swift in Sources */,
+				1759D11E29557EFE001EB670 /* LoginView.swift in Sources */,
 				1759D0D229544977001EB670 /* AuthExampleApp.swift in Sources */,
+				1759D11229554DAB001EB670 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,8 +430,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -301,8 +458,8 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -338,6 +495,42 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1759D10829545429001EB670 /* XCRemoteSwiftPackageReference "Factory" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/Factory";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+		1759D11F29558103001EB670 /* XCRemoteSwiftPackageReference "ValidatedPropertyKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SvenTiigi/ValidatedPropertyKit";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1759D10229545253001EB670 /* CredentialAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CredentialAuth;
+		};
+		1759D10929545429001EB670 /* Factory */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1759D10829545429001EB670 /* XCRemoteSwiftPackageReference "Factory" */;
+			productName = Factory;
+		};
+		1759D12029558103001EB670 /* ValidatedPropertyKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1759D11F29558103001EB670 /* XCRemoteSwiftPackageReference "ValidatedPropertyKit" */;
+			productName = ValidatedPropertyKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1759D0C629544977001EB670 /* Project object */;
 }

@@ -15,12 +15,12 @@ public class GoogleAuth: BaseAuth {
     /// Attempts to restore a previous user sign-in without interaction.
     /// - Parameter completion: invoked when restore completed or failed
     public func restorePreviousSignIn(completion: ((Result<GIDGoogleUser, Error>) -> Void)? = nil) {
-        GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+        GIDSignIn.sharedInstance.restorePreviousSignIn { [weak self] user, error in
             if let user {
-                self.state = .signedIn
+                self?.state = .signedIn
+                self?.method = .google
                 completion?(.success(user))
             } else if let error {
-                self.state = .signedOut
                 completion?(.failure(error))
             }
         }
@@ -46,13 +46,13 @@ public class GoogleAuth: BaseAuth {
         
         func authenticateUser(for user: GIDGoogleUser?, with error: Error?) {
             if let error = error {
-                state = .signedOut
+                reset()
                 completion?(.failure(error))
                 return
             }
             
             guard let accessToken = user?.accessToken, let idToken = user?.idToken else {
-                state = .signedOut
+                reset()
                 completion?(.failure(AuthError.noToken))
                 return
             }
@@ -62,9 +62,10 @@ public class GoogleAuth: BaseAuth {
             Auth.auth().signIn(with: credential) { [weak self] (result, error) in
                 if let result {
                     self?.state = .signedIn
+                    self?.method = .google
                     completion?(.success((result, user)))
                 } else if let error {
-                    self?.state = .signedOut
+                    self?.reset()
                     completion?(.failure(error))
                 }
             }
@@ -102,8 +103,7 @@ public class GoogleAuth: BaseAuth {
         
         do {
             try Auth.auth().signOut()
-            super.cleanUp()
-            state = .signedOut
+            reset()
             completion?(.success(()))
         } catch {
             completion?(.failure(error))

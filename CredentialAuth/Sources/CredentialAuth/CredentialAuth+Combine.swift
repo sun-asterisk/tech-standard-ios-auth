@@ -14,7 +14,7 @@ public extension CredentialAuth {
     /// Logout then clean up saved data.
     /// - Parameter credential: logout information such as device id, token
     /// - Returns: an AnyPublisher containing logout results
-    func logout(credential: [String : Any]?) -> AnyPublisher<Void, Error> {
+    func logout(credential: [String : Any]? = nil) -> AnyPublisher<Void, Error> {
         Future { [weak self] promise in
             self?.logout(credential: credential, completion: promise)
         }

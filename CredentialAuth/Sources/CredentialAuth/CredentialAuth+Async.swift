@@ -13,7 +13,7 @@ public extension CredentialAuth {
     /// Logout then clean up saved data.
     /// - Parameter credential: logout information such as device id, token
     /// - Returns: logout results
-    func logout(credential: [String : Any]?) async -> Result<Void, Error> {
+    func logout(credential: [String : Any]? = nil) async -> Result<Void, Error> {
         await withCheckedContinuation { continuation in
             logout(credential: credential, completion: continuation.resume(returning:))
         }
