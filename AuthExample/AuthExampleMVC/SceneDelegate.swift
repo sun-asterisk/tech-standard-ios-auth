@@ -1,8 +1,9 @@
 //
 //  SceneDelegate.swift
-//  ModuleDemo
+//  AuthExampleMVC
 //
-//  Created by Tuan Truong on 25/11/2022.
+//  Created by Tuan Truong on 26/12/2022.
+//  Copyright © 2022 Sun Asterisk. All rights reserved.
 //
 
 import UIKit

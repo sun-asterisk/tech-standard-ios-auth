@@ -1,20 +1,19 @@
 //
 //  LoginViewController.swift
-//  ModuleDemo
+//  AuthExampleMVC
 //
-//  Created by Tuan Truong on 29/11/2022.
+//  Created by Tuan Truong on 26/12/2022.
+//  Copyright © 2022 Sun Asterisk. All rights reserved.
 //
 
 import UIKit
-import Combine
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController, CredentialAuthUseCases {
     @IBOutlet weak var emailTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var messageLabel: UILabel!
     
-    private let loginUseCase = LoginUseCase()
-    private var bag = Set<AnyCancellable>()
+    var onLogin: ((String, String) -> Void)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,17 +30,6 @@ class LoginViewController: UIViewController {
             return
         }
         
-        loginUseCase.login(email: email, password: password)
-            .sink { completion in
-                switch completion {
-                case .finished:
-                    break
-                case .failure(let error):
-                    print(error)
-                }
-            } receiveValue: { [weak self] in
-                self?.messageLabel.text = "Login success"
-            }
-            .store(in: &bag)
+        onLogin?(email, password)
     }
 }
