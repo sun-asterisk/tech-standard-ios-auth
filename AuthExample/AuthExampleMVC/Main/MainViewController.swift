@@ -10,8 +10,9 @@ import UIKit
 import GoogleAuth
 import GoogleSignIn
 import BaseAuth
+import Combine
 
-class MainViewController: UIViewController, GetSignInState, GetSignInMethod, CredentialAuthUseCases {
+class MainViewController: UIViewController, GetSignInState, GetSignInMethod, CredentialAuthUseCases, GoogleSignInUseCases {
     @IBOutlet weak var loginMethodsView: UIView!
     @IBOutlet weak var logoutView: UIView!
     @IBOutlet weak var googleSignInButton: UIView!
@@ -127,20 +128,33 @@ private extension MainViewController {
 // MARK: - GoogleAuth
 private extension MainViewController {
     func signOutGoogle() {
-        GoogleAuth.shared.signOut { [weak self] _ in
-            self?.loadSignInState()
-        }
+        signOutGoogle()
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error)
+                default:
+                    break
+                }
+            } receiveValue: { [weak self] in
+                self?.loadSignInState()
+            }
+            .store(in: cancelBag)
     }
     
     func restorePreviousSignInGoogle() {
-        GoogleAuth.shared.restorePreviousSignIn { [weak self] result in
-            switch result {
-            case .success(let user):
+        restorePreviousSignInGoogle()
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error)
+                default:
+                    break
+                }
+            } receiveValue: { [weak self] user in
+                self?.googleUser = user
                 self?.emailLabel.text = user.profile?.email
-            case .failure:
-                self?.emailLabel.text = ""
-                break
             }
-        }
+            .store(in: cancelBag)
     }
 }
