@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		174F055229594037001E1FA6 /* GoogleAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 174F055129594037001E1FA6 /* GoogleAuth */; };
+		174F055429594180001E1FA6 /* GoogleSignInUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F055329594180001E1FA6 /* GoogleSignInUseCases.swift */; };
+		174F055A29594572001E1FA6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 174F055929594572001E1FA6 /* GoogleService-Info.plist */; };
 		1759D0D229544977001EB670 /* AuthExampleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D0D129544977001EB670 /* AuthExampleApp.swift */; };
 		1759D0D629544978001EB670 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1759D0D529544978001EB670 /* Assets.xcassets */; };
 		1759D0D929544978001EB670 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1759D0D829544978001EB670 /* Preview Assets.xcassets */; };
@@ -28,6 +31,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		174F05502959402B001E1FA6 /* GoogleAuth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GoogleAuth; path = ../GoogleAuth; sourceTree = "<group>"; };
+		174F055329594180001E1FA6 /* GoogleSignInUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInUseCases.swift; sourceTree = "<group>"; };
+		174F055929594572001E1FA6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		174F055B2959460F001E1FA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		1759D0CE29544977001EB670 /* AuthExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuthExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1759D0D129544977001EB670 /* AuthExampleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthExampleApp.swift; sourceTree = "<group>"; };
 		1759D0D529544978001EB670 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -53,6 +60,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1759D12129558103001EB670 /* ValidatedPropertyKit in Frameworks */,
+				174F055229594037001E1FA6 /* GoogleAuth in Frameworks */,
 				1759D10329545253001EB670 /* CredentialAuth in Frameworks */,
 				1759D10A29545429001EB670 /* Factory in Frameworks */,
 			);
@@ -85,10 +93,12 @@
 		1759D0D029544977001EB670 /* AuthExample */ = {
 			isa = PBXGroup;
 			children = (
+				174F055B2959460F001E1FA6 /* Info.plist */,
 				1759D105295452DC001EB670 /* Credential */,
 				1759D104295452D7001EB670 /* Main */,
 				1759D0D129544977001EB670 /* AuthExampleApp.swift */,
 				1759D10F29554D3B001EB670 /* AppDelegate.swift */,
+				174F055929594572001E1FA6 /* GoogleService-Info.plist */,
 				1759D0D529544978001EB670 /* Assets.xcassets */,
 				1759D0D729544978001EB670 /* Preview Content */,
 			);
@@ -149,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				1759D10029545245001EB670 /* CredentialAuth */,
+				174F05502959402B001E1FA6 /* GoogleAuth */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -191,6 +202,7 @@
 				1759D10B2954550D001EB670 /* CredentialAuthUseCases.swift */,
 				1759D11929557D81001EB670 /* GetSignInState.swift */,
 				1759D11B29557DCD001EB670 /* GetSignInMethod.swift */,
+				174F055329594180001E1FA6 /* GoogleSignInUseCases.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -224,6 +236,7 @@
 				1759D10229545253001EB670 /* CredentialAuth */,
 				1759D10929545429001EB670 /* Factory */,
 				1759D12029558103001EB670 /* ValidatedPropertyKit */,
+				174F055129594037001E1FA6 /* GoogleAuth */,
 			);
 			productName = AuthExample;
 			productReference = 1759D0CE29544977001EB670 /* AuthExample.app */;
@@ -274,6 +287,7 @@
 			files = (
 				1759D0D929544978001EB670 /* Preview Assets.xcassets in Resources */,
 				1759D0D629544978001EB670 /* Assets.xcassets in Resources */,
+				174F055A29594572001E1FA6 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,6 +308,7 @@
 				1759D1072954531F001EB670 /* MainView.swift in Sources */,
 				1759D126295591B9001EB670 /* View+.swift in Sources */,
 				1759D124295591A2001EB670 /* Publisher+.swift in Sources */,
+				174F055429594180001E1FA6 /* GoogleSignInUseCases.swift in Sources */,
 				1759D11E29557EFE001EB670 /* LoginView.swift in Sources */,
 				1759D0D229544977001EB670 /* AuthExampleApp.swift in Sources */,
 				1759D11229554DAB001EB670 /* User.swift in Sources */,
@@ -422,11 +437,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AuthExample/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AuthExample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -437,8 +454,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sun-asterisk.com.AuthExample";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sun-asterisk.AuthExample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -450,11 +468,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"AuthExample/Preview Content\"";
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AuthExample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -465,8 +485,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.sun-asterisk.com.AuthExample";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.sun-asterisk.AuthExample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -516,6 +537,10 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		174F055129594037001E1FA6 /* GoogleAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GoogleAuth;
+		};
 		1759D10229545253001EB670 /* CredentialAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CredentialAuth;

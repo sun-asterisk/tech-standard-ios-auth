@@ -30,13 +30,6 @@ public class GoogleAuth: BaseAuth {
         GIDSignIn.sharedInstance.currentUser
     }
     
-    /// This method should be called from your UIApplicationDelegate’s application:openURL:options: method.
-    /// - Parameter url: the url
-    /// - Returns: return false if not handled by this app
-    public func handle(_ url: URL) -> Bool {
-        GIDSignIn.sharedInstance.handle(url)
-    }
-    
     /// Starts an interactive sign-in flow on iOS.
     /// - Parameters:
     ///   - presentingViewController: the presenting view controller

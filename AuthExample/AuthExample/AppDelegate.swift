@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import CredentialAuth
 import Factory
+import FirebaseCore
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
     var cancelBag = CancelBag()
@@ -19,7 +20,11 @@ final class AppDelegate: NSObject, UIApplicationDelegate {
         _ application: UIApplication,
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
     ) -> Bool {
+        // Credential
         CredentialAuth.shared.delegate = self
+        
+        // Google Sign-in
+        FirebaseApp.configure()
         
         return true
     }
