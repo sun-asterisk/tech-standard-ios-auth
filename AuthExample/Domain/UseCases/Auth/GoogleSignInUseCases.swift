@@ -26,7 +26,7 @@ extension GoogleSignInUseCases {
         GoogleAuth.shared.signIn(presentingViewController: presentingViewController)
     }
     
-    func signOutGoogle() -> AnyPublisher<Void, Error> {
+    func signOutGoogle() -> Error? {
         GoogleAuth.shared.signOut()
     }
 }

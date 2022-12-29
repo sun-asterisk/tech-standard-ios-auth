@@ -12,14 +12,23 @@ import CredentialAuth
 import Combine
 import GoogleSignInSwift
 import GoogleSignIn
+//import FacebookLogin
+//import FacebookCore
 
-struct MainView: View, GetSignInState, GetSignInMethod, CredentialAuthUseCases, GoogleSignInUseCases {
+struct MainView: View,
+                 GetSignInState,
+                 GetSignInMethod,
+                 CredentialAuthUseCases,
+                 GoogleSignInUseCases,
+                 FacebookUseCases {
+    
     @State private var showLogin = false
     @State private var cancelBag = CancelBag()
     @State private var signInState = SignInState.signedOut
     @State private var signInMethod = SignInMethod.none
     @State private var user: User?
     @State private var googleUser: GIDGoogleUser?
+    @State private var facebookUser: [String: Any]?
     @State private var error: IDError?
     @State private var isLoading = false
     
@@ -74,6 +83,17 @@ struct MainView: View, GetSignInState, GetSignInMethod, CredentialAuthUseCases, 
                         signInGoogle()
                     }
                     .frame(width: 220)
+                    
+                    Button {
+                        isLoading = true
+                        loginFacebook()
+                    } label: {
+                        Text("Facebook")
+                            .frame(width: 200)
+                    }
+                    .contentShape(Rectangle())
+                    .buttonStyle(.borderedProminent)
+                    
                 }
                 .disabled(isLoading)
                 
@@ -97,6 +117,8 @@ struct MainView: View, GetSignInState, GetSignInMethod, CredentialAuthUseCases, 
             credentialView
         case .google:
             googleSignInView
+        case .facebook:
+            faceBookLoginView
         default:
             EmptyView()
         }
@@ -158,6 +180,35 @@ struct MainView: View, GetSignInState, GetSignInMethod, CredentialAuthUseCases, 
             Spacer()
         }
     }
+    
+    var faceBookLoginView: some View {
+        VStack {
+            VStack {
+                Text("Welcome")
+                    .font(.title)
+                
+                if let name = facebookUser?["name"] as? String {
+                    Text(name)
+                        .font(.title2)
+                        .minimumScaleFactor(0.1)
+                }
+            }
+            
+            .padding(.bottom, 100)
+            .padding(.top, 100)
+            
+            Button {
+                logoutFacebook()
+            } label: {
+                Text("Logout")
+                    .frame(width: 200)
+            }
+            .contentShape(Rectangle())
+            .buttonStyle(.borderedProminent)
+            
+            Spacer()
+        }
+    }
 }
 
 // MARK: - Methods
@@ -172,13 +223,16 @@ private extension MainView {
             case .credential:
                 user = getUser()
             case .google:
-                restorePreviousSignIn()
+                restorePreviousGoogleSignIn()
+            case .facebook:
+                restorePreviousFacebookLogin()
             default:
                 break
             }
         } else {
             user = nil
             googleUser = nil
+            facebookUser = nil
         }
     }
 }
@@ -199,9 +253,14 @@ private extension MainView {
 private extension MainView {
     func signInGoogle() {
         signInGoogle(presentingViewController: nil)
-            .handleFailure(error: $error)
-            .sink(receiveCompletion: { _ in
-                isLoading = false
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    isLoading = false
+                    self.error = IDError(error: error)
+                case .finished:
+                    break
+                }
             }, receiveValue: { _, user in
                 updateGoogleSignInState(with: user)
             })
@@ -209,15 +268,16 @@ private extension MainView {
     }
     
     func signOutGoogle() {
-        signOutGoogle()
-            .handleFailure(error: $error)
-            .sink {
-                loadSignInState()
-            }
-            .store(in: cancelBag)
+        let error: Error? = signOutGoogle()
+        
+        if let error {
+            self.error = IDError(error: error)
+        }
+        
+        loadSignInState()
     }
     
-    func restorePreviousSignIn() {
+    func restorePreviousGoogleSignIn() {
         restorePreviousSignInGoogle()
             .handleFailure(error: $error)
             .sink { user in
@@ -232,5 +292,50 @@ private extension MainView {
         googleUser = user
         isLoading = false
     }
+}
+
+// MARK: - Facebook Login
+private extension MainView {
+    func loginFacebook() {
+        loginFacebook(viewController: nil)
+            .sink(receiveCompletion: { completion in
+                switch completion {
+                case .failure(let error):
+                    isLoading = false
+                    self.error = IDError(error: error)
+                case .finished:
+                    break
+                }
+            }, receiveValue: { (result, user) in
+                print(result)
+                updateFacebookLoginState(with: user)
+            })
+            .store(in: cancelBag)
+    }
+    
+    func updateFacebookLoginState(with user: [String: Any]?) {
+        signInState = .signedIn
+        signInMethod = .facebook
+        facebookUser = user
+        isLoading = false
+    }
+    
+    func logoutFacebook() {
+        let error: Error? = logoutFacebook()
         
+        if let error {
+            self.error = IDError(error: error)
+        }
+        
+        loadSignInState()
+    }
+    
+    func restorePreviousFacebookLogin() {
+        getFacebookUser()
+            .handleFailure(error: $error)
+            .sink { user in
+                updateFacebookLoginState(with: user)
+            }
+            .store(in: cancelBag)
+    }
 }

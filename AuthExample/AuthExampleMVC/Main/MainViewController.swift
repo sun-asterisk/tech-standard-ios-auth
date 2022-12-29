@@ -11,6 +11,7 @@ import GoogleAuth
 import GoogleSignIn
 import BaseAuth
 import Combine
+import FacebookLogin
 
 class MainViewController: UIViewController, GetSignInState, GetSignInMethod, CredentialAuthUseCases, GoogleSignInUseCases {
     @IBOutlet weak var loginMethodsView: UIView!
@@ -18,6 +19,7 @@ class MainViewController: UIViewController, GetSignInState, GetSignInMethod, Cre
     @IBOutlet weak var googleSignInButton: UIView!
     @IBOutlet weak var logoutButton: UIButton!
     @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var facebookButtonView: UIView!
     
     private var signInState = SignInState.signedOut
     private var signInMethod = SignInMethod.none
@@ -27,6 +29,17 @@ class MainViewController: UIViewController, GetSignInState, GetSignInMethod, Cre
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Config Facebook Login Button
+        let loginButton = FBLoginButton()
+//        loginButton.permissions = ["public_profile", "email"]
+        facebookButtonView.addSubview(loginButton)
+        
+        loginButton.translatesAutoresizingMaskIntoConstraints = false
+        loginButton.leadingAnchor.constraint(equalTo: facebookButtonView.leadingAnchor).isActive = true
+        loginButton.trailingAnchor.constraint(equalTo: facebookButtonView.trailingAnchor).isActive = true
+        loginButton.topAnchor.constraint(equalTo: facebookButtonView.topAnchor).isActive = true
+        loginButton.bottomAnchor.constraint(equalTo: facebookButtonView.bottomAnchor).isActive = true
         
         loadSignInState()
     }
@@ -128,18 +141,8 @@ private extension MainViewController {
 // MARK: - GoogleAuth
 private extension MainViewController {
     func signOutGoogle() {
-        signOutGoogle()
-            .sink { completion in
-                switch completion {
-                case .failure(let error):
-                    print(error)
-                default:
-                    break
-                }
-            } receiveValue: { [weak self] in
-                self?.loadSignInState()
-            }
-            .store(in: cancelBag)
+        let _: Error? = signOutGoogle()
+        loadSignInState()
     }
     
     func restorePreviousSignInGoogle() {

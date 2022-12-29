@@ -5,43 +5,27 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.913131600394-pjhhd62m21kmtd6ou03ildp73io40bv9</string>
+				<string>com.googleusercontent.apps.913131600394-3v7m1as462ree4mrj8f0ojstikjfvsr2</string>
+                <string>fb896126228412582</string>
 			</array>
 		</dict>
 	</array>
-	<key>UIApplicationSceneManifest</key>
-	<dict>
-		<key>UIApplicationSupportsMultipleScenes</key>
-		<false/>
-		<key>UISceneConfigurations</key>
-		<dict>
-			<key>UIWindowSceneSessionRoleApplication</key>
-			<array>
-				<dict>
-					<key>UISceneConfigurationName</key>
-					<string>Default Configuration</string>
-					<key>UISceneDelegateClassName</key>
-					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
-					<key>UISceneStoryboardFile</key>
-					<string>Main</string>
-				</dict>
-			</array>
-		</dict>
-	</dict>
-    <key>GIDClientID</key>
-    <string>913131600394-3v7m1as462ree4mrj8f0ojstikjfvsr2.apps.googleusercontent.com</string>
-    <key>CFBundleURLTypes</key>
+    
+	<key>GIDClientID</key>
+	<string>913131600394-3v7m1as462ree4mrj8f0ojstikjfvsr2.apps.googleusercontent.com</string>
+    
+    <key>FacebookAppID</key>
+    <string>896126228412582</string>
+    <key>FacebookClientToken</key>
+    <string>62377fca6b9a9fe1eb9fac85d9269e0b</string>
+    <key>FacebookDisplayName</key>
+    <string>AuthSample</string>
+
+    <key>LSApplicationQueriesSchemes</key>
     <array>
-      <dict>
-        <key>CFBundleURLSchemes</key>
-        <array>
-          <string>com.googleusercontent.apps.913131600394-3v7m1as462ree4mrj8f0ojstikjfvsr2</string>
-        </array>
-      </dict>
+      <string>fbauth2</string>
     </array>
 </dict>
 </plist>

@@ -5,4 +5,5 @@ public enum SignInMethod: Int {
     case none
     case credential
     case google
+    case facebook
 }

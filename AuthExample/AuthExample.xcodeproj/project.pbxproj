@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		174F055229594037001E1FA6 /* GoogleAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 174F055129594037001E1FA6 /* GoogleAuth */; };
+		17293C2329641CB700C02C2D /* FacebookUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17293C2229641CB700C02C2D /* FacebookUseCases.swift */; };
+		17293C2429641CB700C02C2D /* FacebookUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17293C2229641CB700C02C2D /* FacebookUseCases.swift */; };
 		174F055429594180001E1FA6 /* GoogleSignInUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F055329594180001E1FA6 /* GoogleSignInUseCases.swift */; };
 		174F055A29594572001E1FA6 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 174F055929594572001E1FA6 /* GoogleService-Info.plist */; };
 		174F056629595372001E1FA6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F056529595372001E1FA6 /* AppDelegate.swift */; };
-		174F056829595372001E1FA6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F056729595372001E1FA6 /* SceneDelegate.swift */; };
 		174F056D29595372001E1FA6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 174F056B29595372001E1FA6 /* Main.storyboard */; };
 		174F056F29595372001E1FA6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 174F056E29595372001E1FA6 /* Assets.xcassets */; };
 		174F057229595372001E1FA6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 174F057029595372001E1FA6 /* LaunchScreen.storyboard */; };
@@ -35,7 +35,6 @@
 		1759D0D629544978001EB670 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1759D0D529544978001EB670 /* Assets.xcassets */; };
 		1759D0D929544978001EB670 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1759D0D829544978001EB670 /* Preview Assets.xcassets */; };
 		1759D0FE295451E1001EB670 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D0FD295451E1001EB670 /* Token.swift */; };
-		1759D10329545253001EB670 /* CredentialAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1759D10229545253001EB670 /* CredentialAuth */; };
 		1759D1072954531F001EB670 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D1062954531F001EB670 /* MainView.swift */; };
 		1759D10A29545429001EB670 /* Factory in Frameworks */ = {isa = PBXBuildFile; productRef = 1759D10929545429001EB670 /* Factory */; };
 		1759D10C2954550D001EB670 /* CredentialAuthUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D10B2954550D001EB670 /* CredentialAuthUseCases.swift */; };
@@ -49,16 +48,19 @@
 		1759D12129558103001EB670 /* ValidatedPropertyKit in Frameworks */ = {isa = PBXBuildFile; productRef = 1759D12029558103001EB670 /* ValidatedPropertyKit */; };
 		1759D124295591A2001EB670 /* Publisher+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D123295591A2001EB670 /* Publisher+.swift */; };
 		1759D126295591B9001EB670 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1759D125295591B9001EB670 /* View+.swift */; };
+		1778DB8A295D8EDE00A793F7 /* FacebookAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1778DB89295D8EDE00A793F7 /* FacebookAuth */; };
+		1778DB8C295D8EE300A793F7 /* FacebookAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1778DB8B295D8EE300A793F7 /* FacebookAuth */; };
+		17BA7219295BFB89007DAEF6 /* CredentialAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 17BA7218295BFB89007DAEF6 /* CredentialAuth */; };
+		17BA721B295BFB8D007DAEF6 /* GoogleAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 17BA721A295BFB8D007DAEF6 /* GoogleAuth */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		174F05502959402B001E1FA6 /* GoogleAuth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GoogleAuth; path = ../GoogleAuth; sourceTree = "<group>"; };
+		17293C2229641CB700C02C2D /* FacebookUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookUseCases.swift; sourceTree = "<group>"; };
 		174F055329594180001E1FA6 /* GoogleSignInUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInUseCases.swift; sourceTree = "<group>"; };
 		174F055929594572001E1FA6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		174F055B2959460F001E1FA6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		174F056329595371001E1FA6 /* AuthExampleMVC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AuthExampleMVC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		174F056529595372001E1FA6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		174F056729595372001E1FA6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		174F056C29595372001E1FA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		174F056E29595372001E1FA6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		174F057129595372001E1FA6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -71,7 +73,6 @@
 		1759D0D529544978001EB670 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1759D0D829544978001EB670 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1759D0FD295451E1001EB670 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
-		1759D10029545245001EB670 /* CredentialAuth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CredentialAuth; path = ../CredentialAuth; sourceTree = "<group>"; };
 		1759D1062954531F001EB670 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		1759D10B2954550D001EB670 /* CredentialAuthUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialAuthUseCases.swift; sourceTree = "<group>"; };
 		1759D10D2954552A001EB670 /* CredentialAuthGateway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CredentialAuthGateway.swift; sourceTree = "<group>"; };
@@ -83,6 +84,9 @@
 		1759D11D29557EFE001EB670 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		1759D123295591A2001EB670 /* Publisher+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Publisher+.swift"; sourceTree = "<group>"; };
 		1759D125295591B9001EB670 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
+		1778DB88295D8ED000A793F7 /* FacebookAuth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FacebookAuth; path = ../FacebookAuth; sourceTree = "<group>"; };
+		17B7BC1C295BF9C100B34DFA /* CredentialAuth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = CredentialAuth; path = ../CredentialAuth; sourceTree = "<group>"; };
+		17B7BC1D295BF9D000B34DFA /* GoogleAuth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = GoogleAuth; path = ../GoogleAuth; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1778DB8A295D8EDE00A793F7 /* FacebookAuth in Frameworks */,
 				174F058C295958FD001E1FA6 /* Factory in Frameworks */,
 				174F057D29595756001E1FA6 /* CredentialAuth in Frameworks */,
 				174F057F29595756001E1FA6 /* GoogleAuth in Frameworks */,
@@ -101,8 +106,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1759D12129558103001EB670 /* ValidatedPropertyKit in Frameworks */,
-				174F055229594037001E1FA6 /* GoogleAuth in Frameworks */,
-				1759D10329545253001EB670 /* CredentialAuth in Frameworks */,
+				1778DB8C295D8EE300A793F7 /* FacebookAuth in Frameworks */,
+				17BA7219295BFB89007DAEF6 /* CredentialAuth in Frameworks */,
+				17BA721B295BFB8D007DAEF6 /* GoogleAuth in Frameworks */,
 				1759D10A29545429001EB670 /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,7 +122,6 @@
 				174F058129595803001E1FA6 /* Credential */,
 				174F05792959571D001E1FA6 /* Main */,
 				174F056529595372001E1FA6 /* AppDelegate.swift */,
-				174F056729595372001E1FA6 /* SceneDelegate.swift */,
 				174F056B29595372001E1FA6 /* Main.storyboard */,
 				174F056E29595372001E1FA6 /* Assets.xcassets */,
 				174F057029595372001E1FA6 /* LaunchScreen.storyboard */,
@@ -233,8 +238,9 @@
 		1759D0FF29545245001EB670 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				1759D10029545245001EB670 /* CredentialAuth */,
-				174F05502959402B001E1FA6 /* GoogleAuth */,
+				17B7BC1C295BF9C100B34DFA /* CredentialAuth */,
+				17B7BC1D295BF9D000B34DFA /* GoogleAuth */,
+				1778DB88295D8ED000A793F7 /* FacebookAuth */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -278,6 +284,7 @@
 				1759D11929557D81001EB670 /* GetSignInState.swift */,
 				1759D11B29557DCD001EB670 /* GetSignInMethod.swift */,
 				174F055329594180001E1FA6 /* GoogleSignInUseCases.swift */,
+				17293C2229641CB700C02C2D /* FacebookUseCases.swift */,
 			);
 			path = Auth;
 			sourceTree = "<group>";
@@ -311,6 +318,7 @@
 				174F057C29595756001E1FA6 /* CredentialAuth */,
 				174F057E29595756001E1FA6 /* GoogleAuth */,
 				174F058B295958FD001E1FA6 /* Factory */,
+				1778DB89295D8EDE00A793F7 /* FacebookAuth */,
 			);
 			productName = AuthExampleMVC;
 			productReference = 174F056329595371001E1FA6 /* AuthExampleMVC.app */;
@@ -330,10 +338,11 @@
 			);
 			name = AuthExample;
 			packageProductDependencies = (
-				1759D10229545253001EB670 /* CredentialAuth */,
 				1759D10929545429001EB670 /* Factory */,
 				1759D12029558103001EB670 /* ValidatedPropertyKit */,
-				174F055129594037001E1FA6 /* GoogleAuth */,
+				17BA7218295BFB89007DAEF6 /* CredentialAuth */,
+				17BA721A295BFB8D007DAEF6 /* GoogleAuth */,
+				1778DB8B295D8EE300A793F7 /* FacebookAuth */,
 			);
 			productName = AuthExample;
 			productReference = 1759D0CE29544977001EB670 /* AuthExample.app */;
@@ -415,8 +424,8 @@
 				174F0585295958A7001E1FA6 /* GetSignInMethod.swift in Sources */,
 				174F058D29595B0B001E1FA6 /* Publisher+.swift in Sources */,
 				174F0587295958A7001E1FA6 /* CredentialAuthUseCases.swift in Sources */,
+				17293C2429641CB700C02C2D /* FacebookUseCases.swift in Sources */,
 				174F056629595372001E1FA6 /* AppDelegate.swift in Sources */,
-				174F056829595372001E1FA6 /* SceneDelegate.swift in Sources */,
 				174F05832959586E001E1FA6 /* LoginViewController.swift in Sources */,
 				174F0584295958A7001E1FA6 /* GoogleSignInUseCases.swift in Sources */,
 				174F058A295958AE001E1FA6 /* CredentialAuthGateway.swift in Sources */,
@@ -432,6 +441,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1759D11029554D3B001EB670 /* AppDelegate.swift in Sources */,
+				17293C2329641CB700C02C2D /* FacebookUseCases.swift in Sources */,
 				1759D10C2954550D001EB670 /* CredentialAuthUseCases.swift in Sources */,
 				1759D11529554EF8001EB670 /* CancelBag.swift in Sources */,
 				1759D11C29557DCD001EB670 /* GetSignInMethod.swift in Sources */,
@@ -481,10 +491,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AuthExampleMVC/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -510,10 +520,10 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = AuthExampleMVC/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -756,10 +766,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		174F055129594037001E1FA6 /* GoogleAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = GoogleAuth;
-		};
 		174F057C29595756001E1FA6 /* CredentialAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CredentialAuth;
@@ -773,10 +779,6 @@
 			package = 1759D10829545429001EB670 /* XCRemoteSwiftPackageReference "Factory" */;
 			productName = Factory;
 		};
-		1759D10229545253001EB670 /* CredentialAuth */ = {
-			isa = XCSwiftPackageProductDependency;
-			productName = CredentialAuth;
-		};
 		1759D10929545429001EB670 /* Factory */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 1759D10829545429001EB670 /* XCRemoteSwiftPackageReference "Factory" */;
@@ -786,6 +788,22 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 1759D11F29558103001EB670 /* XCRemoteSwiftPackageReference "ValidatedPropertyKit" */;
 			productName = ValidatedPropertyKit;
+		};
+		1778DB89295D8EDE00A793F7 /* FacebookAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FacebookAuth;
+		};
+		1778DB8B295D8EE300A793F7 /* FacebookAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = FacebookAuth;
+		};
+		17BA7218295BFB89007DAEF6 /* CredentialAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = CredentialAuth;
+		};
+		17BA721A295BFB8D007DAEF6 /* GoogleAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = GoogleAuth;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

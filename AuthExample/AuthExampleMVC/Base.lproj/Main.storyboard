@@ -90,12 +90,22 @@
                                                     <action selector="googleSignInSender:" destination="8ti-Aq-zal" eventType="touchUpInside" id="t5A-qP-19c"/>
                                                 </connections>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t91-NY-fAD">
+                                                <rect key="frame" x="0.0" y="235.66666666666669" width="200" height="35"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="35" id="YwF-Ds-kug"/>
+                                                </constraints>
+                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="mYy-uo-OVT" secondAttribute="trailing" id="10w-gi-Ajc"/>
                                             <constraint firstItem="j4f-ZN-tUD" firstAttribute="top" secondItem="B6Z-wW-JgR" secondAttribute="top" id="AGq-Rb-lbK"/>
+                                            <constraint firstItem="t91-NY-fAD" firstAttribute="top" secondItem="mYy-uo-OVT" secondAttribute="bottom" constant="16" id="Jp6-xD-htB"/>
                                             <constraint firstItem="mYy-uo-OVT" firstAttribute="top" secondItem="zSQ-aw-Icd" secondAttribute="bottom" constant="16" id="Pfs-V8-BZI"/>
+                                            <constraint firstAttribute="trailing" secondItem="t91-NY-fAD" secondAttribute="trailing" id="Qd9-92-bvL"/>
+                                            <constraint firstItem="t91-NY-fAD" firstAttribute="leading" secondItem="B6Z-wW-JgR" secondAttribute="leading" id="Uti-CT-5Nh"/>
                                             <constraint firstItem="zSQ-aw-Icd" firstAttribute="top" secondItem="j4f-ZN-tUD" secondAttribute="bottom" constant="100" id="WSt-ze-YuQ"/>
                                             <constraint firstItem="zSQ-aw-Icd" firstAttribute="leading" secondItem="B6Z-wW-JgR" secondAttribute="leading" id="Zi0-qb-d73"/>
                                             <constraint firstItem="j4f-ZN-tUD" firstAttribute="centerX" secondItem="B6Z-wW-JgR" secondAttribute="centerX" id="dg7-YD-8Ii"/>
@@ -118,6 +128,7 @@
                     </view>
                     <connections>
                         <outlet property="emailLabel" destination="a81-iB-S1M" id="6K9-WK-yT2"/>
+                        <outlet property="facebookButtonView" destination="t91-NY-fAD" id="ZTs-L9-ex7"/>
                         <outlet property="googleSignInButton" destination="mYy-uo-OVT" id="sqI-Um-c9O"/>
                         <outlet property="loginMethodsView" destination="B6Z-wW-JgR" id="8wa-sp-erk"/>
                         <outlet property="logoutButton" destination="W5n-yO-Pzp" id="E5S-Ta-UtZ"/>

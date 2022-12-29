@@ -8,10 +8,6 @@ public class GoogleAuth: BaseAuth {
     /// A shared instance.
     public static let shared = GoogleAuth()
     
-    public override init() {
-        super.init()
-    }
-    
     /// Attempts to restore a previous user sign-in without interaction.
     /// - Parameter completion: invoked when restore completed or failed
     public func restorePreviousSignIn(completion: ((Result<GIDGoogleUser, Error>) -> Void)? = nil) {
@@ -88,18 +84,16 @@ public class GoogleAuth: BaseAuth {
     }
     
     /// Sign out Google and Firebase Auth.
-    /// - Parameters:
-    ///   - credential: logout information such as device id, token
-    ///   - completion: invoked when logout completed
-    public func signOut(completion: ((Result<Void, Error>) -> Void)? = nil) {
+    /// - Returns: error if any
+    public func signOut() -> Error? {
         GIDSignIn.sharedInstance.signOut()
         
         do {
             try Auth.auth().signOut()
             reset()
-            completion?(.success(()))
+            return nil
         } catch {
-            completion?(.failure(error))
+            return error
         }
     }
 }

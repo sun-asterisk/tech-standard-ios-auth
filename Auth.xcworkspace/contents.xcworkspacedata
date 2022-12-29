@@ -5,6 +5,9 @@
       location = "group:AuthExample/AuthExample.xcodeproj">
    </FileRef>
    <FileRef
+      location = "group:FacebookAuth">
+   </FileRef>
+   <FileRef
       location = "group:GoogleAuth">
    </FileRef>
    <FileRef

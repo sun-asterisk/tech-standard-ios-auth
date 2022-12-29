@@ -22,12 +22,4 @@ public extension GoogleAuth {
             )
         }
     }
-    
-    /// Sign out Google and Firebase Auth.
-    /// - Returns: sign-out results
-    func signOut() async -> Result<Void, Error> {
-        await withCheckedContinuation { continuation in
-            signOut(completion: continuation.resume(returning:))
-        }
-    }
 }

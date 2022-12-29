@@ -21,13 +21,4 @@ public extension GoogleAuth {
         }
         .eraseToAnyPublisher()
     }
-    
-    /// Sign out Google and Firebase Auth.
-    /// - Returns: an AnyPublisher containing sign-out results
-    func signOut() -> AnyPublisher<Void, Error> {
-        Future { [weak self] promise in
-            self?.signOut(completion: promise)
-        }
-        .eraseToAnyPublisher()
-    }
 }
