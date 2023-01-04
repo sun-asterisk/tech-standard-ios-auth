@@ -7,10 +7,14 @@ public class GoogleAuth: BaseAuth {
     // MARK: - Public properties
     /// A shared instance.
     public static let shared = GoogleAuth()
+}
+
+// MARK: - Public methods
+public extension GoogleAuth {
     
     /// Attempts to restore a previous user sign-in without interaction.
     /// - Parameter completion: invoked when restore completed or failed
-    public func restorePreviousSignIn(completion: ((Result<GIDGoogleUser, Error>) -> Void)? = nil) {
+    func restorePreviousSignIn(completion: ((Result<GIDGoogleUser, Error>) -> Void)? = nil) {
         GIDSignIn.sharedInstance.restorePreviousSignIn { [weak self] user, error in
             if let user {
                 self?.state = .signedIn
@@ -22,7 +26,7 @@ public class GoogleAuth: BaseAuth {
         }
     }
     
-    public func getUser() -> GIDGoogleUser? {
+    func getUser() -> GIDGoogleUser? {
         GIDSignIn.sharedInstance.currentUser
     }
     
@@ -30,8 +34,8 @@ public class GoogleAuth: BaseAuth {
     /// - Parameters:
     ///   - presentingViewController: the presenting view controller
     ///   - completion: invoked when sign in completed or failed
-    public func signIn(presentingViewController: UIViewController? = nil,
-                       completion: ((Result<(AuthDataResult?, GIDGoogleUser?), Error>) -> Void)? = nil) {
+    func signIn(presentingViewController: UIViewController? = nil,
+                completion: ((Result<(AuthDataResult?, GIDGoogleUser?), Error>) -> Void)? = nil) {
         
         func authenticateUser(for user: GIDGoogleUser?, with error: Error?) {
             if let error = error {
@@ -85,7 +89,7 @@ public class GoogleAuth: BaseAuth {
     
     /// Sign out Google and Firebase Auth.
     /// - Returns: error if any
-    public func signOut() -> Error? {
+    func signOut() -> Error? {
         GIDSignIn.sharedInstance.signOut()
         
         do {

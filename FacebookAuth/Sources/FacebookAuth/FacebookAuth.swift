@@ -2,34 +2,6 @@ import BaseAuth
 import FacebookLogin
 import FirebaseAuth
 
-public enum FacebookAuthError: LocalizedError {
-    case cancelled
-    case noAccount
-    case noAccessToken
-    case notLogin
-    
-    public var errorDescription: String? {
-        switch self {
-        case .cancelled:
-            return NSLocalizedString("facebookAuth.error.cancelled",
-                                     value: "User cancelled login.",
-                                     comment: "")
-        case .noAccount:
-            return NSLocalizedString("facebookAuth.error.noAccount",
-                                     value: "No account.",
-                                     comment: "")
-        case .noAccessToken:
-            return NSLocalizedString("facebookAuth.error.noAccessToken",
-                                     value: "No access token.",
-                                     comment: "")
-        case .notLogin:
-            return NSLocalizedString("facebookAuth.error.notLogin",
-                                     value: "Not login.",
-                                     comment: "")
-        }
-    }
-}
-
 public class FacebookAuth: BaseAuth {
     // MARK: - Public properties
     
@@ -48,6 +20,22 @@ public class FacebookAuth: BaseAuth {
     
     // MARK: - Private properties
     private let loginManager = LoginManager()
+
+    // FBLoginButton (UIKit)
+    private weak var loginButton: FBLoginButton?
+    private var userFields = ""
+    private var loginCompletion: ((Result<(AuthDataResult, [String: Any]?), Error>) -> Void)?
+    private var logoutCompletion: ((Error?) -> Void)?
+    
+    // MARK: - Override
+    
+    public override func reset() {
+        super.reset()
+    }
+}
+
+// MARK: - Public methods
+public extension FacebookAuth {
     
     /// Login Facebook and Firebase Auth.
     /// - Parameters:
@@ -55,11 +43,11 @@ public class FacebookAuth: BaseAuth {
     ///   - fields: User's fields (id, name, ...). Reference: https://developers.facebook.com/docs/graph-api/reference/v3.2/user
     ///   - viewController: the presenting view controller
     ///   - completion: invoked when login completed or failed
-    public func logIn(permissions: [Permission],
-                      fields: String,
-                      viewController: UIViewController?,
-                      completion: ((Result<(AuthDataResult, [String: Any]?), Error>) -> Void)? = nil) {
-        loginManager.logIn(permissions: permissions, viewController: viewController) { loginResult in
+    func logIn(permissions: [Permission],
+               fields: String,
+               viewController: UIViewController?,
+               completion: ((Result<(AuthDataResult, [String: Any]?), Error>) -> Void)? = nil) {
+        loginManager.logIn(permissions: permissions, viewController: viewController) { [weak self] loginResult in
             switch loginResult {
             case .failed(let error):
                 completion?(.failure(error))
@@ -71,50 +59,21 @@ public class FacebookAuth: BaseAuth {
                     return
                 }
                 
-                let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
-
-                Auth.auth().signIn(with: credential) { [weak self] (result, error) in
-                    if let result {
-                        self?.state = .signedIn
-                        self?.method = .facebook
-                        
-                        GraphRequest(graphPath: "me", parameters: ["fields": fields])
-                            .start(completionHandler: { (connection, requestResult, error) -> Void in
-                                if let error {
-                                    print(error)
-                                    completion?(.success((result, nil)))
-                                } else if let userInfo = requestResult as? [String: Any] {
-                                    completion?(.success((result, userInfo)))
-                                } else {
-                                    completion?(.success((result, nil)))
-                                }
-                            })
-                    } else if let error {
-                        self?.reset()
-                        completion?(.failure(error))
-                    }
-                }
+                self?.loginFirebaseAuth(accessToken: accessToken, fields: fields, completion: completion)
             }
         }
     }
     
     /// Logout Facebook and Firebase Auth.
     /// - Returns: error if any
-    public func logOut() -> Error? {
+    func logout() -> Error? {
         loginManager.logOut()
-        
-        do {
-            try Auth.auth().signOut()
-            reset()
-            return nil
-        } catch {
-            return error
-        }
+        return logoutFirebase()
     }
     
     /// Get current access token.
     /// - Returns: current access token
-    public func getAccessToken() -> AccessToken? {
+    func getAccessToken() -> AccessToken? {
         AccessToken.current
     }
     
@@ -122,8 +81,8 @@ public class FacebookAuth: BaseAuth {
     /// - Parameters:
     ///   - fields: User's fields (id, name, ...). Reference: https://developers.facebook.com/docs/graph-api/reference/v3.2/user
     ///   - completion: invoked when getting user info completed or failed
-    public func getUserInfo(fields: String,
-                            completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
+    func getUserInfo(fields: String,
+                     completion: @escaping (Result<[String: Any]?, Error>) -> Void) {
         guard isLoggedIn else {
             completion(.failure(FacebookAuthError.notLogin))
             return
@@ -139,5 +98,99 @@ public class FacebookAuth: BaseAuth {
                     completion(.success(nil))
                 }
             })
+    }
+    
+    /// Set delegate for FBLoginButton.
+    /// - Parameters:
+    ///   - button: a FBLoginButton
+    ///   - fields: User's fields (id, name, ...). Reference: https://developers.facebook.com/docs/graph-api/reference/v3.2/user
+    ///   - loginCompletion: invoked when login completed or failed
+    ///   - logoutCompletion: invoked when logout completed or failed
+    func setDelegate(for button: FBLoginButton,
+                     fields: String,
+                     loginCompletion: ((Result<(AuthDataResult, [String: Any]?), Error>) -> Void)? = nil,
+                     logoutCompletion: ((Error?) -> Void)? = nil) {
+        button.delegate = self
+        self.loginButton = button
+        self.userFields = fields
+        self.loginCompletion = loginCompletion
+        self.logoutCompletion = logoutCompletion
+    }
+    
+    /// Remove delegate for FBLoginButton.
+    /// - Parameter button: a FBLoginButton
+    func removeDelegate(for button: FBLoginButton? = nil) {
+        button?.delegate = nil
+        userFields = ""
+        loginButton?.delegate = nil
+        loginButton = nil
+        loginCompletion = nil
+        logoutCompletion = nil
+    }
+}
+
+// MARK: - Private methods
+private extension FacebookAuth {
+    func loginFirebaseAuth(accessToken: AccessToken,
+                           fields: String,
+                           completion: ((Result<(AuthDataResult, [String: Any]?), Error>) -> Void)?) {
+        let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
+
+        Auth.auth().signIn(with: credential) { [weak self] (result, error) in
+            if let result {
+                self?.state = .signedIn
+                self?.method = .facebook
+                
+                GraphRequest(graphPath: "me", parameters: ["fields": fields])
+                    .start(completionHandler: { (connection, requestResult, error) -> Void in
+                        if let error {
+                            print(error)
+                            completion?(.success((result, nil)))
+                        } else if let userInfo = requestResult as? [String: Any] {
+                            completion?(.success((result, userInfo)))
+                        } else {
+                            completion?(.success((result, nil)))
+                        }
+                    })
+            } else if let error {
+                self?.reset()
+                completion?(.failure(error))
+            }
+        }
+    }
+    
+    func logoutFirebase() -> Error? {
+        do {
+            try Auth.auth().signOut()
+            reset()
+            return nil
+        } catch {
+            return error
+        }
+    }
+}
+
+// MARK: - LoginButtonDelegate
+extension FacebookAuth: LoginButtonDelegate {
+    public func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        if let error {
+            loginCompletion?(.failure(error))
+        } else if let result {
+            if result.isCancelled {
+                loginCompletion?(.failure(FacebookAuthError.cancelled))
+            } else {
+                guard let accessToken = result.token else {
+                    loginCompletion?(.failure(FacebookAuthError.noAccessToken))
+                    return
+                }
+                
+                loginFirebaseAuth(accessToken: accessToken, fields: userFields, completion: loginCompletion)
+            }
+        }
+    }
+    
+    public func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        let error = logoutFirebase()
+        logoutCompletion?(error)
     }
 }

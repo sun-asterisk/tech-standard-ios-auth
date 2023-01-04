@@ -12,8 +12,14 @@ import GoogleSignIn
 import BaseAuth
 import Combine
 import FacebookLogin
+import FacebookAuth
 
-class MainViewController: UIViewController, GetSignInState, GetSignInMethod, CredentialAuthUseCases, GoogleSignInUseCases {
+class MainViewController: UIViewController,
+                          GetSignInState,
+                          GetSignInMethod,
+                          CredentialAuthUseCases,
+                          GoogleSignInUseCases,
+                          FacebookUseCases {
     @IBOutlet weak var loginMethodsView: UIView!
     @IBOutlet weak var logoutView: UIView!
     @IBOutlet weak var googleSignInButton: UIView!
@@ -25,6 +31,7 @@ class MainViewController: UIViewController, GetSignInState, GetSignInMethod, Cre
     private var signInMethod = SignInMethod.none
     private var user: User?
     private var googleUser: GIDGoogleUser?
+    private var facebookUser: [String: Any]?
     private var cancelBag = CancelBag()
 
     override func viewDidLoad() {
@@ -32,7 +39,25 @@ class MainViewController: UIViewController, GetSignInState, GetSignInMethod, Cre
         
         // Config Facebook Login Button
         let loginButton = FBLoginButton()
-//        loginButton.permissions = ["public_profile", "email"]
+        loginButton.permissions = [Permission.publicProfile, Permission.email].map { $0.name }
+        
+        FacebookAuth.shared.setDelegate(for: loginButton, fields: "id, name, first_name") { [weak self] result in
+            switch result {
+            case .success(let (result, user)):
+                self?.facebookUser = user
+                
+                if let user {
+                    print(user)
+                }
+            case .failure(let error):
+                print(error)
+            }
+        } logoutCompletion: { error in
+            if let error {
+                print(error)
+            }
+        }
+
         facebookButtonView.addSubview(loginButton)
         
         loginButton.translatesAutoresizingMaskIntoConstraints = false
@@ -56,6 +81,8 @@ class MainViewController: UIViewController, GetSignInState, GetSignInMethod, Cre
             logoutCredential()
         case .google:
             signOutGoogle()
+        case .facebook:
+            logoutFacebook()
         default:
             break
         }
@@ -91,6 +118,8 @@ private extension MainViewController {
                 emailLabel.text = user?.email ?? ""
             case .google:
                 restorePreviousSignInGoogle()
+            case .facebook:
+                restorePreviousLoginFacebook()
             default:
                 break
             }
@@ -101,6 +130,7 @@ private extension MainViewController {
             
             user = nil
             googleUser = nil
+            facebookUser = nil
         }
     }
 }
@@ -157,6 +187,30 @@ private extension MainViewController {
             } receiveValue: { [weak self] user in
                 self?.googleUser = user
                 self?.emailLabel.text = user.profile?.email
+            }
+            .store(in: cancelBag)
+    }
+}
+
+// MARK: - FacebookAuth
+private extension MainViewController {
+    func logoutFacebook() {
+        let _: Error? = logoutFacebook()
+        loadSignInState()
+    }
+    
+    func restorePreviousLoginFacebook() {
+        getFacebookUser()
+            .sink { completion in
+                switch completion {
+                case .failure(let error):
+                    print(error)
+                default:
+                    break
+                }
+            } receiveValue: { [weak self] user in
+                self?.facebookUser = user
+                self?.emailLabel.text = user?["name"] as? String
             }
             .store(in: cancelBag)
     }

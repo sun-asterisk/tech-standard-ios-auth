@@ -26,7 +26,7 @@ extension FacebookUseCases {
     }
     
     func logoutFacebook() -> Error? {
-        FacebookAuth.shared.logOut()
+        FacebookAuth.shared.logout()
     }
     
     func getFacebookUser() -> AnyPublisher<[String: Any]?, Error> {

@@ -1,7 +1,7 @@
 import Foundation
 
 /// Base auth class.
-open class BaseAuth {
+open class BaseAuth: NSObject {
     // MARK: - Public properties
     public var state: SignInState {
         didSet {
@@ -27,10 +27,11 @@ open class BaseAuth {
     private static let stateKey = "AUTH_STATE_KEY"
     private static let methodKey = "AUTH_METHOD_KEY"
     
-    public init() {
+    public override init() {
         let defaults = UserDefaults.standard
         state = SignInState(rawValue: defaults.integer(forKey: BaseAuth.stateKey)) ?? .signedOut
         method = SignInMethod(rawValue: defaults.integer(forKey: BaseAuth.methodKey)) ?? .none
+        super.init()
     }
     
     /// Reset to default values.
