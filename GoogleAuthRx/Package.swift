@@ -4,17 +4,17 @@
 import PackageDescription
 
 let package = Package(
-    name: "CredentialAuthRx",
+    name: "GoogleAuthRx",
     platforms: [
         .iOS(.v13)
     ],
     products: [
         .library(
-            name: "CredentialAuthRx",
-            targets: ["CredentialAuthRx"]),
+            name: "GoogleAuthRx",
+            targets: ["GoogleAuthRx"]),
     ],
     dependencies: [
-        .package(name: "CredentialAuth", path: "../CredentialAuth"),
+        .package(name: "GoogleAuth", path: "../GoogleAuth"),
         .package(
             url: "https://github.com/ReactiveX/RxSwift.git",
             .upToNextMajor(from: "6.0.0")
@@ -22,13 +22,13 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "CredentialAuthRx",
+            name: "GoogleAuthRx",
             dependencies: [
-                "CredentialAuth",
+                "GoogleAuth",
                 .product(name: "RxSwift", package: "RxSwift"),
             ]),
         .testTarget(
-            name: "CredentialAuthRxTests",
-            dependencies: ["CredentialAuthRx"]),
+            name: "GoogleAuthRxTests",
+            dependencies: ["GoogleAuthRx"]),
     ]
 )
