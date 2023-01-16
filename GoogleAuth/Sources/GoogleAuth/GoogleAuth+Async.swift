@@ -11,10 +11,22 @@ public extension GoogleAuth {
         }
     }
     
-    /// Starts an interactive sign-in flow on iOS.
+    /// Sign-in Google and Firebase Auth.
     /// - Parameter presentingViewController: the presenting view controller
     /// - Returns: sign-in results
     func signIn(presentingViewController: UIViewController? = nil) async -> Result<(AuthDataResult?, GIDGoogleUser?), Error> {
+        await withCheckedContinuation { continuation in
+            signIn(
+                presentingViewController: presentingViewController,
+                completion: continuation.resume(returning:)
+            )
+        }
+    }
+    
+    /// Sign-in Google.
+    /// - Parameter presentingViewController: the presenting view controller
+    /// - Returns: sign-in results
+    func signIn(presentingViewController: UIViewController? = nil) async -> Result<GIDGoogleUser?, Error> {
         await withCheckedContinuation { continuation in
             signIn(
                 presentingViewController: presentingViewController,

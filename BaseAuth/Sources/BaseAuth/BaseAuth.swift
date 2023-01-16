@@ -3,22 +3,27 @@ import Foundation
 /// Base auth class.
 open class BaseAuth: NSObject {
     // MARK: - Public properties
-    public var state: SignInState {
+    
+    /// Get/set sign-in state.
+    open var state: SignInState {
         didSet {
             saveState(state)
         }
     }
     
+    /// Get sign-in state.
     public static var state: SignInState {
         SignInState(rawValue: UserDefaults.standard.integer(forKey: BaseAuth.stateKey)) ?? .signedOut
     }
     
+    /// Get/set sign-in method.
     public var method: SignInMethod {
         didSet {
             saveMethod(method)
         }
     }
     
+    /// Get sign-in method.
     public static var method: SignInMethod {
         SignInMethod(rawValue: UserDefaults.standard.integer(forKey: BaseAuth.methodKey)) ?? .none
     }

@@ -12,10 +12,20 @@ public extension GoogleAuth {
         .eraseToAnyPublisher()
     }
     
-    /// Starts an interactive sign-in flow on iOS.
+    /// Sign-in Google and Firebase Auth.
     /// - Parameter presentingViewController: the presenting view controller
     /// - Returns: an AnyPublisher containing sign-in results
     func signIn(presentingViewController: UIViewController? = nil) -> AnyPublisher<(AuthDataResult?, GIDGoogleUser?), Error> {
+        Future { [weak self, weak presentingViewController] promise in
+            self?.signIn(presentingViewController: presentingViewController, completion: promise)
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    /// Sign-in Google.
+    /// - Parameter presentingViewController: the presenting view controller
+    /// - Returns: an AnyPublisher containing sign-in results
+    func signIn(presentingViewController: UIViewController? = nil) -> AnyPublisher<GIDGoogleUser?, Error> {
         Future { [weak self, weak presentingViewController] promise in
             self?.signIn(presentingViewController: presentingViewController, completion: promise)
         }

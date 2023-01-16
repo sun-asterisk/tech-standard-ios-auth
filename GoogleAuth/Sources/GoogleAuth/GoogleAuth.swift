@@ -30,7 +30,7 @@ public extension GoogleAuth {
         GIDSignIn.sharedInstance.currentUser
     }
     
-    /// Starts an interactive sign-in flow on iOS.
+    /// Sign-in Google and Firebase Auth.
     /// - Parameters:
     ///   - presentingViewController: the presenting view controller
     ///   - completion: invoked when sign in completed or failed
@@ -38,7 +38,7 @@ public extension GoogleAuth {
                 completion: ((Result<(AuthDataResult?, GIDGoogleUser?), Error>) -> Void)? = nil) {
         
         func authenticateUser(for user: GIDGoogleUser?, with error: Error?) {
-            if let error = error {
+            if let error {
                 reset()
                 completion?(.failure(error))
                 return
@@ -87,11 +87,54 @@ public extension GoogleAuth {
         }
     }
     
+    /// Sign-in Google .
+    /// - Parameters:
+    ///   - presentingViewController: the presenting view controller
+    ///   - completion: invoked when sign in completed or failed
+    func signIn(presentingViewController: UIViewController? = nil,
+                completion: ((Result<GIDGoogleUser?, Error>) -> Void)? = nil) {
+        func authenticateUser(for user: GIDGoogleUser?, with error: Error?) {
+            if let error {
+                reset()
+                completion?(.failure(error))
+            } else {
+                state = .signedIn
+                method = .google
+                completion?(.success(user))
+            }
+        }
+        
+        if GIDSignIn.sharedInstance.hasPreviousSignIn() {
+            GIDSignIn.sharedInstance.restorePreviousSignIn { user, error in
+                authenticateUser(for: user, with: error)
+            }
+        } else {
+            let viewController: UIViewController?
+            
+            if #available(iOS 13.0, *) {
+                viewController = presentingViewController
+                ?? (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController
+            } else {
+                viewController = presentingViewController
+                ?? UIApplication.shared.keyWindow?.rootViewController
+            }
+            
+            guard let viewController else { return }
+            
+            GIDSignIn.sharedInstance.signIn(withPresenting: viewController) { result, error in
+                authenticateUser(for: result?.user, with: error)
+            }
+        }
+    }
+    
     /// Sign out Google and Firebase Auth.
     /// - Returns: error if any
     func signOut() -> Error? {
         GIDSignIn.sharedInstance.signOut()
         
+        // Check Firebase login state
+        guard Auth.auth().currentUser != nil else { return nil }
+
         do {
             try Auth.auth().signOut()
             reset()
