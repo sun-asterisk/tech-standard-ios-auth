@@ -39,13 +39,13 @@ public extension GoogleAuth {
         
         func authenticateUser(for user: GIDGoogleUser?, with error: Error?) {
             if let error {
-                reset()
+                resetSignInState()
                 completion?(.failure(error))
                 return
             }
             
             guard let accessToken = user?.accessToken, let idToken = user?.idToken else {
-                reset()
+                resetSignInState()
                 completion?(.failure(AuthError.noToken))
                 return
             }
@@ -58,7 +58,7 @@ public extension GoogleAuth {
                     self?.method = .google
                     completion?(.success((result, user)))
                 } else if let error {
-                    self?.reset()
+                    self?.resetSignInState()
                     completion?(.failure(error))
                 }
             }
@@ -95,7 +95,7 @@ public extension GoogleAuth {
                 completion: ((Result<GIDGoogleUser?, Error>) -> Void)? = nil) {
         func authenticateUser(for user: GIDGoogleUser?, with error: Error?) {
             if let error {
-                reset()
+                resetSignInState()
                 completion?(.failure(error))
             } else {
                 state = .signedIn
@@ -137,7 +137,7 @@ public extension GoogleAuth {
 
         do {
             try Auth.auth().signOut()
-            reset()
+            resetSignInState()
             return nil
         } catch {
             return error

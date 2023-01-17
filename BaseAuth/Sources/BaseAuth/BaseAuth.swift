@@ -39,8 +39,8 @@ open class BaseAuth: NSObject {
         super.init()
     }
     
-    /// Reset to default values.
-    open func reset() {
+    /// Reset sign-in state.
+    open func resetSignInState() {
         state = .signedOut
         method = .none
     }

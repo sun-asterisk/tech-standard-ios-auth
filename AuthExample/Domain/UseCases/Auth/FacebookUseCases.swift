@@ -18,7 +18,7 @@ protocol FacebookUseCases {
 
 extension FacebookUseCases {
     func loginFacebook(viewController: UIViewController?) -> AnyPublisher<(AuthDataResult, [String: Any]?), Error> {
-        FacebookAuth.shared.logIn(
+        FacebookAuth.shared.login(
             permissions: [.publicProfile, .email],
             fields: "id, name, first_name",
             viewController: viewController

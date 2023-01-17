@@ -23,7 +23,7 @@ extension CredentialAuthUseCases {
     
     func logout() -> AnyPublisher<Void, Error> {
         guard let token = CredentialAuth.shared.getToken() else {
-            CredentialAuth.shared.reset()
+            CredentialAuth.shared.resetSignInState()
             
             return Just(())
                 .setFailureType(to: Error.self)

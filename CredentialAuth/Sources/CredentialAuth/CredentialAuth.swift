@@ -20,8 +20,8 @@ public class CredentialAuth: BaseAuth {
         super.init()
     }
     
-    public override func reset() {
-        super.reset()
+    public override func resetSignInState() {
+        super.resetSignInState()
         let defaults = UserDefaults.standard
         defaults.removeObject(forKey: CredentialAuth.tokenKey)
         defaults.removeObject(forKey: CredentialAuth.userKey)
@@ -29,7 +29,7 @@ public class CredentialAuth: BaseAuth {
     
     public override func cleanUp() {
         super.cleanUp()
-        self.reset()
+        self.resetSignInState()
     }
 }
 
@@ -62,7 +62,7 @@ public extension CredentialAuth {
     ///   - completion: invoked when logout completed
     func logout(credential: [String : Any]? = nil, completion: ((Result<Void, Error>) -> Void)? = nil) {
         delegate?.logout(credential: credential) { [weak self] in
-            self?.reset()
+            self?.resetSignInState()
             completion?(.success(()))
         } failure: { error in
             completion?(.failure(error))

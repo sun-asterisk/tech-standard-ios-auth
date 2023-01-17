@@ -13,6 +13,7 @@ import BaseAuth
 import Combine
 import FacebookLogin
 import FacebookAuth
+import FirebaseAuth
 
 class MainViewController: UIViewController,
                           GetSignInState,
@@ -70,7 +71,14 @@ class MainViewController: UIViewController,
     }
     
     @IBAction func googleSignIn(sender: Any) {
-        GoogleAuth.shared.signIn(presentingViewController: self) { [weak self] _ in
+        GoogleAuth.shared.signIn(presentingViewController: self) { [weak self] result in
+            switch result {
+            case .success(let (result, user)):
+                break
+            case .failure(let error):
+                break
+            }
+            
             self?.loadSignInState()
         }
     }

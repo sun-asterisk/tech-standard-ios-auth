@@ -7,11 +7,13 @@
 
 import Foundation
 
+/// An enumeration that defines a set of errors that can occur when using the FacebookAuth class.
 public enum FacebookAuthError: LocalizedError {
+    /// Indicates that the user cancelled the login request.
     case cancelled
-    case noAccount
+    
+    /// Indicates that there is no access token available for the user.
     case noAccessToken
-    case notLogin
     
     public var errorDescription: String? {
         switch self {
@@ -19,17 +21,9 @@ public enum FacebookAuthError: LocalizedError {
             return NSLocalizedString("facebookAuth.error.cancelled",
                                      value: "User cancelled login.",
                                      comment: "")
-        case .noAccount:
-            return NSLocalizedString("facebookAuth.error.noAccount",
-                                     value: "No account.",
-                                     comment: "")
         case .noAccessToken:
             return NSLocalizedString("facebookAuth.error.noAccessToken",
-                                     value: "No access token.",
-                                     comment: "")
-        case .notLogin:
-            return NSLocalizedString("facebookAuth.error.notLogin",
-                                     value: "Not login.",
+                                     value: "No access token available.",
                                      comment: "")
         }
     }
