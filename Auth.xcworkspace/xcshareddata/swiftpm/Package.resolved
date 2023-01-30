@@ -145,6 +145,15 @@
       }
     },
     {
+      "identity" : "requestbuilder",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/hmlongco/RequestBuilder",
+      "state" : {
+        "branch" : "main",
+        "revision" : "5bfbbb09394aeb2959a42e8f9a50667128d5eeec"
+      }
+    },
+    {
       "identity" : "rxswift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/ReactiveX/RxSwift.git",

@@ -10,18 +10,49 @@ import Combine
 import CredentialAuth
 import Foundation
 import Factory
+import RequestBuilder
 
 protocol CredentialAuthGatewayProtocol {
-    func login(email: String, password: String) -> AnyPublisher<(Token, User), Error>
+    func login(email: String, password: String) -> AnyPublisher<Token, Error>
     func logout(token: String) -> AnyPublisher<Void, Error>
     func refreshToken(token: String) -> AnyPublisher<Token, Error>
 }
 
 final class CredentialAuthGateway: CredentialAuthGatewayProtocol {
-    func login(email: String, password: String) -> AnyPublisher<(Token, User), Error> {
-        // Call API in production code
-        Just((Token.mock(), User(email: email)))
-            .setFailureType(to: Error.self)
+    private struct LoginResult: Codable {
+        var accessToken: String
+        var refreshToken: String
+        var tokenType: String
+        var expiresAt: Double
+        
+        enum CodingKeys: String, CodingKey {
+            case refreshToken = "refresh_token"
+            case accessToken = "access_token"
+            case tokenType = "token_type"
+            case expiresAt = "expires_at"
+        }
+        
+        func toToken() -> Token {
+            Token(
+                accessToken: accessToken,
+                refreshToken: refreshToken,
+                expiredDate: Date(timeIntervalSinceReferenceDate: expiresAt)
+            )
+        }
+    }
+    
+    func login(email: String, password: String) -> AnyPublisher<Token, Error> {
+        APISessionManager.shared
+            .request()
+            .method(.post)
+            .add(path: Config.URLs.login)
+            .add(parameters: [
+                "username": email,
+                "passwd": password
+            ])
+            .data(type: LoginResult.self)
+            .map { $0.toToken() }
+            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
     

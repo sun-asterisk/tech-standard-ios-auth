@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		171EB8A12987953900A0837C /* RequestBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = 171EB8A02987953900A0837C /* RequestBuilder */; };
+		171EB8A32987955100A0837C /* RequestBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = 171EB8A22987955100A0837C /* RequestBuilder */; };
+		171EB8A6298795DA00A0837C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171EB8A5298795DA00A0837C /* Config.swift */; };
+		171EB8AA2987961F00A0837C /* Config+URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171EB8A92987961F00A0837C /* Config+URLs.swift */; };
+		171EB8AC2987977800A0837C /* APISessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171EB8AB2987977800A0837C /* APISessionManager.swift */; };
+		171EB8AD2987979F00A0837C /* APISessionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171EB8AB2987977800A0837C /* APISessionManager.swift */; };
+		171EB8AE298797A700A0837C /* Config+URLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171EB8A92987961F00A0837C /* Config+URLs.swift */; };
+		171EB8AF298797A900A0837C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171EB8A5298795DA00A0837C /* Config.swift */; };
 		17293C2329641CB700C02C2D /* FacebookUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17293C2229641CB700C02C2D /* FacebookUseCases.swift */; };
 		17293C2429641CB700C02C2D /* FacebookUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17293C2229641CB700C02C2D /* FacebookUseCases.swift */; };
 		174F055429594180001E1FA6 /* GoogleSignInUseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 174F055329594180001E1FA6 /* GoogleSignInUseCases.swift */; };
@@ -55,6 +63,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		171EB8A5298795DA00A0837C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		171EB8A92987961F00A0837C /* Config+URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Config+URLs.swift"; sourceTree = "<group>"; };
+		171EB8AB2987977800A0837C /* APISessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APISessionManager.swift; sourceTree = "<group>"; };
 		17293C2229641CB700C02C2D /* FacebookUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacebookUseCases.swift; sourceTree = "<group>"; };
 		174F055329594180001E1FA6 /* GoogleSignInUseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoogleSignInUseCases.swift; sourceTree = "<group>"; };
 		174F055929594572001E1FA6 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -97,6 +108,7 @@
 				1778DB8A295D8EDE00A793F7 /* FacebookAuth in Frameworks */,
 				174F058C295958FD001E1FA6 /* Factory in Frameworks */,
 				174F057D29595756001E1FA6 /* CredentialAuth in Frameworks */,
+				171EB8A32987955100A0837C /* RequestBuilder in Frameworks */,
 				174F057F29595756001E1FA6 /* GoogleAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -109,6 +121,7 @@
 				1778DB8C295D8EE300A793F7 /* FacebookAuth in Frameworks */,
 				17BA7219295BFB89007DAEF6 /* CredentialAuth in Frameworks */,
 				17BA721B295BFB8D007DAEF6 /* GoogleAuth in Frameworks */,
+				171EB8A12987953900A0837C /* RequestBuilder in Frameworks */,
 				1759D10A29545429001EB670 /* Factory in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -116,6 +129,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		171EB8A4298795BF00A0837C /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				171EB8A5298795DA00A0837C /* Config.swift */,
+				171EB8A92987961F00A0837C /* Config+URLs.swift */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
 		174F056429595372001E1FA6 /* AuthExampleMVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -150,6 +172,7 @@
 		1759D0C529544977001EB670 = {
 			isa = PBXGroup;
 			children = (
+				171EB8A4298795BF00A0837C /* Config */,
 				1759D11329554EF1001EB670 /* Support */,
 				1759D0FF29545245001EB670 /* Packages */,
 				1759D0F729545166001EB670 /* Domain */,
@@ -231,6 +254,7 @@
 			isa = PBXGroup;
 			children = (
 				1759D10D2954552A001EB670 /* CredentialAuthGateway.swift */,
+				171EB8AB2987977800A0837C /* APISessionManager.swift */,
 			);
 			path = Gateways;
 			sourceTree = "<group>";
@@ -319,6 +343,7 @@
 				174F057E29595756001E1FA6 /* GoogleAuth */,
 				174F058B295958FD001E1FA6 /* Factory */,
 				1778DB89295D8EDE00A793F7 /* FacebookAuth */,
+				171EB8A22987955100A0837C /* RequestBuilder */,
 			);
 			productName = AuthExampleMVC;
 			productReference = 174F056329595371001E1FA6 /* AuthExampleMVC.app */;
@@ -343,6 +368,7 @@
 				17BA7218295BFB89007DAEF6 /* CredentialAuth */,
 				17BA721A295BFB8D007DAEF6 /* GoogleAuth */,
 				1778DB8B295D8EE300A793F7 /* FacebookAuth */,
+				171EB8A02987953900A0837C /* RequestBuilder */,
 			);
 			productName = AuthExample;
 			productReference = 1759D0CE29544977001EB670 /* AuthExample.app */;
@@ -379,6 +405,7 @@
 			packageReferences = (
 				1759D10829545429001EB670 /* XCRemoteSwiftPackageReference "Factory" */,
 				1759D11F29558103001EB670 /* XCRemoteSwiftPackageReference "ValidatedPropertyKit" */,
+				171EB89F2987953900A0837C /* XCRemoteSwiftPackageReference "RequestBuilder" */,
 			);
 			productRefGroup = 1759D0CF29544977001EB670 /* Products */;
 			projectDirPath = "";
@@ -422,6 +449,8 @@
 				174F0586295958A7001E1FA6 /* GetSignInState.swift in Sources */,
 				174F0588295958AA001E1FA6 /* Token.swift in Sources */,
 				174F0585295958A7001E1FA6 /* GetSignInMethod.swift in Sources */,
+				171EB8AE298797A700A0837C /* Config+URLs.swift in Sources */,
+				171EB8AF298797A900A0837C /* Config.swift in Sources */,
 				174F058D29595B0B001E1FA6 /* Publisher+.swift in Sources */,
 				174F0587295958A7001E1FA6 /* CredentialAuthUseCases.swift in Sources */,
 				17293C2429641CB700C02C2D /* FacebookUseCases.swift in Sources */,
@@ -430,6 +459,7 @@
 				174F0584295958A7001E1FA6 /* GoogleSignInUseCases.swift in Sources */,
 				174F058A295958AE001E1FA6 /* CredentialAuthGateway.swift in Sources */,
 				174F057B29595727001E1FA6 /* MainViewController.swift in Sources */,
+				171EB8AD2987979F00A0837C /* APISessionManager.swift in Sources */,
 				174F058E29595B0B001E1FA6 /* CancelBag.swift in Sources */,
 				174F058F29595B0B001E1FA6 /* View+.swift in Sources */,
 				174F0589295958AA001E1FA6 /* User.swift in Sources */,
@@ -451,8 +481,11 @@
 				1759D1072954531F001EB670 /* MainView.swift in Sources */,
 				1759D126295591B9001EB670 /* View+.swift in Sources */,
 				1759D124295591A2001EB670 /* Publisher+.swift in Sources */,
+				171EB8AC2987977800A0837C /* APISessionManager.swift in Sources */,
+				171EB8AA2987961F00A0837C /* Config+URLs.swift in Sources */,
 				174F055429594180001E1FA6 /* GoogleSignInUseCases.swift in Sources */,
 				1759D11E29557EFE001EB670 /* LoginView.swift in Sources */,
+				171EB8A6298795DA00A0837C /* Config.swift in Sources */,
 				1759D0D229544977001EB670 /* AuthExampleApp.swift in Sources */,
 				1759D11229554DAB001EB670 /* User.swift in Sources */,
 			);
@@ -747,6 +780,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		171EB89F2987953900A0837C /* XCRemoteSwiftPackageReference "RequestBuilder" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/hmlongco/RequestBuilder";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		1759D10829545429001EB670 /* XCRemoteSwiftPackageReference "Factory" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hmlongco/Factory";
@@ -766,6 +807,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		171EB8A02987953900A0837C /* RequestBuilder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 171EB89F2987953900A0837C /* XCRemoteSwiftPackageReference "RequestBuilder" */;
+			productName = RequestBuilder;
+		};
+		171EB8A22987955100A0837C /* RequestBuilder */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 171EB89F2987953900A0837C /* XCRemoteSwiftPackageReference "RequestBuilder" */;
+			productName = RequestBuilder;
+		};
 		174F057C29595756001E1FA6 /* CredentialAuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = CredentialAuth;

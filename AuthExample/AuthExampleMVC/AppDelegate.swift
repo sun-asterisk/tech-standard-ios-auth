@@ -66,8 +66,8 @@ extension AppDelegate: CredentialAuthDelegate {
                 default:
                     break
                 }
-            } receiveValue: { token, user in
-                success(token, user)
+            } receiveValue: { token in
+                success(token, nil)
             }
             .store(in: cancelBag)
     }

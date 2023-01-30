@@ -15,7 +15,7 @@ struct LoginView: View, CredentialAuthUseCases {
     var loginSuccess: () -> Void
     
     // State
-    @Validated(!.isEmpty && .isEmail)
+    @Validated(!.isEmpty)
     private var email = ""
     
     @Validated(.range(8...))
@@ -54,6 +54,13 @@ struct LoginView: View, CredentialAuthUseCases {
                         )
                 } else {
                     loginButton
+                }
+            }
+            
+            Section {
+                Button("Test data") {
+                    email = "user1234"
+                    password = "passwordRequired@123"
                 }
                 
                 Button("Reset form") {
