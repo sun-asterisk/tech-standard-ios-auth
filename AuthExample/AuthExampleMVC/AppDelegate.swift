@@ -89,8 +89,8 @@ extension AppDelegate: CredentialAuthDelegate {
             .store(in: cancelBag)
     }
     
-    func refreshToken(token: String, success: @escaping (Token) -> Void, failure: @escaping (Error) -> Void) {
-        credentialAuthGateway.refreshToken(token: token)
+    func refreshToken(refreshToken: String, success: @escaping (Token) -> Void, failure: @escaping (Error) -> Void) {
+        credentialAuthGateway.refreshToken(token: refreshToken)
             .sink { completion in
                 switch completion {
                 case .failure(let error):

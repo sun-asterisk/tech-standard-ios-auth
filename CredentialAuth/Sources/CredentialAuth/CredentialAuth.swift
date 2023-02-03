@@ -35,10 +35,15 @@ public class CredentialAuth: BaseAuth {
 
 // MARK: - public methods
 public extension CredentialAuth {
-    /// Call delegate's login method then save returned token.
+    /// Login using the provided credentials.
+    ///
+    /// The purpose of the function is to perform the login process using the provided credentials. If the authentication is successful, the completion closure will be called with a `Result` that has a `Void` value, indicating that the operation was successful. If the authentication fails, the completion closure will be called with a `Result` that has an `Error` value, indicating that the operation failed and providing information about the failure.
+    ///
+    /// The `completion` closure is optional and can be omitted if the caller does not need to be notified of the result of the authentication request.
+    ///
     /// - Parameters:
-    ///   - credential: user name or e-mail address, in combination with a password
-    ///   - completion: invoked when login completed
+    ///   - credential: A dictionary with a `String` key and an `Any` value, which represents the user's credentials for authentication.
+    ///   - completion: An optional closure is called when the operation is complete.
     func login(credential: [String: Any], completion: ((Result<Void, Error>) -> Void)? = nil) {
         delegate?.login(credential: credential) { [weak self] token, user in
             self?.saveToken(token)
@@ -56,10 +61,15 @@ public extension CredentialAuth {
         }
     }
     
-    /// Logout then clean up saved data.
+    /// Logout.
+    ///
+    /// The purpose of the function is to perform the logout process. If the logout is successful, the completion closure will be called with a `Result` that has a `Void` value, indicating that the operation was successful. If the logout fails, the completion closure will be called with a `Result` that has an `Error` value, indicating that the operation failed and providing information about the failure.
+    ///
+    /// The `completion` closure is optional and can be omitted if the caller does not need to be notified of the result of the logout request. The `credential` parameter is also optional and can be omitted if the logout process does not require any credentials.
+    ///
     /// - Parameters:
-    ///   - credential: logout information such as device id, token
-    ///   - completion: invoked when logout completed
+    ///   - credential: A optional dictionary with a `String` key and an `Any` value, which represents the user's credentials for logging out.
+    ///   - completion: An optional closure is called when the operation is complete.
     func logout(credential: [String : Any]? = nil, completion: ((Result<Void, Error>) -> Void)? = nil) {
         delegate?.logout(credential: credential) { [weak self] in
             self?.resetSignInState()
@@ -70,14 +80,20 @@ public extension CredentialAuth {
     }
     
     /// Get token.
-    /// - Returns: the saved token
+    ///
+    /// The purpose of the function is to retrieve the authentication token, represented by a conforming type to the `AuthToken` protocol. The function returns the authentication token to the caller, which can then be used to make authenticated requests.
+    ///
+    /// - Returns: An optional object conforming to the `AuthToken` protocol, return `nil` if no authentication token is available.
     func getToken() -> AuthToken? {
         guard let data = UserDefaults.standard.object(forKey: CredentialAuth.tokenKey) as? Data else { return nil }
         return delegate?.decodeToken(data: data)
     }
     
-    /// Get token, call refresh token if needs.
-    /// - Parameter completion: invoked when getting token completed
+    /// Get token.
+    ///
+    /// The purpose of the function is to retrieve the authentication token and pass the result of the operation to the caller using the completion closure. If the authentication token is available and valid, the function will pass the token to the caller as a `Result` with a value of `AuthToken`. If the authentication token is not available or has expired, the function may delegate the task of refreshing the token to another object, which would be responsible for retrieving a new token.
+    ///
+    /// - Parameter completion: A closure is called when the operation is complete.
     func getToken(completion: @escaping (Result<AuthToken, Error>) -> Void) {
         DispatchQueue(label: "Get token").async { [weak self] in
             self?.semaphore.wait()
@@ -87,7 +103,7 @@ public extension CredentialAuth {
                     completion(.success(token))
                     self?.semaphore.signal()
                 } else {
-                    self?.delegate?.refreshToken(token: token.refreshToken) { token in
+                    self?.delegate?.refreshToken(refreshToken: token.refreshToken) { token in
                         self?.saveToken(token)
                         completion(.success(token))
                         self?.semaphore.signal()
@@ -104,7 +120,10 @@ public extension CredentialAuth {
     }
     
     /// Get user.
-    /// - Returns: the saved user
+    ///
+    /// The purpose of the function is to retrieve the saved user information. If a user has been saved, the function returns the saved user as an optional `Codable` object. If a user has not been saved, the function returns `nil`.
+    ///
+    /// - Returns: The saved user that conforms to the `Codable` protocol.
     func getUser() -> Codable? {
         guard let data = UserDefaults.standard.object(forKey: CredentialAuth.userKey) as? Data else { return nil }
         return delegate?.decodeUser(data: data)

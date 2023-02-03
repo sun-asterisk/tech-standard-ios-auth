@@ -48,7 +48,7 @@ public extension FacebookAuth {
     
     /// Fetches the user's information from Facebook.
     ///
-    /// This function uses the Facebook SDK to make a request to the Facebook Graph API to fetch the user's information based on the fields provided and returns the data in a `Result` object. The function should be called when the user is logged in successfully.
+    /// This function uses the Facebook SDK to make a request to the Facebook Graph API to fetch the user's information based on the fields provided and returns the data in a `Result` object and the function is marked as `async`. The function should be called when the user is logged in successfully.
     ///
     /// - Parameters:
     ///   - fields: A comma-separated string of fields to be returned in the response from Facebook's Graph API. ([Reference](https://developers.facebook.com/docs/graph-api/reference/v3.2/user))
