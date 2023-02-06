@@ -19,6 +19,12 @@ public class FacebookAuth: BaseAuth {
         return false
     }
     
+    /// Facebook Login AuthCredential
+    var credential: AuthCredential? {
+        guard let tokenString = AccessToken.current?.tokenString else { return nil }
+        return FacebookAuthProvider.credential(withAccessToken: tokenString)
+    }
+    
     // MARK: - Private properties
     private let loginManager = LoginManager()
 
@@ -191,6 +197,25 @@ public extension FacebookAuth {
         loginFacebookAndFirebaseAuthCompletion = nil
         loginFacebookCompletion = nil
         logoutCompletion = nil
+    }
+    
+    /// Link auth provider credentials to an existing user account
+    /// - Parameters:
+    ///   - credential: An object of AuthCredential type.
+    ///   - completion: A completion block.
+    func link(with credential: AuthCredential, completion: ((Result<AuthDataResult?, Error>) -> Void)? = nil) {
+        guard let user = Auth.auth().currentUser else {
+            completion?(.failure(AuthError.notSignedInFirebaseAuth))
+            return
+        }
+        
+        user.link(with: credential) { result, error in
+            if let error {
+                completion?(.failure(error))
+            } else {
+                completion?(.success(result))
+            }
+        }
     }
 }
 

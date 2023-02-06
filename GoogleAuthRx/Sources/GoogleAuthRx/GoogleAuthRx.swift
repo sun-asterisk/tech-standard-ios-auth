@@ -59,4 +59,23 @@ public extension GoogleAuth {
             return Disposables.create()
         }
     }
+    
+    /// Link auth provider credentials to an existing user account
+    /// - Parameters  credential: An object of AuthCredential type.
+    /// - Returns: link results
+    func link(with credential: AuthCredential) -> Observable<AuthDataResult?> {
+        Observable.create { [weak self] observer in
+            self?.link(with: credential, completion: { result in
+                switch result {
+                case .success(let result):
+                    observer.onNext(result)
+                    observer.onCompleted()
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            })
+            
+            return Disposables.create()
+        }
+    }
 }

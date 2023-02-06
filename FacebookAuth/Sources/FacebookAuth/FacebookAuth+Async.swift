@@ -61,4 +61,16 @@ public extension FacebookAuth {
             )
         }
     }
+    
+    /// Link auth provider credentials to an existing user account
+    /// - Parameters  credential: An object of AuthCredential type.
+    /// - Returns: link results
+    func link(with credential: AuthCredential) async -> Result<AuthDataResult?, Error> {
+        await withCheckedContinuation { continuation in
+            link(
+                with: credential,
+                completion: continuation.resume(returning:)
+            )
+        }
+    }
 }

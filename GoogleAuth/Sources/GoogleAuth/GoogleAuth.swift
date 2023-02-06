@@ -7,11 +7,28 @@ public class GoogleAuth: BaseAuth {
     // MARK: - Public properties
     /// A shared instance.
     public static let shared = GoogleAuth()
+    
+    /// Google Sign-in AuthCredential
+    var credential: AuthCredential? {
+        guard let user = currentUser,
+              let idToken = user.idToken else {
+            return nil
+        }
+
+        return GoogleAuthProvider.credential(
+            withIDToken: idToken.tokenString,
+            accessToken: user.accessToken.tokenString
+        )
+    }
+    
+    /// Current signed in user.
+    var currentUser: GIDGoogleUser? {
+        GIDSignIn.sharedInstance.currentUser
+    }
 }
 
 // MARK: - Public methods
 public extension GoogleAuth {
-    
     /// Attempts to restore a previous user sign-in without interaction.
     /// - Parameter completion: invoked when restore completed or failed
     func restorePreviousSignIn(completion: ((Result<GIDGoogleUser, Error>) -> Void)? = nil) {
@@ -24,10 +41,6 @@ public extension GoogleAuth {
                 completion?(.failure(error))
             }
         }
-    }
-    
-    func getUser() -> GIDGoogleUser? {
-        GIDSignIn.sharedInstance.currentUser
     }
     
     /// Sign-in Google and Firebase Auth.
@@ -141,6 +154,25 @@ public extension GoogleAuth {
             return nil
         } catch {
             return error
+        }
+    }
+    
+    /// Link auth provider credentials to an existing user account
+    /// - Parameters:
+    ///   - credential: An object of AuthCredential type.
+    ///   - completion: A completion block.
+    func link(with credential: AuthCredential, completion: ((Result<AuthDataResult?, Error>) -> Void)? = nil) {
+        guard let user = Auth.auth().currentUser else {
+            completion?(.failure(AuthError.notSignedInFirebaseAuth))
+            return
+        }
+        
+        user.link(with: credential) { result, error in
+            if let error {
+                completion?(.failure(error))
+            } else {
+                completion?(.success(result))
+            }
         }
     }
 }

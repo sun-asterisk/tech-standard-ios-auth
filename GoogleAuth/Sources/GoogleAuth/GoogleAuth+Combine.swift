@@ -31,4 +31,14 @@ public extension GoogleAuth {
         }
         .eraseToAnyPublisher()
     }
+    
+    /// Link auth provider credentials to an existing user account
+    /// - Parameters  credential: An object of AuthCredential type.
+    /// - Returns: link results
+    func link(with credential: AuthCredential) -> AnyPublisher<AuthDataResult?, Error> {
+        Future { [weak self] promise in
+            self?.link(with: credential, completion: promise)
+        }
+        .eraseToAnyPublisher()
+    }
 }
