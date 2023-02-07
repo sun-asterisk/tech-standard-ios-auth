@@ -93,13 +93,15 @@ public extension CredentialAuth {
     ///
     /// The purpose of the function is to retrieve the authentication token and pass the result of the operation to the caller using the completion closure. If the authentication token is available and valid, the function will pass the token to the caller as a `Result` with a value of `AuthToken`. If the authentication token is not available or has expired, the function may delegate the task of refreshing the token to another object, which would be responsible for retrieving a new token.
     ///
-    /// - Parameter completion: A closure is called when the operation is complete.
-    func getToken(completion: @escaping (Result<AuthToken, Error>) -> Void) {
+    /// - Parameters:
+    ///   - checkTokenExpiration: A boolean value that indicates whether to check the expiration of the token. If `checkTokenExpiration` is set to `false`, then the function will always call the refresh token.
+    ///   - completion: A closure is called when the operation is complete.
+    func getToken(checkTokenExpiration: Bool = true, completion: @escaping (Result<AuthToken, Error>) -> Void) {
         DispatchQueue(label: "Get token").async { [weak self] in
             self?.semaphore.wait()
             
             if let token = self?.getToken() {
-                if !token.isExpired {
+                if checkTokenExpiration && !token.isExpired {
                     completion(.success(token))
                     self?.semaphore.signal()
                 } else {

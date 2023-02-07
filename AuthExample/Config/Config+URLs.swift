@@ -12,5 +12,6 @@ extension Config {
     struct URLs {
         static let base = "http://10.0.5.78:8001/api"
         static let login = "/login"
+        static let refresh = "/refresh"
     }
 }

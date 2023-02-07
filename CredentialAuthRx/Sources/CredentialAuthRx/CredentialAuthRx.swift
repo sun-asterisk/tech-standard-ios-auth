@@ -50,10 +50,11 @@ public extension CredentialAuth {
     ///
     /// The purpose of the function is to retrieve the authentication token for the current user. The function returns an `Observable` value that represents the authentication token as a stream of events. If the authentication token is not available or has expired, the function may delegate the task of refreshing the token to another object, which would be responsible for retrieving a new token.
     ///
+    /// - Parameter checkTokenExpiration: A boolean value that indicates whether to check the expiration of the token. If `checkTokenExpiration` is set to `false`, then the function will always call the refresh token.
     /// - Returns: An `Observable` object, which emits value that indicates the success or failure of the operation.
-    func getToken() -> Observable<AuthToken> {
+    func getToken(checkTokenExpiration: Bool = true) -> Observable<AuthToken> {
         Observable.create { [weak self] observer in
-            self?.getToken { result in
+            self?.getToken(checkTokenExpiration: checkTokenExpiration) { result in
                 switch result {
                 case .success(let token):
                     observer.onNext(token)

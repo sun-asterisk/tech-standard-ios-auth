@@ -36,7 +36,7 @@ final class CredentialAuthGateway: CredentialAuthGatewayProtocol {
             Token(
                 accessToken: accessToken,
                 refreshToken: refreshToken,
-                expiredDate: Date(timeIntervalSinceReferenceDate: expiresAt)
+                expiredDate: Date(timeIntervalSince1970: expiresAt)
             )
         }
     }
@@ -46,9 +46,13 @@ final class CredentialAuthGateway: CredentialAuthGatewayProtocol {
             .request()
             .method(.post)
             .add(path: Config.URLs.login)
-            .add(parameters: [
+            .add(headers: [
+                "accept": "application/json",
+                "Content-Type": "application/json",
+            ])
+            .body(encode: [
                 "username": email,
-                "passwd": password
+                "password": password
             ])
             .data(type: LoginResult.self)
             .map { $0.toToken() }
@@ -64,9 +68,20 @@ final class CredentialAuthGateway: CredentialAuthGatewayProtocol {
     }
     
     func refreshToken(token: String) -> AnyPublisher<Token, Error> {
-        // Call API in production code
-        Just(Token.mock())
-            .setFailureType(to: Error.self)
+        APISessionManager.shared
+            .request()
+            .method(.post)
+            .add(path: Config.URLs.refresh)
+            .add(headers: [
+                "accept": "application/json",
+                "Content-Type": "application/json",
+            ])
+            .body(encode: [
+                "refresh_token": token
+            ])
+            .data(type: LoginResult.self)
+            .map { $0.toToken() }
+            .receive(on: DispatchQueue.main)
             .eraseToAnyPublisher()
     }
 }

@@ -31,10 +31,11 @@ public extension CredentialAuth {
     ///
     /// The purpose of the function is to retrieve the authentication token. If the authentication token is available and valid, the function will return a `Result` with a value of `AuthToken`. If the authentication token is not available or has expired, the function may delegate the task of refreshing the token to another object, which would be responsible for retrieving a new token.
     ///
+    /// - Parameter checkTokenExpiration: A boolean value that indicates whether to check the expiration of the token. If `checkTokenExpiration` is set to `false`, then the function will always call the refresh token.
     /// - Returns: A `Result` value that indicates the success or failure of the operation.
-    func getToken() async -> Result<AuthToken, Error> {
+    func getToken(checkTokenExpiration: Bool = true) async -> Result<AuthToken, Error> {
         await withCheckedContinuation { continuation in
-            getToken(completion: continuation.resume(returning:))
+            getToken(checkTokenExpiration: checkTokenExpiration, completion: continuation.resume(returning:))
         }
     }
 }

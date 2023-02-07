@@ -37,7 +37,7 @@ extension CredentialAuthUseCases {
     }
     
     func getToken() -> AnyPublisher<AuthToken, Error> {
-        CredentialAuth.shared.getToken()
+        CredentialAuth.shared.getToken(checkTokenExpiration: false)
     }
     
     func getUser() -> User? {

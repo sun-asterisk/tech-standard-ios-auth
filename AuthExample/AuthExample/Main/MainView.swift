@@ -31,6 +31,7 @@ struct MainView: View,
     @State private var facebookUser: [String: Any]?
     @State private var error: IDError?
     @State private var isLoading = false
+    @State private var token: Token?
     
     var body: some View {
         content
@@ -148,6 +149,51 @@ struct MainView: View,
             .contentShape(Rectangle())
             .buttonStyle(.borderedProminent)
             
+            Button {
+                getToken()
+                    .handleFailure(error: $error)
+                    .sink { token in
+                        self.token = token as? Token
+                    }
+                    .store(in: cancelBag)
+            } label: {
+                Text("Get token")
+                    .frame(width: 200)
+            }
+            .contentShape(Rectangle())
+            .buttonStyle(.bordered)
+            
+            if let token {
+                let textSize: CGFloat = 12
+                
+                VStack(alignment: .leading) {
+                    HStack {
+                        Text("Access token")
+                            .frame(width: 100)
+                            .font(.system(size: textSize))
+                        Text(token.accessToken)
+                            .font(.system(size: textSize))
+                    }
+                    
+                    HStack {
+                        Text("Refresh token")
+                            .frame(width: 100)
+                            .font(.system(size: textSize))
+                        Text(token.refreshToken)
+                            .font(.system(size: textSize))
+                    }
+                    
+                    HStack {
+                        Text("Expired date")
+                            .frame(width: 100)
+                            .font(.system(size: textSize))
+                        Text(token.expiredDate.formatted(.dateTime))
+                            .font(.system(size: textSize))
+                    }
+                }
+                .padding()
+            }
+            
             Spacer()
         }
     }
@@ -233,6 +279,7 @@ private extension MainView {
             user = nil
             googleUser = nil
             facebookUser = nil
+            token = nil
         }
     }
 }

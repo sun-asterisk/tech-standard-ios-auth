@@ -31,10 +31,11 @@ public extension CredentialAuth {
     ///
     /// The purpose of the function is to retrieve the authentication token for the current user. The function returns an `AnyPublisher` value that represents the authentication token as a stream of events. If the authentication token is not available or has expired, the function may delegate the task of refreshing the token to another object, which would be responsible for retrieving a new token.
     ///
+    /// - Parameter checkTokenExpiration: A boolean value that indicates whether to check the expiration of the token. If `checkTokenExpiration` is set to `false`, then the function will always call the refresh token.
     /// - Returns: An `AnyPublisher` object, which emits value that indicates the success or failure of the operation.
-    func getToken() -> AnyPublisher<AuthToken, Error> {
+    func getToken(checkTokenExpiration: Bool = true) -> AnyPublisher<AuthToken, Error> {
         Future { [weak self] promise in
-            self?.getToken(completion: promise)
+            self?.getToken(checkTokenExpiration: checkTokenExpiration, completion: promise)
         }
         .eraseToAnyPublisher()
     }
