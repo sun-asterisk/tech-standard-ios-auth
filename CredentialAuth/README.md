@@ -12,7 +12,7 @@ CredentialAuth is a Swift package that provides a simple way to handle authentic
 
 ## Installation
 
-To install CredentialAuth using Swift Package Manager, add the following to your Package.swift file:
+To install CredentialAuth using Swift Package Manager, add the following to your `Package.swift` file:
 
 ```Swift
 dependencies: [
