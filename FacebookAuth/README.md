@@ -1,6 +1,6 @@
 # FacebookAuth - Swift Package
 
-A simple and efficient Swift library for Facebook Login in iOS.
+A simple and efficient Swift library for Facebook Login in iOS. The class makes use of the FirebaseAuth and Facebook Login SDK for iOS to provide a user-friendly and customizable sign-in experience, while handling the authentication process in the background.
 
 ## Getting Started
 
