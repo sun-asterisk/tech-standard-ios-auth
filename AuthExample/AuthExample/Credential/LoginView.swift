@@ -61,6 +61,8 @@ struct LoginView: View, CredentialAuthUseCases {
                 Button("Test data") {
                     email = "user1234"
                     password = "passwordRequired@123"
+//                    email = "testuser02"
+//                    password = "testuser02"
                 }
                 
                 Button("Reset form") {
