@@ -3,17 +3,17 @@ import GoogleSignIn
 import FirebaseAuth
 
 public extension GoogleAuth {
-    /// Attempts to restore a previous user sign-in without interaction.
-    /// - Returns: signed-in user
+    /// Restores the previous sign-in session, if it exists.
+    /// - Returns: Result containing the user info if successful, or an error if the sign-in failed.
     func restorePreviousSignIn() async -> Result<GIDGoogleUser, Error> {
         await withCheckedContinuation { continuation in
             restorePreviousSignIn(completion: continuation.resume(returning:))
         }
     }
     
-    /// Sign-in Google and Firebase Auth.
-    /// - Parameter presentingViewController: the presenting view controller
-    /// - Returns: sign-in results
+    /// Signs the user in with Google and Firebase Auth, presenting a sign-in view controller if necessary.
+    /// - Parameter presentingViewController: The view controller to present the sign-in view controller from.
+    /// - Returns: A `Result` value, which can either be a tuple of `(AuthDataResult?, GIDGoogleUser?)` on success or an `Error` on failure.
     func signIn(presentingViewController: UIViewController? = nil) async -> Result<(AuthDataResult?, GIDGoogleUser?), Error> {
         await withCheckedContinuation { continuation in
             signIn(
@@ -23,9 +23,9 @@ public extension GoogleAuth {
         }
     }
     
-    /// Sign-in Google.
-    /// - Parameter presentingViewController: the presenting view controller
-    /// - Returns: sign-in results
+    /// Signs the user in with Google, presenting a sign-in view controller if necessary.
+    /// - Parameter presentingViewController: The view controller to present the sign-in view controller from.
+    /// - Returns: A `Result` value, which can either be a `GIDGoogleUser` on success or an `Error` on failure.
     func signIn(presentingViewController: UIViewController? = nil) async -> Result<GIDGoogleUser?, Error> {
         await withCheckedContinuation { continuation in
             signIn(
@@ -35,9 +35,9 @@ public extension GoogleAuth {
         }
     }
     
-    /// Link auth provider credentials to an existing user account
+    /// Link auth provider credentials to an existing user account.
     /// - Parameters  credential: An object of AuthCredential type.
-    /// - Returns: link results
+    /// - Returns: A `Result` value, which can either be an `AuthDataResult` on success or an `Error` on failure.
     func link(with credential: AuthCredential) async -> Result<AuthDataResult?, Error> {
         await withCheckedContinuation { continuation in
             link(

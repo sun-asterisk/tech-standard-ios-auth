@@ -2,13 +2,13 @@ import BaseAuth
 import GoogleSignIn
 import FirebaseAuth
 
-/// An object that manages Google Sign-in authentication.
+/// A class for handling Google authentication in your app.
 public class GoogleAuth: BaseAuth {
     // MARK: - Public properties
-    /// A shared instance.
+    /// A shared instance of the class, allowing for a singleton pattern.
     public static let shared = GoogleAuth()
     
-    /// Google Sign-in AuthCredential
+    /// The FirebaseAuth credential for the current user.
     var credential: AuthCredential? {
         guard let user = currentUser,
               let idToken = user.idToken else {
@@ -21,7 +21,7 @@ public class GoogleAuth: BaseAuth {
         )
     }
     
-    /// Current signed in user.
+    /// The current user's Google user data.
     var currentUser: GIDGoogleUser? {
         GIDSignIn.sharedInstance.currentUser
     }
@@ -29,8 +29,8 @@ public class GoogleAuth: BaseAuth {
 
 // MARK: - Public methods
 public extension GoogleAuth {
-    /// Attempts to restore a previous user sign-in without interaction.
-    /// - Parameter completion: invoked when restore completed or failed
+    /// Restores the previous sign-in session, if it exists.
+    /// - Parameter completion: A closure that will be called with the result of the restore attempt. The closure takes in a `Result` type, which can either be a `GIDGoogleUser` on success or an `Error` on failure.
     func restorePreviousSignIn(completion: ((Result<GIDGoogleUser, Error>) -> Void)? = nil) {
         GIDSignIn.sharedInstance.restorePreviousSignIn { [weak self] user, error in
             if let user {
@@ -43,10 +43,10 @@ public extension GoogleAuth {
         }
     }
     
-    /// Sign-in Google and Firebase Auth.
+    /// Signs the user in with Google and Firebase Auth, presenting a sign-in view controller if necessary.
     /// - Parameters:
-    ///   - presentingViewController: the presenting view controller
-    ///   - completion: invoked when sign in completed or failed
+    ///   - presentingViewController: The view controller to present the sign-in view controller from.
+    ///   - completion: A closure that will be called with the result of the sign-in attempt. The closure takes in a `Result` type, which can either be a tuple of `(AuthDataResult?, GIDGoogleUser?)` on success or an `Error` on failure. 
     func signIn(presentingViewController: UIViewController? = nil,
                 completion: ((Result<(AuthDataResult?, GIDGoogleUser?), Error>) -> Void)? = nil) {
         
@@ -100,10 +100,10 @@ public extension GoogleAuth {
         }
     }
     
-    /// Sign-in Google .
+    /// Signs the user in with Google, presenting a sign-in view controller if necessary.
     /// - Parameters:
-    ///   - presentingViewController: the presenting view controller
-    ///   - completion: invoked when sign in completed or failed
+    ///   - presentingViewController: The view controller to present the sign-in view controller from.
+    ///   - completion: A closure that will be called with the result of the sign-in attempt. The closure takes in a `Result` type, which can either be a `GIDGoogleUser` on success or an `Error` on failure.
     func signIn(presentingViewController: UIViewController? = nil,
                 completion: ((Result<GIDGoogleUser?, Error>) -> Void)? = nil) {
         func authenticateUser(for user: GIDGoogleUser?, with error: Error?) {
@@ -141,7 +141,7 @@ public extension GoogleAuth {
     }
     
     /// Sign out Google and Firebase Auth.
-    /// - Returns: error if any
+    /// - Returns: An error if there was a problem signing out, or `nil` if the sign-out was successful.
     func signOut() -> Error? {
         GIDSignIn.sharedInstance.signOut()
         
@@ -157,10 +157,10 @@ public extension GoogleAuth {
         }
     }
     
-    /// Link auth provider credentials to an existing user account
+    /// Link auth provider credentials to an existing user account.
     /// - Parameters:
     ///   - credential: An object of AuthCredential type.
-    ///   - completion: A completion block.
+    ///   - completion: A closure that will be called with the result of the link attempt. The closure takes in a `Result` type, which can either be an `AuthDataResult` on success or an `Error` on failure.
     func link(with credential: AuthCredential, completion: ((Result<AuthDataResult?, Error>) -> Void)? = nil) {
         guard let user = Auth.auth().currentUser else {
             completion?(.failure(AuthError.notSignedInFirebaseAuth))
