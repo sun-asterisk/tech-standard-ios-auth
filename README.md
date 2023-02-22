@@ -3,50 +3,6 @@
 This repository includes a collection of classes for handling authentication in iOS applications. It includes implementations for Facebook, Google and standard email/password authentication.
 
 
-
-```mermaid
-classDiagram
-    BaseAuth <|-- CredentialAuth
-    BaseAuth <|-- FacebookAuth
-    BaseAuth <|-- GoogleAuth
-    
-    class BaseAuth {
-    +SignInState state
-    +SignInMethod method
-    +resetSignInState()
-    +cleanUp()
-    }
-    
-    class CredentialAuth {
-    +CredentialAuthDelegate? delegate
-    +login()
-    +logout()
-    +getToken()
-    +getUser()
-    }
-    
-    class FacebookAuth {
-    +Bool isLoggedIn
-    +AuthCredential? credential
-    +login()
-    +logout()
-    +getAccessToken()
-    +getUserInfo()
-    +link()
-    }
-    
-    class GoogleAuth {
-    +AuthCredential? credential
-    +GIDGoogleUser? currentUser
-    +restorePreviousSignIn()
-    +signIn()
-    +signOut()
-    +link()
-    }
-```
-
-
-
 ### [CredentialAuth](CredentialAuth/README.md)
 
 CredentialAuth is a Swift package that provides a simple way to handle authentication and token management.
