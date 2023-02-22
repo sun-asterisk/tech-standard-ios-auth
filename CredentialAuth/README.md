@@ -4,13 +4,20 @@ CredentialAuth is a Swift package that provides a simple way to handle authentic
 
 ## Features
 
-* Login using provided credentials
-* Logout the user
-* Get the current authentication token
-* Get the current authenticated user
-* Refresh token when it expires
+- [Login using provided credentials](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/CredentialAuth#login-using-provided-credentials)
+- [Logout the user](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/CredentialAuth#logout-the-user)
+- [Get the current authentication token (refresh token if it expires)](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/CredentialAuth#get-the-current-authentication-token-refresh-token-if-it-expires)
+- [Get the current authentication token](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/CredentialAuth#get-the-current-authentication-token)
+- [Get the current authenticated user](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/CredentialAuth#get-the-current-authenticated-user)
 
 ## Installation
+
+### Requirement
+
+- iOS 13 and above
+- Swift 5.7 and above
+
+### Swift Package Manager
 
 To install CredentialAuth using Swift Package Manager, add the following to your `Package.swift` file:
 
@@ -20,13 +27,23 @@ dependencies: [
 ]
 ```
 
-## Usage
-
-### Config delegate
-
-Set a delegate for CredentialAuth:
+In case of using RxSwift:
 
 ```Swift
+dependencies: [
+    .package(url: "https://github.com/<username>/CredentialAuthRx.git", from: "1.0.0")
+]
+```
+
+## Usage
+
+### Prerequisites
+
+Set a delegate for `CredentialAuth`:
+
+```Swift
+import CredentialAuth
+
 final class AppDelegate: NSObject, UIApplicationDelegate {
     
     func application(
@@ -65,7 +82,7 @@ Here's an example of how to use the CredentialAuth package:
 import CredentialAuth
 
 // initialize CredentialAuth
-let auth = CredentialAuth()
+let auth = CredentialAuth.shared
 
 // Login the user
 auth.login(credential: ["username": "user", "password": "pass"]) { (result) in
@@ -97,3 +114,7 @@ auth.logout() { (result) in
     }
 }
 ```
+
+## Documentation
+
+You can see the full documentation [here](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/CredentialAuth).
