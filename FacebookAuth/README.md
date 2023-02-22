@@ -2,17 +2,25 @@
 
 A simple and efficient Swift library for Facebook Login in iOS. The class makes use of the FirebaseAuth and Facebook Login SDK for iOS to provide a user-friendly and customizable sign-in experience, while handling the authentication process in the background.
 
-## Getting Started
+## Features
 
-These instructions will help you get started with integrating FacebookAuth into your iOS project.
+- [Login Facebook and Firebase Authentication](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/FacebookAuth#login-facebook-and-firebase-authentication)
+- [Login Facebook](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/FacebookAuth#login-facebook)
+- [Logout Facebook and Firebase Authentication](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/FacebookAuth#logout-facebook-and-firebase-authentication)
+- [Get the Facebook Access Token of the currently logged-in user](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/FacebookAuth#get-the-facebook-access-token-of-the-currently-logged-in-user)
+- [Fetches the user's information from Facebook](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/FacebookAuth#fetches-the-users-information-from-facebook)
+- [Sets the delegate for a given Facebook login button (with Firebase Authentication)](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/FacebookAuth#sets-the-delegate-for-a-given-facebook-login-button-with-firebase-authentication)
+- [Sets the delegate for a given Facebook login button](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/FacebookAuth#sets-the-delegate-for-a-given-facebook-login-button)
+- [Removes the delegate for a given Facebook login button](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/FacebookAuth#removes-the-delegate-for-a-given-facebook-login-button)
 
-### Prerequisites
+## Installation
 
-In order to use FacebookAuth, you will need to have a Facebook App and Developer Account. You can create one at [developers.facebook.com](https://developers.facebook.com/).
+### Requirement
 
-You will also need to add the Facebook Login SDK to your iOS project. You can do this by following the instructions at [facebook.com/docs/facebook-login/ios](https://developers.facebook.com/docs/facebook-login/ios).
+- iOS 13 and above
+- Swift 5.7 and above
 
-### Installation
+### Swift Package Manager
 
 You can install FacebookAuth using Swift Package Manager by adding the following dependency to your `Package.swift` file:
 
@@ -20,11 +28,25 @@ You can install FacebookAuth using Swift Package Manager by adding the following
 .package(url: "https://github.com/{username}/FacebookAuth.git", from: "1.0.0")
 ```
 
+In case of using RxSwift:
+
+```Swift
+.package(url: "https://github.com/{username}/FacebookAuthRx.git", from: "1.0.0")
+```
+
 ## Usage
+
+### Prerequisites
+
+In order to use FacebookAuth, you will need to have a Facebook App and Developer Account. You can create one at [developers.facebook.com](https://developers.facebook.com/).
+
+You will also need to [add the Facebook Login SDK to your iOS project](https://developers.facebook.com/docs/facebook-login/ios) and [configure Firebase](https://firebase.google.com/docs/ios/setup).
+
+### Example
 
 Here's an example of how you can use FacebookAuth to log in a user and retrieve their basic profile information:
 
-```Swift
+```swift
 import FacebookAuth
 
 let facebookAuth = FacebookAuth.shared
@@ -53,10 +75,14 @@ facebookAuth.getUserInfo(fields: "id, name, email") { result in
 
 You can also use the `logout()` method to log out the current user:
 
-```
+```swift
 if let error = facebookAuth.logout() {
     print("Failed to log out: \(error)")
 } else {
     print("Successfully logged out")
 }
 ```
+
+## Documentation
+
+You can see the full documentation [here](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/FacebookAuth).
