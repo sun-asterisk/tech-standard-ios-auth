@@ -1,8 +1,22 @@
 # GoogleAuth
 
-GoogleAuth is a convenient and secure way to sign in to your iOS application using Google credentials. This library is built on top of [FirebaseAuth](https://firebase.google.com/docs/auth) and the [Google Sign-In SDK for iOS](https://developers.google.com/identity/sign-in/ios/start-integrating).
+GoogleAuth is a convenient and secure way to sign in to your iOS application using Google credentials. This library is built on top of FirebaseAuth and the Google Sign-In SDK for iOS.
+
+## Features
+
+- [Restores the previous sign-in session](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/GoogleAuth#restores-the-previous-sign-in-session)
+- [Signs the user in with Google and Firebase Auth](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/GoogleAuth#signs-the-user-in-with-google-and-firebase-auth)
+- [Signs the user in with Google](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/GoogleAuth#signs-the-user-in-with-google)
+- [Sign out Google and Firebase Auth](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/GoogleAuth#sign-out-google-and-firebase-auth)
 
 ## Installation
+
+### Requirement
+
+- iOS 13 and above
+- Swift 5.7 and above
+
+### Swift Package Manager
 
 You can install GoogleAuth using Swift Package Manager by adding the following dependency to your `Package.swift` file:
 
@@ -10,21 +24,25 @@ You can install GoogleAuth using Swift Package Manager by adding the following d
 .package(url: "https://github.com/{username}/GoogleAuth.git", from: "1.0.0")
 ```
 
+In case of using RxSwift:
+
+```Swift
+.package(url: "https://github.com/{username}/GoogleAuthRx.git", from: "1.0.0")
+```
+
 ## Usage
 
-To use GoogleAuth in your application, you need to follow these steps:
+### Prerequisites
 
-* [Configure your Firebase project](https://firebase.google.com/docs/ios/setup) and add the Google Sign-In SDK for iOS to your project.
+- [Configure your Firebase project](https://firebase.google.com/docs/ios/setup)
+- [Get started with Google Sign-In for iOS](https://developers.google.com/identity/sign-in/ios/start-integrating)
 
-* Import the GoogleAuth module:
+### Example
 
 ```Swift
 import GoogleAuth
-```
 
-* Call the `signIn` method of the `GoogleAuth.shared` instance to initiate the sign-in process:
-
-```Swift
+// Initiate the sign-in process
 GoogleAuth.shared.signIn(presentingViewController: self) { result in
     switch result {
     case .success(let user):
@@ -33,11 +51,29 @@ GoogleAuth.shared.signIn(presentingViewController: self) { result in
         // An error occurred during the sign-in process.
     }
 }
+
+// Restores the previous sign-in session
+GoogleAuth.shared.restorePreviousSignIn { result in
+    switch result {
+    case .success(let user):
+        // User has already signed in before
+        // You can use the user object to get their details
+        print("Welcome back, \(user.profile?.name ?? "User")!")
+        // Perform any necessary actions with the signed-in user
+    case .failure(let error):
+        // User has not signed in before
+        print("Please sign in.")
+    }
+}
+
+// Sign out
+if let error = GoogleAuth.shared.signOut() {
+    print("Failed to sign out: \(error)")
+} else {
+    print("Successfully signed out")
+}
 ```
 
-### Available Methods
+## Documentation
 
-* `restorePreviousSignIn`: Restore the previous sign-in session if one exists.
-* `signIn`: Initiate the sign-in process. You can specify a presenting view controller if you want the sign-in UI to be presented modally.
-* `signOut`: Sign out the current user.
-* `link`: Link the current user with another authentication provider (e.g., Google).
+You can see the full documentation [here](https://github.com/sun-asterisk/tech-standard-ios-auth/wiki/GoogleAuth).
