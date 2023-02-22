@@ -84,7 +84,7 @@ public extension FacebookAuth {
     ///   - permissions: An array of `Permission` objects that specify the permissions the app is requesting from the user's Facebook account.
     ///   - fields: A comma-separated string of fields to be returned in the response from Facebook's Graph API. ([Reference](https://developers.facebook.com/docs/graph-api/reference/v3.2/user))
     ///   - viewController: An optional `UIViewController` object that is used to present the Facebook login screen.
-    ///   - completion: An optional closure that is called when the login process is completed. The closure takes a single argument of type Result<[String: Any]?, Error>, where the .success case includes a dictionary of the fields returned for the user, and the .failure case contains an error object describing the failure.
+    ///   - completion: An optional closure that is called when the login process is completed. The closure takes a single argument of type `Result<[String: Any]?, Error>`, where the `.success` case includes a dictionary of the fields returned for the user, and the `.failure` case contains an error object describing the failure.
     func login(permissions: [Permission],
                fields: String,
                viewController: UIViewController?,
@@ -105,7 +105,7 @@ public extension FacebookAuth {
     ///
     /// This function uses the Facebook SDK to log out the user from their Facebook account and clear the session data. It should be called when the user wants to log out from the app. This function will also clear the Firebase Authentication user if it was logged in using Facebook.
     ///
-    /// - Returns: An optional Error object, which will be nil if the logout is successful, or contain an error message if there was a problem logging out.
+    /// - Returns: An optional `Error` object, which will be `nil` if the logout is successful, or contain an error message if there was a problem logging out.
     func logout() -> Error? {
         loginManager.logOut()
         return logoutFirebaseAuth()
@@ -115,7 +115,7 @@ public extension FacebookAuth {
     ///
     /// This function is used to retrieve the user's access token. The function should be called when the user is logged in successfully.
     ///
-    /// - Returns: An AccessToken object, which holds the user's access token. If the user is not logged in or the token is not available, it returns nil.
+    /// - Returns: An `AccessToken` object, which holds the user's access token. If the user is not logged in or the token is not available, it returns `nil`.
     func getAccessToken() -> AccessToken? {
         AccessToken.current
     }
@@ -141,7 +141,7 @@ public extension FacebookAuth {
             })
     }
     
-    /// Sets the delegate for a given Facebook login button.
+    /// Sets the delegate for a given Facebook login button (with Firebase Authentication).
     ///
     /// This function sets the delegate for the given button and allows for handling of login and logout events, returns user's additional fields and also handles the Firebase Authentication. The completion handlers are optional and will only be called if provided.
     ///

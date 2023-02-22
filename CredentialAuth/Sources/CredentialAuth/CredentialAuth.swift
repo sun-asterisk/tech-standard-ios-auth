@@ -68,7 +68,7 @@ public extension CredentialAuth {
     /// The `completion` closure is optional and can be omitted if the caller does not need to be notified of the result of the logout request. The `credential` parameter is also optional and can be omitted if the logout process does not require any credentials.
     ///
     /// - Parameters:
-    ///   - credential: A optional dictionary with a `String` key and an `Any` value, which represents the user's credentials for logging out.
+    ///   - credential: An optional dictionary with a `String` key and an `Any` value, which represents the user's credentials for logging out.
     ///   - completion: An optional closure is called when the operation is complete.
     func logout(credential: [String : Any]? = nil, completion: ((Result<Void, Error>) -> Void)? = nil) {
         delegate?.logout(credential: credential) { [weak self] in

@@ -30,6 +30,9 @@ public class GoogleAuth: BaseAuth {
 // MARK: - Public methods
 public extension GoogleAuth {
     /// Restores the previous sign-in session, if it exists.
+    ///
+    /// This function can be used to restore a previous sign-in session for a user, and it provides a mechanism for handling both successful and failed restore attempts using a closure-based API.
+    ///
     /// - Parameter completion: A closure that will be called with the result of the restore attempt. The closure takes in a `Result` type, which can either be a `GIDGoogleUser` on success or an `Error` on failure.
     func restorePreviousSignIn(completion: ((Result<GIDGoogleUser, Error>) -> Void)? = nil) {
         GIDSignIn.sharedInstance.restorePreviousSignIn { [weak self] user, error in
@@ -44,6 +47,9 @@ public extension GoogleAuth {
     }
     
     /// Signs the user in with Google and Firebase Auth, presenting a sign-in view controller if necessary.
+    ///
+    /// This function can be used to sign in a user with Google and Firebase Auth, and provides a mechanism for handling both successful and failed sign-in attempts using a closure-based API. Additionally, it also allows for presenting the sign-in view controller if needed.
+    ///
     /// - Parameters:
     ///   - presentingViewController: The view controller to present the sign-in view controller from.
     ///   - completion: A closure that will be called with the result of the sign-in attempt. The closure takes in a `Result` type, which can either be a tuple of `(AuthDataResult?, GIDGoogleUser?)` on success or an `Error` on failure. 
@@ -101,6 +107,9 @@ public extension GoogleAuth {
     }
     
     /// Signs the user in with Google, presenting a sign-in view controller if necessary.
+    ///
+    /// This function can be used to sign in a user with Google Sign-In, and provides a mechanism for handling both successful and failed sign-in attempts using a closure-based API. Additionally, it also allows for presenting the sign-in view controller if needed.
+    ///
     /// - Parameters:
     ///   - presentingViewController: The view controller to present the sign-in view controller from.
     ///   - completion: A closure that will be called with the result of the sign-in attempt. The closure takes in a `Result` type, which can either be a `GIDGoogleUser` on success or an `Error` on failure.
@@ -141,6 +150,9 @@ public extension GoogleAuth {
     }
     
     /// Sign out Google and Firebase Auth.
+    ///
+    /// This function is to provide a simple mechanism for signing out a user from both Google and Firebase Auth. This can be useful in scenarios where a user wants to log out of an application or switch to a different account.
+    ///
     /// - Returns: An error if there was a problem signing out, or `nil` if the sign-out was successful.
     func signOut() -> Error? {
         GIDSignIn.sharedInstance.signOut()
