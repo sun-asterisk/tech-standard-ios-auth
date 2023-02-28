@@ -22,17 +22,15 @@ A simple and efficient Swift library for Facebook Login in iOS. The class makes 
 
 ### Swift Package Manager
 
-You can install FacebookAuth using Swift Package Manager by adding the following dependency to your `Package.swift` file:
+To install FacebookAuth using Swift Package Manager, add the following to your `Package.swift` file:
 
 ```Swift
-.package(url: "https://github.com/{username}/FacebookAuth.git", from: "1.0.0")
+dependencies: [
+    .package(url: "https://github.com/sun-asterisk/tech-standard-ios-auth", from: "1.0.0")
+]
 ```
 
-In case of using RxSwift:
-
-```Swift
-.package(url: "https://github.com/{username}/FacebookAuthRx.git", from: "1.0.0")
-```
+Select FacebookAuth package, or FacebookAuthRx package if you use RxSwift.
 
 ## Usage
 

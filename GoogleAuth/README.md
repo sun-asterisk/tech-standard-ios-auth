@@ -18,17 +18,15 @@ GoogleAuth is a convenient and secure way to sign in to your iOS application usi
 
 ### Swift Package Manager
 
-You can install GoogleAuth using Swift Package Manager by adding the following dependency to your `Package.swift` file:
+To install GoogleAuth using Swift Package Manager, add the following to your `Package.swift` file:
 
 ```Swift
-.package(url: "https://github.com/{username}/GoogleAuth.git", from: "1.0.0")
+dependencies: [
+    .package(url: "https://github.com/sun-asterisk/tech-standard-ios-auth", from: "1.0.0")
+]
 ```
 
-In case of using RxSwift:
-
-```Swift
-.package(url: "https://github.com/{username}/GoogleAuthRx.git", from: "1.0.0")
-```
+Select GoogleAuth package, or GoogleAuthRx package if you use RxSwift.
 
 ## Usage
 

@@ -23,17 +23,11 @@ To install CredentialAuth using Swift Package Manager, add the following to your
 
 ```Swift
 dependencies: [
-    .package(url: "https://github.com/<username>/CredentialAuth.git", from: "1.0.0")
+    .package(url: "https://github.com/sun-asterisk/tech-standard-ios-auth", from: "1.0.0")
 ]
 ```
 
-In case of using RxSwift:
-
-```Swift
-dependencies: [
-    .package(url: "https://github.com/<username>/CredentialAuthRx.git", from: "1.0.0")
-]
-```
+Select CredentialAuth package, or CredentialAuthRx package if you use RxSwift.
 
 ## Usage
 
