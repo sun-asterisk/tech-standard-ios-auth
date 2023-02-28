@@ -54,7 +54,7 @@ let package = Package(
             name: "BaseAuth",
             dependencies: [],
             path: "BaseAuth",
-            exclude: ["Package.swift"]
+            exclude: ["Package.swift", "Tests"]
         ),
         .target(
             name: "CredentialAuth",
@@ -62,7 +62,7 @@ let package = Package(
                 "BaseAuth"
             ],
             path: "CredentialAuth",
-            exclude: ["Package.swift"]
+            exclude: ["Package.swift", "Tests"]
         ),
         .target(
             name: "CredentialAuthRx",
@@ -71,7 +71,7 @@ let package = Package(
                 .product(name: "RxSwift", package: "RxSwift"),
             ],
             path: "CredentialAuthRx",
-            exclude: ["Package.swift"]
+            exclude: ["Package.swift", "Tests"]
         ),
         .target(
             name: "FacebookAuth",
@@ -81,7 +81,7 @@ let package = Package(
                 .product(name: "FacebookLogin", package: "facebook-ios-sdk"),
             ],
             path: "FacebookAuth",
-            exclude: ["Package.swift"]
+            exclude: ["Package.swift", "Tests"]
         ),
         .target(
             name: "FacebookAuthRx",
@@ -90,7 +90,7 @@ let package = Package(
                 .product(name: "RxSwift", package: "RxSwift"),
             ],
             path: "FacebookAuthRx",
-            exclude: ["Package.swift"]
+            exclude: ["Package.swift", "Tests"]
         ),
         .target(
             name: "GoogleAuth",
@@ -101,7 +101,7 @@ let package = Package(
                 .product(name: "GoogleSignInSwift", package: "GoogleSignIn-iOS"),
             ],
             path: "GoogleAuth",
-            exclude: ["Package.swift"]
+            exclude: ["Package.swift", "Tests"]
         ),
         .target(
             name: "GoogleAuthRx",
@@ -110,7 +110,7 @@ let package = Package(
                 .product(name: "RxSwift", package: "RxSwift"),
             ],
             path: "GoogleAuthRx",
-            exclude: ["Package.swift"]
+            exclude: ["Package.swift", "Tests"]
         ),
     ],
     swiftLanguageVersions: [.v5]
