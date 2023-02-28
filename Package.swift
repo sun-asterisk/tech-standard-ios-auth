@@ -14,13 +14,22 @@ let package = Package(
             targets: ["BaseAuth"]),
         .library(
             name: "CredentialAuth",
-            targets: ["CredentialAuth", "CredentialAuthRx"]),
+            targets: ["CredentialAuth"]),
+        .library(
+            name: "CredentialAuthRx",
+            targets: ["CredentialAuthRx"]),
         .library(
             name: "FacebookAuth",
-            targets: ["FacebookAuth", "FacebookAuthRx"]),
+            targets: ["FacebookAuth"]),
+        .library(
+            name: "FacebookAuthRx",
+            targets: ["FacebookAuthRx"]),
         .library(
             name: "GoogleAuth",
-            targets: ["GoogleAuth", "GoogleAuthRx"]),
+            targets: ["GoogleAuth"]),
+        .library(
+            name: "GoogleAuthRx",
+            targets: ["GoogleAuthRx"]),
     ],
     dependencies: [
         .package(
@@ -44,20 +53,26 @@ let package = Package(
         .target(
             name: "BaseAuth",
             dependencies: [],
-            path: "BaseAuth"),
+            path: "BaseAuth",
+            exclude: ["Package.swift"]
+        ),
         .target(
             name: "CredentialAuth",
             dependencies: [
                 "BaseAuth"
             ],
-            path: "CredentialAuth"),
+            path: "CredentialAuth",
+            exclude: ["Package.swift"]
+        ),
         .target(
             name: "CredentialAuthRx",
             dependencies: [
                 "CredentialAuth",
                 .product(name: "RxSwift", package: "RxSwift"),
             ],
-            path: "CredentialAuthRx"),
+            path: "CredentialAuthRx",
+            exclude: ["Package.swift"]
+        ),
         .target(
             name: "FacebookAuth",
             dependencies: [
@@ -65,14 +80,18 @@ let package = Package(
                 .product(name: "FirebaseAuth", package: "firebase-ios-sdk"),
                 .product(name: "FacebookLogin", package: "facebook-ios-sdk"),
             ],
-            path: "FacebookAuth"),
+            path: "FacebookAuth",
+            exclude: ["Package.swift"]
+        ),
         .target(
             name: "FacebookAuthRx",
             dependencies: [
                 "FacebookAuth",
                 .product(name: "RxSwift", package: "RxSwift"),
             ],
-            path: "FacebookAuthRx"),
+            path: "FacebookAuthRx",
+            exclude: ["Package.swift"]
+        ),
         .target(
             name: "GoogleAuth",
             dependencies: [
@@ -81,14 +100,18 @@ let package = Package(
                 .product(name: "GoogleSignIn", package: "GoogleSignIn-iOS"),
                 .product(name: "GoogleSignInSwift", package: "GoogleSignIn-iOS"),
             ],
-            path: "GoogleAuth"),
+            path: "GoogleAuth",
+            exclude: ["Package.swift"]
+        ),
         .target(
             name: "GoogleAuthRx",
             dependencies: [
                 "GoogleAuth",
                 .product(name: "RxSwift", package: "RxSwift"),
             ],
-            path: "GoogleAuthRx"),
+            path: "GoogleAuthRx",
+            exclude: ["Package.swift"]
+        ),
     ],
     swiftLanguageVersions: [.v5]
 )
