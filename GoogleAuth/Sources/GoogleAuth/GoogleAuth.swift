@@ -25,6 +25,11 @@ public class GoogleAuth: BaseAuth {
     var currentUser: GIDGoogleUser? {
         GIDSignIn.sharedInstance.currentUser
     }
+    
+    public override func setSignInState() {
+        state = .signedIn
+        method = .google
+    }
 }
 
 // MARK: - Public methods
@@ -37,8 +42,7 @@ public extension GoogleAuth {
     func restorePreviousSignIn(completion: ((Result<GIDGoogleUser, Error>) -> Void)? = nil) {
         GIDSignIn.sharedInstance.restorePreviousSignIn { [weak self] user, error in
             if let user {
-                self?.state = .signedIn
-                self?.method = .google
+                self?.setSignInState()
                 completion?(.success(user))
             } else if let error {
                 completion?(.failure(error))
@@ -72,12 +76,14 @@ public extension GoogleAuth {
             let credential = GoogleAuthProvider.credential(withIDToken: idToken.tokenString, accessToken: accessToken.tokenString)
             
             Auth.auth().signIn(with: credential) { [weak self] (result, error) in
+                guard let self else { return }
+                
                 if let result {
-                    self?.state = .signedIn
-                    self?.method = .google
+                    self.setSignInState()
                     completion?(.success((result, user)))
                 } else if let error {
-                    self?.resetSignInState()
+                    self.signOutGoogle()
+                    self.resetSignInState()
                     completion?(.failure(error))
                 }
             }
@@ -120,8 +126,7 @@ public extension GoogleAuth {
                 resetSignInState()
                 completion?(.failure(error))
             } else {
-                state = .signedIn
-                method = .google
+                setSignInState()
                 completion?(.success(user))
             }
         }
@@ -155,18 +160,14 @@ public extension GoogleAuth {
     ///
     /// - Returns: An error if there was a problem signing out, or `nil` if the sign-out was successful.
     func signOut() -> Error? {
-        GIDSignIn.sharedInstance.signOut()
-        
-        // Check Firebase login state
-        guard Auth.auth().currentUser != nil else { return nil }
-
-        do {
-            try Auth.auth().signOut()
-            resetSignInState()
-            return nil
-        } catch {
+        if Auth.auth().currentUser != nil, let error = signOutFirebase() {
             return error
         }
+        
+        signOutGoogle()
+        resetSignInState()
+        
+        return nil
     }
     
     /// Link auth provider credentials to an existing user account.
@@ -185,6 +186,23 @@ public extension GoogleAuth {
             } else {
                 completion?(.success(result))
             }
+        }
+    }
+}
+
+// MARK: - Private methods
+private extension GoogleAuth {
+    func signOutGoogle() {
+        GIDSignIn.sharedInstance.signOut()
+    }
+    
+    @discardableResult
+    func signOutFirebase() -> Error? {
+        do {
+            try Auth.auth().signOut()
+            return nil
+        } catch {
+            return error
         }
     }
 }

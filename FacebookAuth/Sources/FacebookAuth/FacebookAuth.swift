@@ -38,8 +38,14 @@ public class FacebookAuth: BaseAuth {
     
     // MARK: - Override
     
+    public override func setSignInState() {
+        state = .signedIn
+        method = .facebook
+    }
+    
     public override func resetSignInState() {
         super.resetSignInState()
+        usingFirebaseAuth = false
     }
 }
 
@@ -59,6 +65,8 @@ public extension FacebookAuth {
                fields: String,
                viewController: UIViewController?,
                completion: ((Result<(AuthDataResult, [String: Any]?), Error>) -> Void)? = nil) {
+        usingFirebaseAuth = true
+        
         loginManager.logIn(permissions: permissions, viewController: viewController) { [weak self] loginResult in
             switch loginResult {
             case .failed(let error):
@@ -89,6 +97,8 @@ public extension FacebookAuth {
                fields: String,
                viewController: UIViewController?,
                completion: ((Result<[String: Any]?, Error>) -> Void)? = nil) {
+        usingFirebaseAuth = false
+        
         loginManager.logIn(permissions: permissions, viewController: viewController) { [weak self] loginResult in
             switch loginResult {
             case .failed(let error):
@@ -107,8 +117,14 @@ public extension FacebookAuth {
     ///
     /// - Returns: An optional `Error` object, which will be `nil` if the logout is successful, or contain an error message if there was a problem logging out.
     func logout() -> Error? {
-        loginManager.logOut()
-        return logoutFirebaseAuth()
+        if usingFirebaseAuth, let error = logoutFirebase() {
+            return error
+        }
+        
+        logoutFacebook()
+        resetSignInState()
+        
+        return nil
     }
     
     /// Get the Facebook Access Token of the currently logged-in user.
@@ -227,33 +243,41 @@ private extension FacebookAuth {
         let credential = FacebookAuthProvider.credential(withAccessToken: accessToken.tokenString)
 
         Auth.auth().signIn(with: credential) { [weak self] (result, error) in
+            guard let self else { return }
+            
             if let result {
-                self?.state = .signedIn
-                self?.method = .facebook
-                
-                self?.getUserInfo(fields: fields, completion: { getUserInfoResult in
+                self.getUserInfo(fields: fields, completion: { getUserInfoResult in
                     switch getUserInfoResult {
                     case .success(let userInfo):
+                        self.setSignInState()
                         completion?(.success((result, userInfo)))
-                    case .failure:
-                        completion?(.success((result, nil)))
+                    case .failure(let error):
+                        self.logoutFacebook()
+                        self.logoutFirebase()
+                        self.resetSignInState()
+                        completion?(.failure(error))
                     }
                 })
             } else if let error {
-                self?.resetSignInState()
+                self.logoutFacebook()
+                self.resetSignInState()
                 completion?(.failure(error))
             }
         }
     }
     
-    func logoutFirebaseAuth() -> Error? {
+    @discardableResult
+    func logoutFirebase() -> Error? {
         do {
             try Auth.auth().signOut()
-            resetSignInState()
             return nil
         } catch {
             return error
         }
+    }
+    
+    func logoutFacebook() {
+        loginManager.logOut()
     }
 }
 
@@ -275,6 +299,8 @@ extension FacebookAuth: LoginButtonDelegate {
                 }
             } else {
                 guard let accessToken = result.token else {
+                    logoutFacebook()
+                    
                     if usingFirebaseAuth {
                         loginFacebookAndFirebaseAuthCompletion?(.failure(FacebookAuthError.noAccessToken))
                     } else {
@@ -288,11 +314,13 @@ extension FacebookAuth: LoginButtonDelegate {
                     loginFirebaseAuth(accessToken: accessToken, fields: userFields, completion: loginFacebookAndFirebaseAuthCompletion)
                 } else {
                     getUserInfo(fields: userFields) { [weak self] getUserInfoResult in
+                        guard let self else { return }
                         switch getUserInfoResult {
                         case .success(let userInfo):
-                            self?.loginFacebookCompletion?(.success(userInfo))
+                            self.loginFacebookCompletion?(.success(userInfo))
                         case .failure(let error):
-                            self?.loginFacebookCompletion?(.failure(error))
+                            self.logoutFacebook()
+                            self.loginFacebookCompletion?(.failure(error))
                         }
                     }
                 }
@@ -302,7 +330,7 @@ extension FacebookAuth: LoginButtonDelegate {
     
     public func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
         if usingFirebaseAuth {
-            let error = logoutFirebaseAuth()
+            let error = logoutFirebase()
             logoutCompletion?(error)
         } else {
             logoutCompletion?(nil)

@@ -20,6 +20,13 @@ public class CredentialAuth: BaseAuth {
         super.init()
     }
     
+    // MARK: - Override
+    
+    public override func setSignInState() {
+        state = .signedIn
+        method = .credential
+    }
+    
     public override func resetSignInState() {
         super.resetSignInState()
         let defaults = UserDefaults.standard
@@ -52,9 +59,7 @@ public extension CredentialAuth {
                 self?.saveUser(user)
             }
             
-            self?.state = .signedIn
-            self?.method = .credential
-            
+            self?.setSignInState()
             completion?(.success(()))
         } failure: { error in
             completion?(.failure(error))

@@ -39,6 +39,11 @@ open class BaseAuth: NSObject {
         super.init()
     }
     
+    /// Set sign-in state.
+    open func setSignInState() {
+        fatalError()
+    }
+    
     /// Reset sign-in state.
     open func resetSignInState() {
         state = .signedOut
