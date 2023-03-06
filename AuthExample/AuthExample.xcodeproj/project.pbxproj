@@ -793,7 +793,7 @@
 			repositoryURL = "https://github.com/hmlongco/Factory";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
+				minimumVersion = 2.0.0;
 			};
 		};
 		1759D11F29558103001EB670 /* XCRemoteSwiftPackageReference "ValidatedPropertyKit" */ = {

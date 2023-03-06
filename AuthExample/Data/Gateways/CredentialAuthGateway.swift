@@ -87,7 +87,9 @@ final class CredentialAuthGateway: CredentialAuthGatewayProtocol {
 }
 
 extension Container {
-    static let credentialAuthGateway = Factory(scope: .singleton) {
-        CredentialAuthGateway() as CredentialAuthGatewayProtocol
+    var credentialAuthGateway: Factory<CredentialAuthGatewayProtocol> {
+        Factory(self) {
+            CredentialAuthGateway()
+        }
     }
 }

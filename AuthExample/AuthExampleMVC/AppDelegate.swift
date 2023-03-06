@@ -15,7 +15,7 @@ import FacebookCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    let credentialAuthGateway = Container.credentialAuthGateway.callAsFunction()
+    let credentialAuthGateway = Container.shared.credentialAuthGateway()
     private var cancelBag = CancelBag()
     var window: UIWindow?
 

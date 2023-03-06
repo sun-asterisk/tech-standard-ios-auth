@@ -15,7 +15,7 @@ import FacebookCore
 
 final class AppDelegate: NSObject, UIApplicationDelegate {
     var cancelBag = CancelBag()
-    let credentialAuthGateway = Container.credentialAuthGateway.callAsFunction()
+    let credentialAuthGateway = Container.shared.credentialAuthGateway()
     
     func application(
         _ application: UIApplication,
