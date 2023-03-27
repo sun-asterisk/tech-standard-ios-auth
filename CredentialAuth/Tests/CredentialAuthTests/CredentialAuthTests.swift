@@ -7,14 +7,15 @@ final class CredentialAuthTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
         credentialAuth = CredentialAuth()
-        delegate = MockCredentialAuthDelegate()
-        credentialAuth.delegate = delegate
     }
     
     func test_login_success() {
         let expectation = XCTestExpectation(description: "Login success")
+        delegate = MockCredentialAuthDelegate(expected: [.login])
+        delegate.mockToken = MockToken.stub
+        delegate.mockUser = MockUser.stub
+        credentialAuth.delegate = delegate
         
         credentialAuth.login(credential: [:]) { result in
             switch result {
@@ -28,6 +29,7 @@ final class CredentialAuthTests: XCTestCase {
                 XCTAssert(false)
             }
             
+            self.delegate.verify()
             expectation.fulfill()
         }
         
@@ -35,15 +37,19 @@ final class CredentialAuthTests: XCTestCase {
     }
     
     func test_login_failed() {
-        delegate.loginSuccess = false
         let expectation = XCTestExpectation(description: "Login failed")
+        delegate = MockCredentialAuthDelegate(expected: [.login])
+        delegate.loginSuccess = false
+        let mockError = MockError()
+        delegate.mockError = mockError
+        credentialAuth.delegate = delegate
         
         credentialAuth.login(credential: [:]) { result in
             switch result {
             case .success:
                 XCTAssert(false)
             case .failure(let error):
-                XCTAssert(error is MockError)
+                XCTAssert(error.isEqual(to: mockError))
                 
                 let token = self.credentialAuth.getToken()
                 XCTAssertNil(token)
@@ -52,6 +58,7 @@ final class CredentialAuthTests: XCTestCase {
                 XCTAssertNil(user)
             }
             
+            self.delegate.verify()
             expectation.fulfill()
         }
         
@@ -60,6 +67,8 @@ final class CredentialAuthTests: XCTestCase {
     
     func test_logout_success() {
         let expectation = XCTestExpectation(description: "Logout success")
+        delegate = MockCredentialAuthDelegate(expected: [.logout])
+        credentialAuth.delegate = delegate
         
         credentialAuth.logout(credential: nil) { result in
             switch result {
@@ -69,6 +78,7 @@ final class CredentialAuthTests: XCTestCase {
                 XCTAssert(false)
             }
             
+            self.delegate.verify()
             expectation.fulfill()
         }
         
@@ -76,17 +86,22 @@ final class CredentialAuthTests: XCTestCase {
     }
     
     func test_logout_failed() {
-        delegate.logoutSuccess = false
         let expectation = XCTestExpectation(description: "Logout failed")
+        delegate = MockCredentialAuthDelegate(expected: [.logout])
+        delegate.logoutSuccess = false
+        let mockError = MockError()
+        delegate.mockError = mockError
+        credentialAuth.delegate = delegate
         
         credentialAuth.logout(credential: nil) { result in
             switch result {
             case .success:
                 XCTAssert(false)
             case .failure(let error):
-                XCTAssert(error is MockError)
+                XCTAssert(error.isEqual(to: mockError))
             }
             
+            self.delegate.verify()
             expectation.fulfill()
         }
         

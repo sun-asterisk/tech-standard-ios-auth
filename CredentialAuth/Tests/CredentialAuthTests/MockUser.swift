@@ -1,5 +1,11 @@
 import Foundation
 
 struct MockUser: Codable {
-    var email = ""
+    var id = UUID().uuidString
+    var name = ""
 }
+
+extension MockUser {
+    static let stub = MockUser(name: "Mock user")
+}
+
