@@ -9,26 +9,24 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-                <string>com.googleusercontent.apps.913131600394-3v7m1as462ree4mrj8f0ojstikjfvsr2</string>
-                <string>fb896126228412582</string>
+				<string>com.googleusercontent.apps.913131600394-3v7m1as462ree4mrj8f0ojstikjfvsr2</string>
+				<string>fb896126228412582</string>
 			</array>
 		</dict>
 	</array>
-    
-    <key>GIDClientID</key>
-    <string>913131600394-3v7m1as462ree4mrj8f0ojstikjfvsr2.apps.googleusercontent.com</string>
-    
-    <key>FacebookAppID</key>
-    <string>896126228412582</string>
-    <key>FacebookClientToken</key>
-    <string>62377fca6b9a9fe1eb9fac85d9269e0b</string>
-    <key>FacebookDisplayName</key>
-    <string>AuthSample</string>
-
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-      <string>fbauth2</string>
-    </array>
-    
+	<key>FacebookAppID</key>
+	<string>896126228412582</string>
+	<key>FacebookClientToken</key>
+	<string>62377fca6b9a9fe1eb9fac85d9269e0b</string>
+	<key>FacebookDisplayName</key>
+	<string>AuthSample</string>
+	<key>GIDClientID</key>
+	<string>913131600394-3v7m1as462ree4mrj8f0ojstikjfvsr2.apps.googleusercontent.com</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbauth2</string>
+	</array>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Auto login with biometrics</string>
 </dict>
 </plist>

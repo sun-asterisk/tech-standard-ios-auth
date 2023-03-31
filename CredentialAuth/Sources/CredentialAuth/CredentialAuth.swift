@@ -1,5 +1,6 @@
 import BaseAuth
 import Foundation
+import LocalAuthentication
 
 /// An object that manages credential-based authentication.
 public class CredentialAuth: BaseAuth {
@@ -10,9 +11,26 @@ public class CredentialAuth: BaseAuth {
     /// An object that acts as the delegate of the auth manager.
     public weak var delegate: (any CredentialAuthDelegate)?
     
+    public var usingBiometrics: Bool {
+        get {
+            UserDefaults.standard.bool(forKey: CredentialAuth.usingBiometricsKey)
+        } set {
+            UserDefaults.standard.set(newValue, forKey: CredentialAuth.usingBiometricsKey)
+        }
+    }
+    
+    public var canLoginWithBiometrics: Bool {
+        if usingBiometrics, getToken() != nil {
+            return true
+        }
+        
+        return false
+    }
+    
     // MARK: - Private properties
     private static let tokenKey = "CREDENTIAL_AUTH_TOKEN_KEY"
     private static let userKey = "CREDENTIAL_AUTH_USER_KEY"
+    private static let usingBiometricsKey = "CREDENTIAL_AUTH_USING_BIOMETRICS"
     
     private let semaphore = DispatchSemaphore(value: 1)
     
@@ -29,9 +47,12 @@ public class CredentialAuth: BaseAuth {
     
     public override func resetSignInState() {
         super.resetSignInState()
-        let defaults = UserDefaults.standard
-        defaults.removeObject(forKey: CredentialAuth.tokenKey)
-        defaults.removeObject(forKey: CredentialAuth.userKey)
+        
+        if !usingBiometrics {
+            let defaults = UserDefaults.standard
+            defaults.removeObject(forKey: CredentialAuth.userKey)
+            defaults.removeObject(forKey: CredentialAuth.tokenKey)
+        }
     }
     
     public override func cleanUp() {
@@ -63,6 +84,48 @@ public extension CredentialAuth {
             completion?(.success(()))
         } failure: { error in
             completion?(.failure(error))
+        }
+    }
+    
+    /// <#Description#>
+    /// - Parameters:
+    ///   - reason: <#reason description#>
+    ///   - completion: <#completion description#>
+    func loginWithBiometrics(reason: String, completion: ((Result<Void, Error>) -> Void)? = nil) {
+        guard let token = getToken() else {
+            completion?(.failure(CredentialAuthError.noAccessToken))
+            return
+        }
+        
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {
+                [weak self] success, authenticationError in
+                
+                DispatchQueue.main.async {
+                    if success {
+                        self?.delegate?.refreshToken(refreshToken: token.refreshToken) { token in
+                            self?.saveToken(token)
+                            self?.setSignInState()
+                            completion?(.success(()))
+                        } failure: { error in
+                            completion?(.failure(error))
+                        }
+                    } else if let authenticationError {
+                        completion?(.failure(authenticationError))
+                    } else {
+                        completion?(.failure(CredentialAuthError.noBiometrics))
+                    }
+                }
+            }
+        } else {
+            if let error {
+                completion?(.failure(error))
+            } else {
+                completion?(.failure(CredentialAuthError.noBiometrics))
+            }
         }
     }
     

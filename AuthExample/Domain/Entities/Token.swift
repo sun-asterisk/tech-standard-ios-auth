@@ -16,11 +16,9 @@ struct Token: AuthToken {
 }
 
 extension Token {
-    static func mock() -> Token {
-        Token(
-            accessToken: UUID().uuidString,
-            refreshToken: UUID().uuidString,
-            expiredDate: Date(timeIntervalSinceNow: 3600)
-        )
-    }
+    static let stub = Token(
+        accessToken: UUID().uuidString,
+        refreshToken: UUID().uuidString,
+        expiredDate: Date(timeIntervalSinceNow: 3600)
+    )
 }

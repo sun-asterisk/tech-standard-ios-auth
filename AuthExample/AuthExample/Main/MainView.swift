@@ -32,6 +32,7 @@ struct MainView: View,
     @State private var error: IDError?
     @State private var isLoading = false
     @State private var token: Token?
+    @State private var usingBiometrics = false
     
     var body: some View {
         content
@@ -71,7 +72,7 @@ struct MainView: View,
                 
                 VStack(spacing: 16) {
                     Button {
-                        showLogin.toggle()
+                        loginCredential()
                     } label: {
                         Text("Email/password")
                             .frame(width: 200)
@@ -139,6 +140,15 @@ struct MainView: View,
             }
             .padding(.bottom, 100)
             .padding(.top, 100)
+            
+            Toggle("Using biometrics", isOn: $usingBiometrics)
+                .frame(width: 200)
+                .onAppear {
+                    usingBiometrics = CredentialAuth.shared.usingBiometrics
+                }
+                .onChange(of: usingBiometrics) { newValue in
+                    CredentialAuth.shared.usingBiometrics = newValue
+                }
             
             Button {
                 logoutCredential()
@@ -286,6 +296,26 @@ private extension MainView {
 
 // MARK: - Credential login
 private extension MainView {
+    func loginCredential() {
+        if canLoginWithBiometrics {
+            loginWithBiometrics()
+                .sink { completion in
+                    switch completion {
+                    case .failure(let error):
+                        isLoading = false
+                        self.error = IDError(error: error)
+                    case .finished:
+                        break
+                    }
+                } receiveValue: {
+                    loadSignInState()
+                }
+                .store(in: cancelBag)
+        } else {
+            showLogin.toggle()
+        }
+    }
+    
     func logoutCredential() {
         logout()
             .handleFailure(error: $error)

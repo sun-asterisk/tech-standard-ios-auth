@@ -14,6 +14,13 @@ public extension CredentialAuth {
         .eraseToAnyPublisher()
     }
     
+    func loginWithBiometrics(reason: String) -> AnyPublisher<Void, Error> {
+        Future { [weak self] promise in
+            self?.loginWithBiometrics(reason: reason, completion: promise)
+        }
+        .eraseToAnyPublisher()
+    }
+    
     /// Logout.
     ///
     /// The purpose of the function is to perform the logout process. If the logout is successful, the function will return with a `Result` that has a `Void` value, indicating that the operation was successful. If the logout fails, the function will return with a `Result` that has an `Error` value, indicating that the operation failed and providing information about the failure.

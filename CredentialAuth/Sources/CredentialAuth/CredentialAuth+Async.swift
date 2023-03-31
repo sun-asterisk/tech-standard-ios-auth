@@ -15,6 +15,12 @@ public extension CredentialAuth {
         }
     }
     
+    func loginWithBiometrics(reason: String) async -> Result<Void, Error> {
+        await withCheckedContinuation { continuation in
+            loginWithBiometrics(reason: reason, completion: continuation.resume(returning:))
+        }
+    }
+    
     /// Logout.
     ///
     /// The purpose of the function is to perform the logout process. If the logout is successful, the function will return with a `Result` that has a `Void` value, indicating that the operation was successful. If the logout fails, the function will return with a `Result` that has an `Error` value, indicating that the operation failed and providing information about the failure.

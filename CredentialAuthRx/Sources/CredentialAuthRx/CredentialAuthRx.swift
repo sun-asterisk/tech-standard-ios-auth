@@ -23,6 +23,22 @@ public extension CredentialAuth {
             return Disposables.create()
         }
     }
+    
+    func loginWithBiometrics(reason: String) -> Observable<Void> {
+        Observable.create { [weak self] observer in
+            self?.loginWithBiometrics(reason: reason) { result in
+                switch result {
+                case .success:
+                    observer.onNext(())
+                    observer.onCompleted()
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            
+            return Disposables.create()
+        }
+    }
  
     /// Logout.
     ///

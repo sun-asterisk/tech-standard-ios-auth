@@ -44,3 +44,23 @@ extension CredentialAuthUseCases {
         CredentialAuth.shared.getUser() as? User
     }
 }
+
+// MARK: - Biometrics
+extension CredentialAuthUseCases {
+    var usingBiometrics: Bool {
+        get {
+            CredentialAuth.shared.usingBiometrics
+        }
+        set {
+            CredentialAuth.shared.usingBiometrics = newValue
+        }
+    }
+    
+    var canLoginWithBiometrics: Bool {
+        CredentialAuth.shared.canLoginWithBiometrics
+    }
+    
+    func loginWithBiometrics() -> AnyPublisher<Void, Error> {
+        CredentialAuth.shared.loginWithBiometrics(reason: "Login with biometrics")
+    }
+}
