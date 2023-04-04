@@ -299,6 +299,14 @@ private extension MainView {
     func loginCredential() {
         if canLoginWithBiometrics {
             loginWithBiometrics()
+                .tryCatch { error in
+                    if error is CredentialAuthError {
+                        showLogin.toggle()
+                        return Just(()).setFailureType(to: Error.self).eraseToAnyPublisher()
+                    }
+                    
+                    throw error
+                }
                 .sink { completion in
                     switch completion {
                     case .failure(let error):

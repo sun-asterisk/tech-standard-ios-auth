@@ -24,6 +24,28 @@ public extension CredentialAuth {
         }
     }
     
+    /// Authenticate a user using biometrics.
+    /// - Parameter reason: A string parameter that describes the reason for the biometric authentication request.
+    /// - Returns: An `Observable` object, which emits value that indicates the success or failure of the operation.
+    func authenticateWithBiometrics(reason: String) -> Observable<Void> {
+        Observable.create { [weak self] observer in
+            self?.authenticateWithBiometrics(reason: reason) { result in
+                switch result {
+                case .success:
+                    observer.onNext(())
+                    observer.onCompleted()
+                case .failure(let error):
+                    observer.onError(error)
+                }
+            }
+            
+            return Disposables.create()
+        }
+    }
+    
+    /// Logs a user in using biometrics.
+    /// - Parameter reason: A string parameter that describes the reason for the biometric authentication request.
+    /// - Returns: An `Observable` object, which emits value that indicates the success or failure of the operation.
     func loginWithBiometrics(reason: String) -> Observable<Void> {
         Observable.create { [weak self] observer in
             self?.loginWithBiometrics(reason: reason) { result in

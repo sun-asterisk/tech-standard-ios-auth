@@ -14,6 +14,19 @@ public extension CredentialAuth {
         .eraseToAnyPublisher()
     }
     
+    /// Authenticate a user using biometrics.
+    /// - Parameter reason: A string parameter that describes the reason for the biometric authentication request.
+    /// - Returns: An `AnyPublisher` object, which emits value that indicates the success or failure of the operation.
+    func authenticateWithBiometrics(reason: String) -> AnyPublisher<Void, Error> {
+        Future { [weak self] promise in
+            self?.authenticateWithBiometrics(reason: reason, completion: promise)
+        }
+        .eraseToAnyPublisher()
+    }
+    
+    /// Logs a user in using biometrics.
+    /// - Parameter reason: A string parameter that describes the reason for the biometric authentication request.
+    /// - Returns: An `AnyPublisher` object, which emits value that indicates the success or failure of the operation.
     func loginWithBiometrics(reason: String) -> AnyPublisher<Void, Error> {
         Future { [weak self] promise in
             self?.loginWithBiometrics(reason: reason, completion: promise)

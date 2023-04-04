@@ -11,6 +11,9 @@ public enum CredentialAuthError: LocalizedError {
     /// Indicates that there is no biometry.
     case noBiometrics
     
+    // LocalAuthentication error (biometrics)
+    case localAuthentication(message: String)
+    
     public var errorDescription: String? {
         switch self {
         case .noAccessToken:
@@ -25,6 +28,8 @@ public enum CredentialAuthError: LocalizedError {
             return NSLocalizedString("credentialAuth.error.noBiometry",
                                      value: "No biometrics available.",
                                      comment: "")
+        case .localAuthentication(let message):
+            return message
         }
     }
 }

@@ -15,6 +15,18 @@ public extension CredentialAuth {
         }
     }
     
+    /// Authenticate a user using biometrics.
+    /// - Parameter reason: A string parameter that describes the reason for the biometric authentication request.
+    /// - Returns: A `Result` value that indicates the success or failure of the operation.
+    func authenticateWithBiometrics(reason: String) async -> Result<Void, Error> {
+        await withCheckedContinuation { continuation in
+            authenticateWithBiometrics(reason: reason, completion: continuation.resume(returning:))
+        }
+    }
+    
+    /// Logs a user in using biometrics.
+    /// - Parameter reason: A string parameter that describes the reason for the biometric authentication request.
+    /// - Returns: A `Result` value that indicates the success or failure of the operation.
     func loginWithBiometrics(reason: String) async -> Result<Void, Error> {
         await withCheckedContinuation { continuation in
             loginWithBiometrics(reason: reason, completion: continuation.resume(returning:))

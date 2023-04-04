@@ -87,44 +87,59 @@ public extension CredentialAuth {
         }
     }
     
-    /// <#Description#>
+    /// Authenticate a user using biometrics.
     /// - Parameters:
-    ///   - reason: <#reason description#>
-    ///   - completion: <#completion description#>
+    ///   - reason: A string parameter that describes the reason for the biometric authentication request.
+    ///   - completion: A closure parameter that takes a Result object as an argument. The closure will be called asynchronously with the success or failure of the authentication process.
+    func authenticateWithBiometrics(reason: String, completion: @escaping (Result<Void, Error>) -> Void) {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {
+                success, authenticationError in
+                
+                DispatchQueue.main.async {
+                    if success {
+                        completion(.success(()))
+                    } else if let authenticationError {
+                        completion(.failure(authenticationError))
+                    } else {
+                        completion(.failure(CredentialAuthError.noBiometrics))
+                    }
+                }
+            }
+        } else {
+            if let error {
+                completion(.failure(CredentialAuthError.localAuthentication(message: error.localizedDescription)))
+            } else {
+                completion(.failure(CredentialAuthError.noBiometrics))
+            }
+        }
+    }
+    
+    /// Logs a user in using biometrics.
+    /// - Parameters:
+    ///   - reason: A string parameter that describes the reason for the biometric authentication request.
+    ///   - completion: An optional closure that takes a `Result` object as an argument. The closure will be called asynchronously with the success or failure of the login process.
     func loginWithBiometrics(reason: String, completion: ((Result<Void, Error>) -> Void)? = nil) {
         guard let token = getToken() else {
             completion?(.failure(CredentialAuthError.noAccessToken))
             return
         }
         
-        let context = LAContext()
-        var error: NSError?
-        
-        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) {
-                [weak self] success, authenticationError in
-                
-                DispatchQueue.main.async {
-                    if success {
-                        self?.delegate?.refreshToken(refreshToken: token.refreshToken) { token in
-                            self?.saveToken(token)
-                            self?.setSignInState()
-                            completion?(.success(()))
-                        } failure: { error in
-                            completion?(.failure(error))
-                        }
-                    } else if let authenticationError {
-                        completion?(.failure(authenticationError))
-                    } else {
-                        completion?(.failure(CredentialAuthError.noBiometrics))
-                    }
+        authenticateWithBiometrics(reason: reason) { [weak self] result in
+            switch result {
+            case .success:
+                self?.delegate?.refreshToken(refreshToken: token.refreshToken) { token in
+                    self?.saveToken(token)
+                    self?.setSignInState()
+                    completion?(.success(()))
+                } failure: { error in
+                    completion?(.failure(error))
                 }
-            }
-        } else {
-            if let error {
+            case .failure(let error):
                 completion?(.failure(error))
-            } else {
-                completion?(.failure(CredentialAuthError.noBiometrics))
             }
         }
     }
