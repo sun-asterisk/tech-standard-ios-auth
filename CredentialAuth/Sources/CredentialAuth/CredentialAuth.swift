@@ -28,9 +28,9 @@ public class CredentialAuth: BaseAuth {
     }
     
     // MARK: - Private properties
-    private static let tokenKey = "CREDENTIAL_AUTH_TOKEN_KEY"
-    private static let userKey = "CREDENTIAL_AUTH_USER_KEY"
-    private static let usingBiometricsKey = "CREDENTIAL_AUTH_USING_BIOMETRICS"
+    static let tokenKey = "CREDENTIAL_AUTH_TOKEN_KEY"
+    static let userKey = "CREDENTIAL_AUTH_USER_KEY"
+    static let usingBiometricsKey = "CREDENTIAL_AUTH_USING_BIOMETRICS"
     
     private let semaphore = DispatchSemaphore(value: 1)
     
@@ -49,9 +49,8 @@ public class CredentialAuth: BaseAuth {
         super.resetSignInState()
         
         if !usingBiometrics {
-            let defaults = UserDefaults.standard
-            defaults.removeObject(forKey: CredentialAuth.userKey)
-            defaults.removeObject(forKey: CredentialAuth.tokenKey)
+            UserDefaults.standard.removeObject(forKey: CredentialAuth.userKey)
+            try? delegate?.removeToken()
         }
     }
     
@@ -74,14 +73,18 @@ public extension CredentialAuth {
     ///   - completion: An optional closure is called when the operation is complete.
     func login(credential: [String: Any], completion: ((Result<Void, Error>) -> Void)? = nil) {
         delegate?.login(credential: credential) { [weak self] token, user in
-            self?.saveToken(token)
-            
-            if let user {
-                self?.saveUser(user)
+            do {
+                try self?.saveToken(token)
+                
+                if let user {
+                    self?.saveUser(user)
+                }
+                
+                self?.setSignInState()
+                completion?(.success(()))
+            } catch {
+                completion?(.failure(error))
             }
-            
-            self?.setSignInState()
-            completion?(.success(()))
         } failure: { error in
             completion?(.failure(error))
         }
@@ -132,9 +135,13 @@ public extension CredentialAuth {
             switch result {
             case .success:
                 self?.delegate?.refreshToken(refreshToken: token.refreshToken) { token in
-                    self?.saveToken(token)
-                    self?.setSignInState()
-                    completion?(.success(()))
+                    do {
+                        try self?.saveToken(token)
+                        self?.setSignInState()
+                        completion?(.success(()))
+                    } catch {
+                        completion?(.failure(error))
+                    }
                 } failure: { error in
                     completion?(.failure(error))
                 }
@@ -168,8 +175,7 @@ public extension CredentialAuth {
     ///
     /// - Returns: An optional object conforming to the `AuthToken` protocol, return `nil` if no authentication token is available.
     func getToken() -> AuthToken? {
-        guard let data = UserDefaults.standard.object(forKey: CredentialAuth.tokenKey) as? Data else { return nil }
-        return delegate?.decodeToken(data: data)
+        delegate?.getToken()
     }
     
     /// Get token.
@@ -189,9 +195,14 @@ public extension CredentialAuth {
                     self?.semaphore.signal()
                 } else {
                     self?.delegate?.refreshToken(refreshToken: token.refreshToken) { token in
-                        self?.saveToken(token)
-                        completion(.success(token))
-                        self?.semaphore.signal()
+                        do {
+                            try self?.saveToken(token)
+                            completion(.success(token))
+                            self?.semaphore.signal()
+                        } catch {
+                            completion(.failure(error))
+                            self?.semaphore.signal()
+                        }
                     } failure: { error in
                         completion(.failure(error))
                         self?.semaphore.signal()
@@ -217,12 +228,8 @@ public extension CredentialAuth {
 
 // MARK: - Private methods
 private extension CredentialAuth {
-    func saveToken(_ token: AuthToken) {
-        let encoder = JSONEncoder()
-        
-        if let encoded = try? encoder.encode(token) {
-            UserDefaults.standard.set(encoded, forKey: CredentialAuth.tokenKey)
-        }
+    func saveToken(_ token: AuthToken) throws {
+        try token.save(key: CredentialAuth.tokenKey)
     }
     
     func saveUser(_ user: Codable) {

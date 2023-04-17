@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1704E79B29ECFEB300C1BF61 /* Token+UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1704E79929ECFEB300C1BF61 /* Token+UserDefaults.swift */; };
+		1704E79D29ECFED200C1BF61 /* Token+Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1704E79C29ECFED200C1BF61 /* Token+Keychain.swift */; };
+		1704E7A129ED007000C1BF61 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 1704E7A029ED007000C1BF61 /* KeychainAccess */; };
+		1704E7A329ED010500C1BF61 /* Keychain+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1704E7A229ED010500C1BF61 /* Keychain+.swift */; };
 		171EB8A12987953900A0837C /* RequestBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = 171EB8A02987953900A0837C /* RequestBuilder */; };
 		171EB8A32987955100A0837C /* RequestBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = 171EB8A22987955100A0837C /* RequestBuilder */; };
 		171EB8A6298795DA00A0837C /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 171EB8A5298795DA00A0837C /* Config.swift */; };
@@ -63,6 +67,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1704E79929ECFEB300C1BF61 /* Token+UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Token+UserDefaults.swift"; sourceTree = "<group>"; };
+		1704E79C29ECFED200C1BF61 /* Token+Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Token+Keychain.swift"; sourceTree = "<group>"; };
+		1704E7A229ED010500C1BF61 /* Keychain+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+.swift"; sourceTree = "<group>"; };
 		171EB8A5298795DA00A0837C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
 		171EB8A92987961F00A0837C /* Config+URLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Config+URLs.swift"; sourceTree = "<group>"; };
 		171EB8AB2987977800A0837C /* APISessionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APISessionManager.swift; sourceTree = "<group>"; };
@@ -119,6 +126,7 @@
 			files = (
 				1759D12129558103001EB670 /* ValidatedPropertyKit in Frameworks */,
 				1778DB8C295D8EE300A793F7 /* FacebookAuth in Frameworks */,
+				1704E7A129ED007000C1BF61 /* KeychainAccess in Frameworks */,
 				17BA7219295BFB89007DAEF6 /* CredentialAuth in Frameworks */,
 				17BA721B295BFB8D007DAEF6 /* GoogleAuth in Frameworks */,
 				171EB8A12987953900A0837C /* RequestBuilder in Frameworks */,
@@ -237,6 +245,8 @@
 			isa = PBXGroup;
 			children = (
 				1759D0FD295451E1001EB670 /* Token.swift */,
+				1704E79929ECFEB300C1BF61 /* Token+UserDefaults.swift */,
+				1704E79C29ECFED200C1BF61 /* Token+Keychain.swift */,
 				1759D11129554DAB001EB670 /* User.swift */,
 			);
 			path = Entities;
@@ -318,6 +328,7 @@
 			children = (
 				1759D123295591A2001EB670 /* Publisher+.swift */,
 				1759D125295591B9001EB670 /* View+.swift */,
+				1704E7A229ED010500C1BF61 /* Keychain+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -369,6 +380,7 @@
 				17BA721A295BFB8D007DAEF6 /* GoogleAuth */,
 				1778DB8B295D8EE300A793F7 /* FacebookAuth */,
 				171EB8A02987953900A0837C /* RequestBuilder */,
+				1704E7A029ED007000C1BF61 /* KeychainAccess */,
 			);
 			productName = AuthExample;
 			productReference = 1759D0CE29544977001EB670 /* AuthExample.app */;
@@ -406,6 +418,7 @@
 				1759D10829545429001EB670 /* XCRemoteSwiftPackageReference "Factory" */,
 				1759D11F29558103001EB670 /* XCRemoteSwiftPackageReference "ValidatedPropertyKit" */,
 				171EB89F2987953900A0837C /* XCRemoteSwiftPackageReference "RequestBuilder" */,
+				1704E79F29ED006F00C1BF61 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = 1759D0CF29544977001EB670 /* Products */;
 			projectDirPath = "";
@@ -448,6 +461,7 @@
 			files = (
 				174F0586295958A7001E1FA6 /* GetSignInState.swift in Sources */,
 				174F0588295958AA001E1FA6 /* Token.swift in Sources */,
+				1704E79B29ECFEB300C1BF61 /* Token+UserDefaults.swift in Sources */,
 				174F0585295958A7001E1FA6 /* GetSignInMethod.swift in Sources */,
 				171EB8AE298797A700A0837C /* Config+URLs.swift in Sources */,
 				171EB8AF298797A900A0837C /* Config.swift in Sources */,
@@ -477,7 +491,9 @@
 				1759D11C29557DCD001EB670 /* GetSignInMethod.swift in Sources */,
 				1759D11A29557D81001EB670 /* GetSignInState.swift in Sources */,
 				1759D0FE295451E1001EB670 /* Token.swift in Sources */,
+				1704E79D29ECFED200C1BF61 /* Token+Keychain.swift in Sources */,
 				1759D10E2954552A001EB670 /* CredentialAuthGateway.swift in Sources */,
+				1704E7A329ED010500C1BF61 /* Keychain+.swift in Sources */,
 				1759D1072954531F001EB670 /* MainView.swift in Sources */,
 				1759D126295591B9001EB670 /* View+.swift in Sources */,
 				1759D124295591A2001EB670 /* Publisher+.swift in Sources */,
@@ -780,6 +796,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		1704E79F29ED006F00C1BF61 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 		171EB89F2987953900A0837C /* XCRemoteSwiftPackageReference "RequestBuilder" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/hmlongco/RequestBuilder";
@@ -807,6 +831,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		1704E7A029ED007000C1BF61 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1704E79F29ED006F00C1BF61 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
+		};
 		171EB8A02987953900A0837C /* RequestBuilder */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 171EB89F2987953900A0837C /* XCRemoteSwiftPackageReference "RequestBuilder" */;

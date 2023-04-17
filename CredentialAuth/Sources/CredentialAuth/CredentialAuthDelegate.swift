@@ -45,9 +45,12 @@ public protocol CredentialAuthDelegate: AnyObject {
 }
 
 internal extension CredentialAuthDelegate {
-    func decodeToken(data: Data) -> T? {
-        let decoder = JSONDecoder()
-        return try? decoder.decode(T.self, from: data)
+    func getToken() -> T? {
+        T.get(key: CredentialAuth.tokenKey)
+    }
+    
+    func removeToken() throws {
+        try T.remove(key: CredentialAuth.tokenKey)
     }
     
     func decodeUser(data: Data) -> U? {

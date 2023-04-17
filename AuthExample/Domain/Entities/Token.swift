@@ -9,7 +9,7 @@
 import Foundation
 import CredentialAuth
 
-struct Token: AuthToken {
+struct Token: AuthToken, Codable {
     var accessToken = ""
     var refreshToken = ""
     var expiredDate = Date()
