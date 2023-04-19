@@ -27,3 +27,21 @@ public extension AuthToken {
         expiredDate < Date()
     }
 }
+
+// MARK: - UserDefaults
+public extension AuthToken where Self: Codable {
+    func save(key: String) throws {
+        if let encoded = try? JSONEncoder().encode(self) {
+            UserDefaults.standard.set(encoded, forKey: key)
+        }
+    }
+    
+    static func get(key: String) -> Self? {
+        guard let data = UserDefaults.standard.object(forKey: key) as? Data else { return nil }
+        return try? JSONDecoder().decode(Self.self, from: data)
+    }
+    
+    static func remove(key: String) throws {
+        UserDefaults.standard.removeObject(forKey: key)
+    }
+}

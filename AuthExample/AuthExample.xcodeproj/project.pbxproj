@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1704E79B29ECFEB300C1BF61 /* Token+UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1704E79929ECFEB300C1BF61 /* Token+UserDefaults.swift */; };
-		1704E79D29ECFED200C1BF61 /* Token+Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1704E79C29ECFED200C1BF61 /* Token+Keychain.swift */; };
 		1704E7A129ED007000C1BF61 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 1704E7A029ED007000C1BF61 /* KeychainAccess */; };
 		1704E7A329ED010500C1BF61 /* Keychain+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1704E7A229ED010500C1BF61 /* Keychain+.swift */; };
 		171EB8A12987953900A0837C /* RequestBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = 171EB8A02987953900A0837C /* RequestBuilder */; };
@@ -64,10 +62,10 @@
 		1778DB8C295D8EE300A793F7 /* FacebookAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 1778DB8B295D8EE300A793F7 /* FacebookAuth */; };
 		17BA7219295BFB89007DAEF6 /* CredentialAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 17BA7218295BFB89007DAEF6 /* CredentialAuth */; };
 		17BA721B295BFB8D007DAEF6 /* GoogleAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 17BA721A295BFB8D007DAEF6 /* GoogleAuth */; };
+		17CE821A29EF90EC00467A15 /* Token+Keychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1704E79C29ECFED200C1BF61 /* Token+Keychain.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1704E79929ECFEB300C1BF61 /* Token+UserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Token+UserDefaults.swift"; sourceTree = "<group>"; };
 		1704E79C29ECFED200C1BF61 /* Token+Keychain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Token+Keychain.swift"; sourceTree = "<group>"; };
 		1704E7A229ED010500C1BF61 /* Keychain+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Keychain+.swift"; sourceTree = "<group>"; };
 		171EB8A5298795DA00A0837C /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
@@ -245,7 +243,6 @@
 			isa = PBXGroup;
 			children = (
 				1759D0FD295451E1001EB670 /* Token.swift */,
-				1704E79929ECFEB300C1BF61 /* Token+UserDefaults.swift */,
 				1704E79C29ECFED200C1BF61 /* Token+Keychain.swift */,
 				1759D11129554DAB001EB670 /* User.swift */,
 			);
@@ -461,7 +458,6 @@
 			files = (
 				174F0586295958A7001E1FA6 /* GetSignInState.swift in Sources */,
 				174F0588295958AA001E1FA6 /* Token.swift in Sources */,
-				1704E79B29ECFEB300C1BF61 /* Token+UserDefaults.swift in Sources */,
 				174F0585295958A7001E1FA6 /* GetSignInMethod.swift in Sources */,
 				171EB8AE298797A700A0837C /* Config+URLs.swift in Sources */,
 				171EB8AF298797A900A0837C /* Config.swift in Sources */,
@@ -491,7 +487,7 @@
 				1759D11C29557DCD001EB670 /* GetSignInMethod.swift in Sources */,
 				1759D11A29557D81001EB670 /* GetSignInState.swift in Sources */,
 				1759D0FE295451E1001EB670 /* Token.swift in Sources */,
-				1704E79D29ECFED200C1BF61 /* Token+Keychain.swift in Sources */,
+				17CE821A29EF90EC00467A15 /* Token+Keychain.swift in Sources */,
 				1759D10E2954552A001EB670 /* CredentialAuthGateway.swift in Sources */,
 				1704E7A329ED010500C1BF61 /* Keychain+.swift in Sources */,
 				1759D1072954531F001EB670 /* MainView.swift in Sources */,
